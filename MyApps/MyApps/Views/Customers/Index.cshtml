@@ -1,0 +1,150 @@
+﻿@model IEnumerable<Entities.Customer>
+
+
+<!-- Button trigger modal -->
+<!-- Modal -->
+<!--PopUp-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title" id="exampleModalLabel">Ajouter</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="create">
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--EndPopUp-->
+<!--Index-->
+<br />
+<div class="container">
+    <div class="row ">
+        <div class="col-12 mt-2">
+
+            <div class="card">
+                <div class="card-header bg-dark">
+                    <h3 class="card-title">Les clients</h3>
+
+                    <a asp-action="Create" id="popUp" class="btn btn-warning float-right" data-toggle="modal" data-target="#exampleModal" title="Ajouter nouveau client"><i class="fas fa-user-plus"></i></a>
+
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-4"> </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Trouver</label>
+                                <input type="text" name="search" id="txtSearch" class="form-control" placeholder="Ecrire..." />
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+                <!-- /.card-header -->
+                <div class="card-body mt-0">
+                    <div class="table-responsive" id="demo">
+                        <table id="example2" class="table table-hover table-bordered  text-center">
+                            <thead class="bg-dark">
+                                <tr>
+
+                                    <th>
+                                        @Html.DisplayName("Name")
+                                    </th>
+
+
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Telephone)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Date inscrption")
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.First_Name)  @Html.DisplayFor(modelItem => item.Last_Name)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Telephone)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DateInscri)
+                                        </td>
+                                        <td>
+                                            <a title="Modifier" asp-action="Edit" asp-route-id="@item.Person_Id" class="btn bg-success btn-sm"><i class="fa fa-edit"></i></a>
+                                            <a title="Information des réglement de payment" asp-action="Details" asp-route-id="@item.Person_Id" class="btn bg-info btn-sm"><i class="fa fa-info"></i></a>
+                                            <a asp-action="Delete" title="Supprimer" asp-route-id="@item.Person_Id" class="btn bg-danger btn-sm"><i class="fa fa-trash"> </i></a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--EndIndex-->
+@section scripts{
+    <script>
+        $(function () {
+            $("#txtSearch").keyup(function () {
+                $.get("/Customers/Find", { "search": $("#txtSearch").val() }, function (data) {
+
+                    $("#example2").remove()
+                    $("#demo").html(data)
+                })
+
+
+            })
+            $("#reservation").change(function () {
+
+                var d1 = $("#reservation").data('daterangepicker').startDate.format('YYYY-MM-DD');
+                var d2 = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
+
+                $.get("/Customers/FindByDate", { "d1": d1, "d2": d2 }, function (data) {
+
+                    $("#example2").remove()
+                    $("#demo").html(data)
+                })
+            })
+            $("#popUp").click(function () {
+                $.get("/Customers/Create", function (data) {
+                    $("#create").html(data);
+                })
+            })
+           $(function () {
+  $("#datepicker").datepicker({ 
+        autoclose: true, 
+        todayHighlight: true
+  }).datepicker('update', new Date());
+});
+        })
+    </script>
+
+
+}

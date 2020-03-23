@@ -1,0 +1,74 @@
+﻿
+@model Entities.Customer
+
+@{
+    Layout = null;
+
+}
+
+
+
+    <form asp-action="Create">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for=" Ref"></label>
+                        <input asp-for=" Ref" placeholder="Enter your Ref" class="form-control" />
+                        <span asp-validation-for=" Ref" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for=" Telephone"></label>
+                        <input type="tel" asp-for=" Telephone" placeholder="Enter your number phone" class="form-control" />
+                        <span asp-validation-for=" Telephone" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for=" Last_Name">Nom</label>
+                        <input asp-for=" Last_Name" placeholder="Enter your Last name" class="form-control" />
+                        <span asp-validation-for=" Last_Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for=" First_Name">Prénom</label>
+                        <input asp-for=" First_Name" placeholder="Enter your First name" class="form-control" />
+                        <span asp-validation-for=" First_Name" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+     
+     
+        <!--Submit btn -->
+        <div class="card-footer">
+            <button type="submit" value="Create" class="btn btn-success" title="Enregistrer"><i class="fas fa-save"></i></button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" title="Annuler"><i class="fa fa-times"></i></button>
+        </div>
+
+    </form>
+
+
+
+
+
+
+
+
+
+
+
+
+

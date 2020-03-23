@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Entities.Expenses.Category_expense>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<p>
+    <a asp-action="Create" class="btn btn-info">Nouveau</a>
+</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Classe de dépense</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="example2" class="table table-hover table-bordered  text-center">
+                        <thead class="bg-dark">
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("Identifiant")
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name_Category)
+                                </th>
+
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id_Category)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name_Category)
+                                    </td>
+
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id_Category" class="btn bg-success btn-sm"><i class="fa fa-edit"></i></a>
+                                        <a asp-action="Details" asp-route-id="@item.Id_Category" class="btn bg-info btn-sm"><i class="fa fa-info"></i></a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id_Category" class="btn bg-danger btn-sm"><i class="fa fa-trash"> </i></a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
