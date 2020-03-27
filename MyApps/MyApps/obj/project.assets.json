@@ -8841,11 +8841,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HP\\Desktop\\Club 3tier - Copy\\MyApps\\MyApps\\MyApps.csproj",
+      "projectUniqueName": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\MyApps\\MyApps.csproj",
       "projectName": "MyApps",
-      "projectPath": "C:\\Users\\HP\\Desktop\\Club 3tier - Copy\\MyApps\\MyApps\\MyApps.csproj",
+      "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\MyApps\\MyApps.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HP\\Desktop\\Club 3tier - Copy\\MyApps\\MyApps\\obj\\",
+      "outputPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\MyApps\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -8861,14 +8861,14 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\HP\\Desktop\\Club 3tier - Copy\\MyApps\\BusinessLogicLayer\\BusinessLogicLayer.csproj": {
-              "projectPath": "C:\\Users\\HP\\Desktop\\Club 3tier - Copy\\MyApps\\BusinessLogicLayer\\BusinessLogicLayer.csproj"
+            "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\BusinessLogicLayer\\BusinessLogicLayer.csproj": {
+              "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\BusinessLogicLayer\\BusinessLogicLayer.csproj"
             },
-            "C:\\Users\\HP\\Desktop\\Club 3tier - Copy\\MyApps\\DataAccessLayer\\DataAccessLayer.csproj": {
-              "projectPath": "C:\\Users\\HP\\Desktop\\Club 3tier - Copy\\MyApps\\DataAccessLayer\\DataAccessLayer.csproj"
+            "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\DataAccessLayer\\DataAccessLayer.csproj": {
+              "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\DataAccessLayer\\DataAccessLayer.csproj"
             },
-            "C:\\Users\\HP\\Desktop\\Club 3tier - Copy\\MyApps\\Entities\\Entities.csproj": {
-              "projectPath": "C:\\Users\\HP\\Desktop\\Club 3tier - Copy\\MyApps\\Entities\\Entities.csproj"
+            "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\Entities\\Entities.csproj": {
+              "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\Entities\\Entities.csproj"
             }
           }
         }

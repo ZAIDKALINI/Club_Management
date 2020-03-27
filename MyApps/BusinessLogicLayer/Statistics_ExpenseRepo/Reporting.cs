@@ -1,4 +1,6 @@
 ﻿using DataAccessLayer;
+using Entities;
+using Entities.Expenses;
 using Entities.StatisticRepo;
 using System;
 using System.Collections.Generic;
@@ -49,11 +51,36 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
            
         }
 
-        public IList<Reports> getMonthlyReport(DateTime from,DateTime to)
+        public IList<Reports> getMonthlyReport(string from,string to)
         {
-            var lstC = uow.ExpenseRepo.GetElements(r => r.ExpenseDate >= from && r.ExpenseDate<=to);
-            var lstD = uow.PayementsRepo.GetElements(r => r.Payement_date >= from && r.Payement_date <= to);
-            foreach (var item in lstC)
+            var from1=ConvertDate.ConvertToDate(from);
+            var to1=ConvertDate.ConvertToDate(to);
+            //////////////////////////////////
+            if (from1 == DateTime.MinValue || from1 == DateTime.MinValue)
+                getMonthlyReport();
+            else if(from1 != null && to1 != null)
+            {
+                var lstCriditor = uow.ExpenseRepo.GetElements(r => r.ExpenseDate >= from1 && r.ExpenseDate <= to1);
+                var lstDebitor = uow.PayementsRepo.GetElements(r => r.Payement_date >= from1 && r.Payement_date <= to1);
+                fillList(lstCriditor, lstDebitor);
+            }
+           
+            return reports;
+        }
+
+        private void getMonthlyReport()
+        {
+            var firstDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            var lastDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
+            var lstCriditor = uow.ExpenseRepo.GetElements(r => r.ExpenseDate >= firstDate && r.ExpenseDate <= lastDate);
+            var lstDebitor = uow.PayementsRepo.GetElements(r => r.Payement_date >= firstDate && r.Payement_date <= lastDate);
+            fillList(lstCriditor, lstDebitor);
+        
+
+        }
+        private void fillList(IEnumerable<Expense> lstCriditor, IEnumerable<CustomerPayement> lstDebitor)
+        {
+            foreach (var item in lstCriditor)
             {
                 reports.Add(new Reports()
                 {
@@ -65,7 +92,7 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
             }
 
             //Insert Debit
-            foreach (var item in lstD)
+            foreach (var item in lstDebitor)
             {
                 reports.Add(new Reports()
                 {
@@ -75,7 +102,6 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
                     Debit = item.Price
                 });
             }
-            return reports;
         }
     }
 }

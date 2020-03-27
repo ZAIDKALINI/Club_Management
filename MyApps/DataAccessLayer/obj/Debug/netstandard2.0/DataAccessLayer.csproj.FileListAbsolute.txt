@@ -20,3 +20,14 @@ C:\Users\HP\Desktop\Club 3tier - Copy\MyApps\DataAccessLayer\obj\Debug\netstanda
 C:\Users\HP\Desktop\Club 3tier - Copy\MyApps\DataAccessLayer\obj\Debug\netstandard2.0\DataAccessLayer.csproj.CopyComplete
 C:\Users\HP\Desktop\Club 3tier - Copy\MyApps\DataAccessLayer\obj\Debug\netstandard2.0\DataAccessLayer.dll
 C:\Users\HP\Desktop\Club 3tier - Copy\MyApps\DataAccessLayer\obj\Debug\netstandard2.0\DataAccessLayer.pdb
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\bin\Debug\netstandard2.0\DataAccessLayer.deps.json
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\bin\Debug\netstandard2.0\DataAccessLayer.dll
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\bin\Debug\netstandard2.0\DataAccessLayer.pdb
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\bin\Debug\netstandard2.0\Entities.dll
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\bin\Debug\netstandard2.0\Entities.pdb
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\obj\Debug\netstandard2.0\DataAccessLayer.csprojAssemblyReference.cache
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\obj\Debug\netstandard2.0\DataAccessLayer.AssemblyInfoInputs.cache
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\obj\Debug\netstandard2.0\DataAccessLayer.AssemblyInfo.cs
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\obj\Debug\netstandard2.0\DataAccessLayer.csproj.CopyComplete
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\obj\Debug\netstandard2.0\DataAccessLayer.dll
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\obj\Debug\netstandard2.0\DataAccessLayer.pdb

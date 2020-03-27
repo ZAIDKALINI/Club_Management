@@ -17,15 +17,17 @@ namespace MyApps.Controllers.Statistique
         // GET: Statistics
         public ActionResult Index()
         {
-             var PriceExpense = _repositoryExpense.GetBudgetByDate("", "");
-             var ExpenseCount = _repositoryExpense.GetCountExpenseByDate("", "");
+            var PriceExpense = _repositoryExpense.GetBudgetByDate("", "");
+            var ExpenseCount = _repositoryExpense.GetCountExpenseByDate("", "");
             var CustomerPayment = _repositoryIncome.GetBudgetByDate("", "");
             var CustomerCount = _repositoryIncome.GetCountCustomerByDate("", "");
             ViewBag.Price = PriceExpense;
             ViewBag.Count = ExpenseCount;
             ViewBag.PaymentCustomer = CustomerPayment;
             ViewBag.CountCustomer = CustomerCount;
-            return View(rpt.getDailyReport());
+            ////////////////////////////////
+            var lst = rpt.getMonthlyReport("", "");
+            return View(lst);
         }
 
        public ActionResult GetByDate(string d1, string d2)
@@ -39,8 +41,10 @@ namespace MyApps.Controllers.Statistique
             ViewBag.PaymentCustomer = CustomerPayment;
             ViewBag.CountCustomer = CustomerCount;
             ////////////////////////////////
-            
-            return View(rpt.getMonthlyReport(Convert.ToDateTime(d1),Convert.ToDateTime(d2)));
+            var lst = rpt.getMonthlyReport(d1, d2);
+
+
+            return View(lst);
         }
     }
 }

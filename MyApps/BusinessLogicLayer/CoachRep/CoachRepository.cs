@@ -19,6 +19,7 @@ namespace BusinessLogicLayer
         {
             if (coach.Person_Id == 0)
             {
+                coach.DateInscri = DateTime.Now;
                 _uow.CoachRepo.InsertElement(coach);
                 _uow.Save();
             }
@@ -66,6 +67,8 @@ namespace BusinessLogicLayer
         {
             if (id == Coach.Person_Id)
             {
+               var coach= GetElementById(id);
+                Coach.DateInscri = coach.DateInscri;
                 _uow.CoachRepo.UpdateElement(Coach);
                 _uow.Save();
             }

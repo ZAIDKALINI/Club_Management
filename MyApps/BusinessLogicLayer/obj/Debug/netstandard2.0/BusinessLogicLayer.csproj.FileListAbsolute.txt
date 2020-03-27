@@ -24,3 +24,16 @@ C:\Users\HP\Desktop\Club 3tier - Copy\MyApps\BusinessLogicLayer\obj\Debug\netsta
 C:\Users\HP\Desktop\Club 3tier - Copy\MyApps\BusinessLogicLayer\obj\Debug\netstandard2.0\BusinessLogicLayer.csproj.CopyComplete
 C:\Users\HP\Desktop\Club 3tier - Copy\MyApps\BusinessLogicLayer\obj\Debug\netstandard2.0\BusinessLogicLayer.dll
 C:\Users\HP\Desktop\Club 3tier - Copy\MyApps\BusinessLogicLayer\obj\Debug\netstandard2.0\BusinessLogicLayer.pdb
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\bin\Debug\netstandard2.0\BusinessLogicLayer.deps.json
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\bin\Debug\netstandard2.0\BusinessLogicLayer.dll
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\bin\Debug\netstandard2.0\BusinessLogicLayer.pdb
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\bin\Debug\netstandard2.0\DataAccessLayer.dll
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\bin\Debug\netstandard2.0\Entities.dll
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\bin\Debug\netstandard2.0\DataAccessLayer.pdb
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\bin\Debug\netstandard2.0\Entities.pdb
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\obj\Debug\netstandard2.0\BusinessLogicLayer.csprojAssemblyReference.cache
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\obj\Debug\netstandard2.0\BusinessLogicLayer.AssemblyInfoInputs.cache
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\obj\Debug\netstandard2.0\BusinessLogicLayer.AssemblyInfo.cs
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\obj\Debug\netstandard2.0\BusinessLogicLayer.csproj.CopyComplete
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\obj\Debug\netstandard2.0\BusinessLogicLayer.dll
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\obj\Debug\netstandard2.0\BusinessLogicLayer.pdb

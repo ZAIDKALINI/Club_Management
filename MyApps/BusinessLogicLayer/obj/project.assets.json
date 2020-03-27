@@ -6283,11 +6283,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HP\\Desktop\\Club 3tier - Copy\\MyApps\\BusinessLogicLayer\\BusinessLogicLayer.csproj",
+      "projectUniqueName": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\BusinessLogicLayer\\BusinessLogicLayer.csproj",
       "projectName": "BusinessLogicLayer",
-      "projectPath": "C:\\Users\\HP\\Desktop\\Club 3tier - Copy\\MyApps\\BusinessLogicLayer\\BusinessLogicLayer.csproj",
+      "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\BusinessLogicLayer\\BusinessLogicLayer.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HP\\Desktop\\Club 3tier - Copy\\MyApps\\BusinessLogicLayer\\obj\\",
+      "outputPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\BusinessLogicLayer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6303,8 +6303,8 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "C:\\Users\\HP\\Desktop\\Club 3tier - Copy\\MyApps\\DataAccessLayer\\DataAccessLayer.csproj": {
-              "projectPath": "C:\\Users\\HP\\Desktop\\Club 3tier - Copy\\MyApps\\DataAccessLayer\\DataAccessLayer.csproj"
+            "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\DataAccessLayer\\DataAccessLayer.csproj": {
+              "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\DataAccessLayer\\DataAccessLayer.csproj"
             }
           }
         }

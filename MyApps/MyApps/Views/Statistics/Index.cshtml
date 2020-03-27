@@ -31,7 +31,7 @@
                 <div class="icon">
                     <i class="ion ion-bag"></i>
                 </div>
-                <a href="#" class="small-box-footer">Plus d'info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -46,7 +46,7 @@
                 <div class="icon">
                     <i class="ion ion-stats-bars"></i>
                 </div>
-                <a href="#" class="small-box-footer">...</a>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -61,7 +61,7 @@
                 <div class="icon">
                     <i class="ion ion-person-add"></i>
                 </div>
-                <a href="#" class="small-box-footer">...</a>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -76,7 +76,7 @@
                 <div class="icon">
                     <i class="ion ion-pie-graph"></i>
                 </div>
-                <a href="#" class="small-box-footer">Plus d'info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -85,7 +85,7 @@
                 <div class="col-12  mt-3">
                     <div class="card ">
                         <div class="card-header bg-dark">
-                            <h2 class="card-title display-2">Rapport de @DateTime.Now.ToShortDateString()</h2>
+                            <h2 class="card-title display-2">Rapport</h2>
 
                         </div>
 
@@ -111,6 +111,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @{
+                                            decimal debit = 0;
+                                            decimal creditor = 0;
+                                        }
                                         @foreach (var item in Model)
                                         {
                                             <tr>
@@ -126,10 +130,33 @@
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.Creditor)
                                                 </td>
-
+                                                @{
+                                                    debit += item.Debit;
+                                                    creditor += item.Creditor;
+                                                }
                                             </tr>
                                         }
+                                        <tr>
+                                            <td colspan="2" class="bg-orange">
+                                                <h3 class="text-light">Total</h3>
+                                            </td>
 
+                                            <td colspan="2">
+                                                @{
+                                                    var result = debit - creditor;
+                                                }
+                                                @if (result < 0)
+                                                {
+                                                    <h4 class="text-danger"> @result</h4>
+                                                }
+                                                else
+                                                {
+                                                    <h4 class="text-success"> @result</h4>
+                                                }
+
+
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -140,7 +167,6 @@
 
             </div>
         </div>
-
     </div>
 </div>
 
@@ -151,21 +177,27 @@
 @section scripts{
     <script>
         $(function () {
+        
+
+           
             $("#reservation").change(function () {
 
                 var d1 = $("#reservation").data('daterangepicker').startDate.format('YYYY-MM-DD');
                 var d2 = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
+                if (d1 != "" && d2 != "") {
+                    $.get("/Statistics/GetByDate", { "d1": d1, "d2": d2 }, function (data) {
 
-                $.get("/Statistics/GetByDate", { "d1": d1, "d2": d2 }, function (data) {
 
-                  
-                    $("#demo").html(data)
+                        $("#demo").html(data)
 
-                })
+                    })
+                }
+             
+         
 
              
             })
-
+        
         })
 
        

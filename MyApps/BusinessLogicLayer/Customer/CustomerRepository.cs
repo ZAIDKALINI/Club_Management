@@ -100,6 +100,8 @@ namespace BusinessLogicLayer
         {
             if (id == customer.Person_Id)
             {
+               var cust= GetElementById(id);
+                customer.DateInscri = cust.DateInscri;
                 UOW.CustomeresRepo.UpdateElement(customer);
                 UOW.Save();
             }

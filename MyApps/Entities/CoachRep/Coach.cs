@@ -6,7 +6,6 @@ namespace Entities
 {
     public class Coach:Person
     {
-        public DateTime DateInscri { get; set; } = DateTime.Now;
         
     }
 }

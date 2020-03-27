@@ -13,6 +13,7 @@
     <link href="~/StyleSheet.css" rel="stylesheet" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
+    <link href="~/fontawesome-free-5.13.0-web/css/all.css" rel="stylesheet" />
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- daterange picker -->
@@ -45,10 +46,10 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
                 </li>
-              
+
             </ul>
 
-           
+
         </nav>
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
@@ -70,7 +71,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-    with font-awesome or any other icon font library -->
+                        with font-awesome or any other icon font library -->
                         <li class="nav-item">
                             <a asp-controller="Home" asp-action="Index" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -82,8 +83,8 @@
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-user-friends"></i>
-                                <p>
-                                    Gestion client
+                                <p class="text-bold">
+                                    Gestion des client
                                     <i class="fas fa-angle-left right"></i>
 
                                 </p>
@@ -124,7 +125,7 @@
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-user-cog"></i>
-                                <p>
+                                <p class="text-bold">
                                     Gestion des coachs
                                     <i class="fas fa-angle-left right"></i>
 
@@ -144,7 +145,7 @@
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-money-bill-alt"></i>
-                                <p>
+                                <p class="text-bold">
                                     Gestion des depense
                                     <i class="fas fa-angle-left right"></i>
 
@@ -154,7 +155,7 @@
 
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a asp-controller="Expenses" asp-action="Create" class="nav-link">
+                                    <a asp-controller="Expenses" asp-action="Index" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>dépense</p>
                                     </a>
@@ -174,7 +175,7 @@
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-hospital-alt"></i>
-                                <p>
+                                <p class="text-bold">
                                     Gestion d'assurance
                                     <i class="fas fa-angle-left right"></i>
 
@@ -190,7 +191,13 @@
 
 
                             </ul>
-                            <!--End Expenses-->
+                        <li class="nav-item">
+                            <a asp-controller="statistics" asp-action="Index" class="nav-link link-muted ">
+                                <i class="fa fa-chart-line" ></i>
+                                <p class="text-bold">  Rapport</p>
+                            </a>
+                        </li>
+                        <!--End Expenses-->
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -200,7 +207,7 @@
         <!-- ./wrapper -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            
+
             <section class="content">
                 <div class="container-fluid">
 
@@ -237,6 +244,8 @@
     <script src="~/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="~/dist/js/demo.js"></script>
+    <!--fontawsome V.5.13.0-->
+    <script src="~/fontawesome-free-5.13.0-web/js/all.js"></script>
     <!-- DataTables -->
     <script src="~/plugins/datatables/jquery.dataTables.js"></script>
     <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
@@ -313,7 +322,7 @@
             });
         })
     </script>
-  
+
 
     @RenderSection("Scripts", required: false)
 
