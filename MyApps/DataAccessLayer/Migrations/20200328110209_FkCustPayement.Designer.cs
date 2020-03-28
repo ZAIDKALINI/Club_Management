@@ -4,14 +4,16 @@ using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(App_Context))]
-    partial class App_ContextModelSnapshot : ModelSnapshot
+    [Migration("20200328110209_FkCustPayement")]
+    partial class FkCustPayement
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -205,9 +207,12 @@ namespace DataAccessLayer.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int?>("categoryId_Category")
+                        .HasColumnType("int");
+
                     b.HasKey("Id_Expense");
 
-                    b.HasIndex("Id_Category");
+                    b.HasIndex("categoryId_Category");
 
                     b.ToTable("Expenses");
                 });
@@ -258,9 +263,7 @@ namespace DataAccessLayer.Migrations
                 {
                     b.HasOne("Entities.Expenses.Category_expense", "category")
                         .WithMany()
-                        .HasForeignKey("Id_Category")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("categoryId_Category");
                 });
 #pragma warning restore 612, 618
         }

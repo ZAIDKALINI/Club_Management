@@ -95,21 +95,13 @@ namespace BusinessLogicLayer
         public IList<CustomerPayement> GetElements()
         {
             var lst= UOW.PayementsRepo.GetElements().ToList();
-            foreach (var item in lst)
-            {
-                item.customer = UOW.CustomeresRepo.GetElements(c => c.Person_Id == item.Person_Id).FirstOrDefault();
-            }
+          
             return lst;
         }
         public IList<CustomerPayement> GetElements(Func<CustomerPayement,bool> exp)
         {
            var lstPayement= UOW.PayementsRepo.GetElements(exp).ToList();
-          // var lstCustomer= UOW.CustomeresRepo.GetElements().ToList();
-            foreach (var item in lstPayement)
-            {
-               var customer= UOW.CustomeresRepo.GetElements(c => item.Person_Id == c.Person_Id).FirstOrDefault();
-                item.customer = customer;
-            }
+         
             return lstPayement;
         }
 
@@ -134,12 +126,12 @@ namespace BusinessLogicLayer
         {
             get 
             {
-                //var lst1 = (from c in UOW.PayementsRepo.GetElements() group c by c.Person_Id into newGroup select newGroup.);
+               
                 var lst = UOW.PayementsRepo.GetElements(p => p.EndDate <= DateTime.Now && p.IsEnd==true).ToList();
-                foreach (var item in lst)
-                {
-                    item.customer = UOW.CustomeresRepo.GetElements(c => c.Person_Id == item.Person_Id).FirstOrDefault();
-                }
+                //foreach (var item in lst)
+                //{
+                //    item.customer = UOW.CustomeresRepo.GetElements(c => c.Person_Id == item.Person_Id).FirstOrDefault();
+                //}
                 return lst;
             }
         }
