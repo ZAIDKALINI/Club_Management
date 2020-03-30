@@ -22,8 +22,8 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
         /// <returns></returns>
         public IList<Reports> getDailyReport()
         {
-           var lstC= uow.ExpenseRepo.GetElements(r => r.ExpenseDate == DateTime.Now);
-           var lstD= uow.PayementsRepo.GetElements(r => r.Payement_date == DateTime.Now);
+            var lstC = uow.ExpenseRepo.GetElements(r => r.ExpenseDate == DateTime.Now);
+            var lstD = uow.PayementsRepo.GetElements(r => r.Payement_date == DateTime.Now);
             //Insert Creditor
             foreach (var item in lstC)
             {
@@ -32,8 +32,8 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
                     Date = item.ExpenseDate,
                     Description = item.Description,
                     Creditor = item.Price,
-                    Debit=0
-                }) ;
+                    Debit = 0
+                });
             }
 
             //Insert Debit
@@ -48,23 +48,23 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
                 });
             }
             return reports;
-           
+
         }
 
-        public IList<Reports> getMonthlyReport(string from,string to)
+        public IList<Reports> getMonthlyReport(string from, string to)
         {
-            var from1=ConvertDate.ConvertToDate(from);
-            var to1=ConvertDate.ConvertToDate(to);
+            var from1 = ConvertDate.ConvertToDate(from);
+            var to1 = ConvertDate.ConvertToDate(to);
             //////////////////////////////////
             if (from1 == DateTime.MinValue || from1 == DateTime.MinValue)
                 getMonthlyReport();
-            else if(from1 != null && to1 != null)
+            else if (from1 != null && to1 != null)
             {
                 var lstCriditor = uow.ExpenseRepo.GetElements(r => r.ExpenseDate >= from1 && r.ExpenseDate <= to1);
                 var lstDebitor = uow.PayementsRepo.GetElements(r => r.Payement_date >= from1 && r.Payement_date <= to1);
                 fillList(lstCriditor, lstDebitor);
             }
-           
+
             return reports;
         }
 
@@ -75,7 +75,7 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
             var lstCriditor = uow.ExpenseRepo.GetElements(r => r.ExpenseDate >= firstDate && r.ExpenseDate <= lastDate);
             var lstDebitor = uow.PayementsRepo.GetElements(r => r.Payement_date >= firstDate && r.Payement_date <= lastDate);
             fillList(lstCriditor, lstDebitor);
-        
+
 
         }
         private void fillList(IEnumerable<Expense> lstCriditor, IEnumerable<CustomerPayement> lstDebitor)

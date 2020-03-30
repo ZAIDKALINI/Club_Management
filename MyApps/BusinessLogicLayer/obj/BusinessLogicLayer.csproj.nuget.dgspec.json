@@ -1,34 +1,37 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\BusinessLogicLayer\\BusinessLogicLayer.csproj": {}
+    "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\BusinessLogicLayer\\BusinessLogicLayer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\BusinessLogicLayer\\BusinessLogicLayer.csproj": {
+    "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\BusinessLogicLayer\\BusinessLogicLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\BusinessLogicLayer\\BusinessLogicLayer.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\BusinessLogicLayer\\BusinessLogicLayer.csproj",
         "projectName": "BusinessLogicLayer",
-        "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\BusinessLogicLayer\\BusinessLogicLayer.csproj",
+        "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\BusinessLogicLayer\\BusinessLogicLayer.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\BusinessLogicLayer\\obj\\",
+        "outputPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\BusinessLogicLayer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netstandard2.0"
+          "netcoreapp3.1"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netstandard2.0": {
+          "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\DataAccessLayer\\DataAccessLayer.csproj": {
-                "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\DataAccessLayer\\DataAccessLayer.csproj"
+              "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\DataAccessLayer\\DataAccessLayer.csproj": {
+                "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\DataAccessLayer\\DataAccessLayer.csproj"
+              },
+              "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\Entities\\Entities.csproj"
               }
             }
           }
@@ -40,21 +43,7 @@
         }
       },
       "frameworks": {
-        "netstandard2.0": {
-          "dependencies": {
-            "Microsoft.EntityFrameworkCore.Tools": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[3.1.2, )"
-            },
-            "NETStandard.Library": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.0.3, )",
-              "autoReferenced": true
-            }
-          },
+        "netcoreapp3.1": {
           "imports": [
             "net461",
             "net462",
@@ -65,35 +54,40 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\DataAccessLayer\\DataAccessLayer.csproj": {
+    "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\DataAccessLayer\\DataAccessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\DataAccessLayer\\DataAccessLayer.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\DataAccessLayer\\DataAccessLayer.csproj",
         "projectName": "DataAccessLayer",
-        "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\DataAccessLayer\\DataAccessLayer.csproj",
+        "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\DataAccessLayer\\DataAccessLayer.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\DataAccessLayer\\obj\\",
+        "outputPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\DataAccessLayer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netstandard2.0"
+          "netcoreapp3.1"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netstandard2.0": {
+          "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\Entities\\Entities.csproj": {
-                "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\Entities\\Entities.csproj"
+              "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\Entities\\Entities.csproj"
               }
             }
           }
@@ -105,29 +99,11 @@
         }
       },
       "frameworks": {
-        "netstandard2.0": {
+        "netcoreapp3.1": {
           "dependencies": {
-            "Microsoft.EntityFrameworkCore.Abstractions": {
-              "target": "Package",
-              "version": "[3.1.3, )"
-            },
-            "Microsoft.EntityFrameworkCore.Analyzers": {
-              "target": "Package",
-              "version": "[3.1.2, )"
-            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[3.1.2, )"
-            },
-            "NETStandard.Library": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.0.3, )",
-              "autoReferenced": true
-            },
-            "System.ComponentModel.Annotations": {
-              "target": "Package",
-              "version": "[4.7.0, )"
+              "version": "[3.1.3, )"
             }
           },
           "imports": [
@@ -140,18 +116,23 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\Entities\\Entities.csproj": {
+    "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\Entities\\Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\Entities\\Entities.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\Entities\\Entities.csproj",
         "projectName": "Entities",
-        "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\Entities\\Entities.csproj",
+        "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\Entities\\Entities.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\Entities\\obj\\",
+        "outputPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\Entities\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -178,10 +159,6 @@
       "frameworks": {
         "netstandard2.0": {
           "dependencies": {
-            "Microsoft.EntityFrameworkCore.Abstractions": {
-              "target": "Package",
-              "version": "[3.1.3, )"
-            },
             "NETStandard.Library": {
               "suppressParent": "All",
               "target": "Package",

@@ -19,7 +19,7 @@ namespace MyApps.Controllers
         // GET: CustomersPayement
         public ActionResult Index()
         {
-             lst = _repository.GetCustomersEndthierMonth;
+             lst = _repository.GetElements();
             ViewBag.Person_Id = new SelectList(_customerRepo.GetElements(), "Person_Id", "Last_Name");
            
             return View(lst);

@@ -100,10 +100,12 @@ namespace BusinessLogicLayer
         {
             if (id == customer.Person_Id)
             {
-               var cust= GetElementById(id);
-                customer.DateInscri = cust.DateInscri;
+                //set date inscri 
+                var cus = GetElementById(id);
+                customer.DateInscri = cus.DateInscri;
                 UOW.CustomeresRepo.UpdateElement(customer);
                 UOW.Save();
+                UOW.Dispoe();
             }
             else
                 throw new Exception("Id category dosen't belong to the new category");

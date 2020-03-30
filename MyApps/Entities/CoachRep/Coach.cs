@@ -6,6 +6,7 @@ namespace Entities
 {
     public class Coach:Person
     {
+      
         
     }
 }

@@ -1,0 +1,11 @@
+C:\Users\HP\Documents\GitHub\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\MyApps\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.csprojAssemblyReference.cache
+C:\Users\HP\Documents\GitHub\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\MyApps\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.AssemblyInfoInputs.cache
+C:\Users\HP\Documents\GitHub\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\MyApps\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.AssemblyInfo.cs
+C:\Users\HP\Documents\GitHub\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\MyApps\DataAccessLayer\bin\Debug\netcoreapp3.1\DataAccessLayer.deps.json
+C:\Users\HP\Documents\GitHub\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\MyApps\DataAccessLayer\bin\Debug\netcoreapp3.1\DataAccessLayer.dll
+C:\Users\HP\Documents\GitHub\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\MyApps\DataAccessLayer\bin\Debug\netcoreapp3.1\Entities.dll
+C:\Users\HP\Documents\GitHub\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\MyApps\DataAccessLayer\bin\Debug\netcoreapp3.1\Entities.pdb
+C:\Users\HP\Documents\GitHub\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\MyApps\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.csproj.CopyComplete
+C:\Users\HP\Documents\GitHub\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\MyApps\DataAccessLayer\bin\Debug\netcoreapp3.1\DataAccessLayer.pdb
+C:\Users\HP\Documents\GitHub\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\MyApps\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.dll
+C:\Users\HP\Documents\GitHub\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\MyApps\DataAccessLayer\obj\Debug\netcoreapp3.1\DataAccessLayer.pdb

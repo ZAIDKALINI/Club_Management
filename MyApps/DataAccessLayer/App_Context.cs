@@ -1,4 +1,4 @@
-﻿ using Entities;
+﻿using Entities;
 using Entities.Expenses;
 using Entities.StatisticRepo;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +17,6 @@ namespace DataAccessLayer
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=.;DataBase=GymDB;Integrated Security=True");
-           
         }
         //public App_Context(DbContextOptions Options) :base(Options)
         //{

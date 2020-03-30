@@ -74,8 +74,9 @@ namespace MyApps.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception e)
             {
+                ModelState.AddModelError("", e.Message);
                 return View();
             }
         }

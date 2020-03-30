@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BusinessLogicLayer.Statistics_ExpenseRepo;
-using Entities.StatisticRepo;
-using Microsoft.AspNetCore.Http;
+﻿using BusinessLogicLayer.Statistics_ExpenseRepo;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MyApps.Controllers.Statistique
@@ -30,7 +24,7 @@ namespace MyApps.Controllers.Statistique
             return View(lst);
         }
 
-       public ActionResult GetByDate(string d1, string d2)
+        public ActionResult GetByDate(string d1, string d2)
         {
             var PriceExpense = _repositoryExpense.GetBudgetByDate(d1, d2);
             var ExpenseCount = _repositoryExpense.GetCountExpenseByDate(d1, d2);

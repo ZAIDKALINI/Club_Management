@@ -15,6 +15,7 @@ namespace BusinessLogicLayer
         public GenericBase(App_Context db)
         {
             context = db;
+            context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
             dbSet = context.Set<TEntity>();
         }
         public void DeleteElement(TEntity obj)
@@ -35,6 +36,7 @@ namespace BusinessLogicLayer
 
         public TEntity GetElementByID(int ObjId)
         {
+            
             var Obj = dbSet.Find(ObjId);
             return Obj;
         }

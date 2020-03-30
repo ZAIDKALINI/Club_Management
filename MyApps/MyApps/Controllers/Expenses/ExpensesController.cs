@@ -30,7 +30,8 @@ namespace MyApps.Controllers.Expenses
         // GET: Expenses/Create
         public ActionResult Create()
         {
-          
+            //"Id_Category", "Name_Category"
+
             ViewBag.Id_Category = new SelectList(_categorieExpense.GetCategories(), "Id_Category", "Name_Category");
             return View();
         }
@@ -46,8 +47,9 @@ namespace MyApps.Controllers.Expenses
                 _expenseRepo.AddNew(expense);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception e)
             {
+                ModelState.AddModelError("", e.Message);
                 return View();
             }
         }

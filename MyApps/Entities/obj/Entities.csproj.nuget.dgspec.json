@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\Entities\\Entities.csproj": {}
+    "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\Entities\\Entities.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\Entities\\Entities.csproj": {
+    "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\Entities\\Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\Entities\\Entities.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\Entities\\Entities.csproj",
         "projectName": "Entities",
-        "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\Entities\\Entities.csproj",
+        "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\Entities\\Entities.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\Entities\\obj\\",
+        "outputPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0d5f88\\MyApps\\Entities\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -38,10 +38,6 @@
       "frameworks": {
         "netstandard2.0": {
           "dependencies": {
-            "Microsoft.EntityFrameworkCore.Abstractions": {
-              "target": "Package",
-              "version": "[3.1.3, )"
-            },
             "NETStandard.Library": {
               "suppressParent": "All",
               "target": "Package",
