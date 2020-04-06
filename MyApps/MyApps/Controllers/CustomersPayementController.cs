@@ -3,19 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BusinessLogicLayer;
+using DataAccessLayer;
 using Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MyApps.Controllers
 {
+   
     public class CustomersPayementController : Controller
     {
-        PayementRepository _repository = new PayementRepository();
-        CustomerRepository _customerRepo = new CustomerRepository();
+        PayementRepository _repository;
+        CustomerRepository _customerRepo;
 
         IList<CustomerPayement> lst;
+        public CustomersPayementController(IUnitOfWork uow)
+        {
+             _repository = new PayementRepository(uow);
+             _customerRepo = new CustomerRepository(uow);
+           
+        }
         // GET: CustomersPayement
         public ActionResult Index()
         {
@@ -39,8 +48,8 @@ namespace MyApps.Controllers
         // GET: CustomersPayement/Create
         public ActionResult Create()
         {
-       
-            ViewBag.Person_Id = new SelectList(_customerRepo.GetElements(), "Person_Id","","");
+
+            ViewData["Person_Id"] = new SelectList(_customerRepo.GetElements(), "Person_Id", "Last_Name");
             return View();
         }
 
@@ -53,6 +62,8 @@ namespace MyApps.Controllers
             {
                 // TODO: Add insert logic here
                 _repository.AddNew(collection);
+                var cust  = _repository.GetElements(p => p.Person_Id == collection.Person_Id);
+              
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -67,7 +78,8 @@ namespace MyApps.Controllers
          
             var payement = _repository.GetElementById(id);
             var cust = _customerRepo.GetElements();
-            ViewBag.Person_Id = new SelectList(cust, "Person_Id", "Last_Name", payement.customer.Person_Id);
+            ViewData["Person_Id"] = new SelectList(cust, "Person_Id", "Last_Name", payement.Person_Id);
+           
             return View(payement);
         }
 
@@ -80,11 +92,13 @@ namespace MyApps.Controllers
             {
                 // TODO: Add update logic here
                 _repository.UpdateElement(id,customerPayement);
+                //_repository.ResetRestIsEndForTrue(customerPayement.Person_Id);
 
                 return RedirectToAction("GetCustumer");
             }
-            catch
+            catch(Exception e)
             {
+                ModelState.AddModelError("", e.Message);
                 return View();
             }
         }
@@ -124,7 +138,10 @@ namespace MyApps.Controllers
             try
             {
                 // TODO: Add update logic here
-              var lst=  _repository.GetCustomersEndthierMonth;
+                var cust = _customerRepo.GetElements();
+            
+                var lst=  _repository.GetCustomersEndthierMonth;
+                ViewBag.Person_Id = new SelectList(_customerRepo.GetElements(), "Person_Id", "Last_Name");
 
                 return View(nameof(Index),lst);
             }

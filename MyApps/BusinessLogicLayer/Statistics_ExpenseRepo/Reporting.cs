@@ -10,11 +10,12 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
 {
     public class Reporting
     {
-        UnitOfWork uow = new UnitOfWork();
+        IUnitOfWork uow;
         List<Reports> reports;
-        public Reporting()
+        public Reporting(IUnitOfWork _uow)
         {
             reports = new List<Reports>();
+            uow = _uow;
         }
         /// <summary>
         /// Get report for new customer

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BusinessLogicLayer;
+using DataAccessLayer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +11,11 @@ namespace MyApps.Controllers
 {
     public class CoachesController : Controller
     {
-        CoachRepository _repository = new CoachRepository();
+        CoachRepository _repository;
+        public CoachesController(IUnitOfWork uow)
+        {
+            _repository = new CoachRepository(uow);
+        }
         // GET: Coaches
         public ActionResult Index()
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BusinessLogicLayer.ExpenseRepo;
+using DataAccessLayer;
 using Entities.Expenses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +12,12 @@ namespace MyApps.Controllers.Expenses
 {
     public class CategoriesExpenseController : Controller
     {
-        CategoriesRepository _categorieRepo = new CategoriesRepository();
+        CategoriesRepository _categorieRepo;
+       
+        public CategoriesExpenseController(IUnitOfWork _uow)
+        {
+            _categorieRepo = new CategoriesRepository(_uow);
+        }
         // GET: Categories
         public ActionResult Index()
         {
@@ -28,6 +34,7 @@ namespace MyApps.Controllers.Expenses
         // GET: Categories/Create
         public ActionResult Create()
         {
+            ViewBag.categories = _categorieRepo.GetCategories();
             return View();
         }
 

@@ -9,11 +9,16 @@ namespace BusinessLogicLayer.ExpenseRepo
 {
     public class CategoriesRepository
     {
-        UnitOfWork _uow = new UnitOfWork();
+        IUnitOfWork _uow;
+        public CategoriesRepository(IUnitOfWork uow)
+        {
+            _uow = uow;
+        }
         public void AddNew(Category_expense category)
         {
             _uow.ExpenseCategorieRepo.InsertElement(category);
             _uow.Save();
+            _uow.Dispose();
         }
         public Category_expense FindById(int id)
         {
@@ -27,6 +32,7 @@ namespace BusinessLogicLayer.ExpenseRepo
                 throw new Exception("Not found");
             _uow.ExpenseCategorieRepo.DeleteElement(cat);
             _uow.Save();
+            _uow.Dispose();
         }
         public void Edit(int id, Category_expense category)
         {
@@ -35,6 +41,7 @@ namespace BusinessLogicLayer.ExpenseRepo
             throw new Exception("Not found");
             _uow.ExpenseCategorieRepo.UpdateElement(category);
             _uow.Save();
+            _uow.Dispose();
         }
         public IList<Category_expense> GetCategories()
         {

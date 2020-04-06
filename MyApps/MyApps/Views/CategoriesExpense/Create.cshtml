@@ -46,15 +46,12 @@
                         <h3 class="card-title">Classe de dépense</h3>
                     </div>
                     <div class="container ">
-                        @{
-                            BusinessLogicLayer.ExpenseRepo.CategoriesRepository categories = new BusinessLogicLayer.ExpenseRepo.CategoriesRepository();
-                            var lst = categories.GetCategories();
-                        }
+                      
                     </div>
 
                     <div class="container">
                         <div class="row">
-                            @foreach (var item in @lst)
+                            @foreach (var item in ViewBag.categories)
                             {
                                 <div class="col-md-4 col-sm-6 mt-2">
                                     <i class="btn btn-secondary">@item.Name_Category</i>

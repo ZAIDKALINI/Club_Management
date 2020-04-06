@@ -9,10 +9,10 @@ namespace BusinessLogicLayer
 {
     public class CustomerRepository
     {
-        UnitOfWork UOW;
-        public CustomerRepository()
+        IUnitOfWork UOW;
+        public CustomerRepository(IUnitOfWork _UOW)
         {
-            UOW = new UnitOfWork();
+            UOW = _UOW;
         }
         public void AddNew(Customer customer)
         {
@@ -21,6 +21,7 @@ namespace BusinessLogicLayer
                 customer.DateInscri = DateTime.Now;
                 UOW.CustomeresRepo.InsertElement(customer);
                 UOW.Save();
+                UOW.Dispose();
             }
 
             else
@@ -36,6 +37,7 @@ namespace BusinessLogicLayer
                 throw new Exception("Element not found");
             UOW.CustomeresRepo.DeleteElement(customer);
             UOW.Save();
+            UOW.Dispose();
         }
 
         public Customer GetElementById(int? id)
@@ -105,7 +107,7 @@ namespace BusinessLogicLayer
                 customer.DateInscri = cus.DateInscri;
                 UOW.CustomeresRepo.UpdateElement(customer);
                 UOW.Save();
-                UOW.Dispoe();
+                UOW.Dispose();
             }
             else
                 throw new Exception("Id category dosen't belong to the new category");

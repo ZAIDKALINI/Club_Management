@@ -9,9 +9,14 @@ using System.Text;
 
 namespace DataAccessLayer
 {
-    public class UnitOfWork
+    public class UnitOfWork: IUnitOfWork
     {
-        App_Context Context = new App_Context();
+        App_Context Context;
+        public UnitOfWork(App_Context context)
+        {
+            Context = context;
+        }
+    
         private GenericBase<Customer> _CustomersRepo;
         private GenericBase<CustomerPayement> _PayementsCustomerRepo;
         private GenericBase<Coach> _CoachRepo;
@@ -87,16 +92,14 @@ namespace DataAccessLayer
                 return _StatisticExpense;
             }
         }
-                
-               
 
-
+    
 
         public void Save()
         {
             Context.SaveChanges();
         }
-        public void Dispoe()
+        public void Dispose()
         {
             Context.Dispose();
         }
@@ -112,5 +115,7 @@ namespace DataAccessLayer
             }
             this.disposed = true;
         }
+
+     
     }
 }

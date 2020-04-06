@@ -9,10 +9,10 @@ namespace BusinessLogicLayer
 {
     class CoachPayementRepo
     {
-        UnitOfWork UOW;
-        public CoachPayementRepo()
+        IUnitOfWork UOW;
+        public CoachPayementRepo(IUnitOfWork uow)
         {
-            UOW = new UnitOfWork();
+            UOW = uow;
         }
      
         public void AddNew(CoachPayement payement)
@@ -22,6 +22,7 @@ namespace BusinessLogicLayer
                
                 UOW.CoachPayementRepo.InsertElement(payement);
                 UOW.Save();
+                UOW.Dispose();
             }
 
             else
@@ -37,12 +38,14 @@ namespace BusinessLogicLayer
                 throw new Exception("Element not found");
             UOW.CoachPayementRepo.DeleteElement(payement);
             UOW.Save();
+            UOW.Dispose();
         }
 
         public CoachPayement GetElementById(int? id)
         {
             var payement = UOW.CoachPayementRepo.GetElements(c => c.Id == id);
             return payement.FirstOrDefault();
+           
         }
 
 
@@ -75,6 +78,7 @@ namespace BusinessLogicLayer
               
                 UOW.CoachPayementRepo.UpdateElement(payement);
                 UOW.Save();
+                UOW.Dispose();
             }
             else
                 throw new Exception("Old id  dosen't belong to the new payement id");

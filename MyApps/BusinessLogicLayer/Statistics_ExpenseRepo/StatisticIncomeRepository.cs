@@ -10,8 +10,11 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
 {
     public class StatisticIncomeRepository
     {
-        PayementRepository _repository = new PayementRepository();
-
+        PayementRepository _repository;
+        public StatisticIncomeRepository(IUnitOfWork uow)
+        {
+            _repository = new PayementRepository(uow);
+        }
         DateTime ConvertDate(string date)
         {
             try
@@ -29,7 +32,7 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
         /// <param name="d1">to</param>
         /// <param name="d2">from</param>
         /// <returns>chiffre d'affaire</returns>
-        public decimal GetBudgetByDate(string d1, string d2)
+        public double GetBudgetByDate(string d1, string d2)
         {
             // get expense belong in current row if parameters is null
             if (string.IsNullOrEmpty(d1) || string.IsNullOrEmpty(d2))
@@ -84,5 +87,7 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
             var count1 = _repository.GetElements().Where(s => s.Payement_date >= d1 && s.Payement_date <= d2).Count();
             return count1;
         }
+
+       
     }
 }

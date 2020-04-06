@@ -2,6 +2,7 @@
 using Entities;
 using Entities.Expenses;
 using Microsoft.EntityFrameworkCore;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,10 @@ namespace BusinessLogicLayer
         {
             return dbSet.Where(expression).ToList();
         }
-
+        public IEnumerable<TEntity> SelectElements(Func<TEntity, TEntity> expression)
+        {
+            return dbSet.Select(expression);
+        }
         public TEntity GetElementByID(int ObjId)
         {
             
@@ -43,15 +47,23 @@ namespace BusinessLogicLayer
 
         public void InsertElement(TEntity Obj)
         {
-            dbSet.Add(Obj);
+           // dbSet.Add(Obj);
+            context.Attach(Obj).State = EntityState.Added;
+            context.SaveChanges();
+            context.Entry(Obj).State = EntityState.Detached;
         }
 
 
 
         public void UpdateElement(TEntity NewObj)
         {
-            dbSet.Attach(NewObj);
-            context.Entry(NewObj).State = EntityState.Modified;
+           
+            context.Attach(NewObj).State = EntityState.Modified;
+            context.SaveChanges();
+            context.Entry(NewObj).State = EntityState.Detached;
+            context.Dispose();
         }
+     
+
     }
 }

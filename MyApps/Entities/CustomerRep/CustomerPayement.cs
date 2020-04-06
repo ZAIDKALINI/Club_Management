@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
-
+using EntityFrameworkCore.Triggers;
 namespace Entities
 {
     public class CustomerPayement:Payement
@@ -14,5 +14,6 @@ namespace Entities
         public int duration { get; set; }
         public DateTime EndDate { get; set; }
         public bool IsEnd { get; set; }
+       
     }
 }

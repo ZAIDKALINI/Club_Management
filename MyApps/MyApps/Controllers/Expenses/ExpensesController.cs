@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BusinessLogicLayer.ExpenseRepo;
+using DataAccessLayer;
 using Entities.Expenses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,8 +10,13 @@ namespace MyApps.Controllers.Expenses
 {
     public class ExpensesController : Controller
     {
-        ExpensesRepository _expenseRepo = new ExpensesRepository();
-        CategoriesRepository _categorieExpense = new CategoriesRepository();
+        ExpensesRepository _expenseRepo;
+        CategoriesRepository _categorieExpense;
+        public ExpensesController(IUnitOfWork _uow)
+        {
+             _expenseRepo = new ExpensesRepository(_uow);
+             _categorieExpense = new CategoriesRepository(_uow);
+        }
         // GET: Expenses
         public ActionResult Index()
         {

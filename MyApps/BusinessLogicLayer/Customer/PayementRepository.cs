@@ -9,10 +9,10 @@ namespace BusinessLogicLayer
 {
     public class PayementRepository
     {
-        UnitOfWork UOW;
-        public PayementRepository()
+        IUnitOfWork UOW;
+        public PayementRepository(IUnitOfWork _UOW)
         {
-            UOW = new UnitOfWork();
+            UOW = _UOW;
         }
         public void WirteDateEndPayement(CustomerPayement payement)
         {
@@ -24,11 +24,15 @@ namespace BusinessLogicLayer
             if (payement.Id == 0)
             {
                 ResetRestIsEndForFalse(payement.Person_Id);
-                payement.IsEnd = true;
                 WirteDateEndPayement(payement);
                 UOW.PayementsRepo.InsertElement(payement);
                 UOW.Save();
-             
+                ResetRestIsEndForTrue(payement.Person_Id);
+               
+              
+                UOW.Dispose();
+            
+
             }
 
             else
@@ -38,16 +42,29 @@ namespace BusinessLogicLayer
        /// set last month on true
        /// </summary>
        /// <param name="id">Customer id who make payement</param>
-        private void ResetRestIsEndForFalse(int id)
+        public void ResetRestIsEndForFalse(int idPerson)
         {
-           var payement= UOW.PayementsRepo.GetElements(p => p.IsEnd == true&&p.Person_Id==id).FirstOrDefault();
+           var payement= UOW.PayementsRepo.GetElements(p => p.IsEnd == true&&p.Person_Id== idPerson).FirstOrDefault();
             if (payement != null)
             {
                 payement.IsEnd = false;
-                UOW.PayementsRepo.UpdateElement(payement);
                 UOW.Save();
+                UOW.Dispose();
             }
        
+        }
+        public void ResetRestIsEndForTrue(int idPerson)
+        {
+            var payement = UOW.PayementsRepo.GetElements(p => p.Person_Id == idPerson).OrderByDescending(p=>p.EndDate).FirstOrDefault();
+            var pay = GetElementById(payement.Id);
+            if (pay != null)
+            {
+                pay.IsEnd = true;
+                UOW.PayementsRepo.UpdateElement(pay);
+                UOW.Save();
+                UOW.Dispose();
+            }
+
         }
         /// <summary>
         /// Delete payement
@@ -64,6 +81,7 @@ namespace BusinessLogicLayer
             int personId = payement.Person_Id;
             UOW.PayementsRepo.DeleteElement(payement);
             UOW.Save();
+            UOW.Dispose();
             if (payement.IsEnd)
             {
                 ResetRestIsEndForFalseForDelete(personId);
@@ -74,12 +92,17 @@ namespace BusinessLogicLayer
         /// reset last month date if deleting last one
         /// </summary>
         /// <param name="id">person id</param>
-        private void ResetRestIsEndForFalseForDelete(int? id)
+        public void ResetRestIsEndForFalseForDelete(int? id)
         {            
             var pay = UOW.PayementsRepo.GetElements(p => p.Person_Id ==id).OrderByDescending(p => p.EndDate).FirstOrDefault();
+
             pay.IsEnd = true;
             UOW.PayementsRepo.UpdateElement(pay);
             UOW.Save();
+            ResetRestIsEndForTrue(pay.Person_Id);
+            UOW.Save();
+
+            UOW.Dispose();
         }
 
         public CustomerPayement GetElementById(int? id)
@@ -122,7 +145,10 @@ namespace BusinessLogicLayer
                 payement.EndDate = endDate;
                 UOW.PayementsRepo.UpdateElement(payement);
                 UOW.Save();
+                UOW.Dispose();
                 ResetRestIsEndForFalseForDelete(payement.Person_Id);
+
+
             }
             else
                 throw new Exception("Id category dosen't belong to the new category");

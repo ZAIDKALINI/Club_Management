@@ -1,13 +1,21 @@
 ﻿using BusinessLogicLayer.Statistics_ExpenseRepo;
+using DataAccessLayer;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MyApps.Controllers.Statistique
 {
     public class StatisticsController : Controller
     {
-        StatisticExpenseRepository _repositoryExpense = new StatisticExpenseRepository();
-        StatisticIncomeRepository _repositoryIncome = new StatisticIncomeRepository();
-        Reporting rpt = new Reporting();
+        StatisticExpenseRepository _repositoryExpense;
+        StatisticIncomeRepository _repositoryIncome;
+        Reporting rpt;
+        public StatisticsController(IUnitOfWork uow)
+        {
+             _repositoryExpense = new StatisticExpenseRepository(uow);
+             _repositoryIncome = new StatisticIncomeRepository(uow);
+             rpt = new Reporting(uow);
+
+        }
         // GET: Statistics
         public ActionResult Index()
         {

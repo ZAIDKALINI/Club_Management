@@ -10,17 +10,19 @@ namespace BusinessLogicLayer
 {
     public class CoachRepository
     {
-        UnitOfWork _uow = new UnitOfWork();
-        public CoachRepository()
+        IUnitOfWork _uow;
+        public CoachRepository(IUnitOfWork uow)
         {
-
+            _uow = uow;
         }
         public  void AddNew(Coach coach)
         {
             if (coach.Person_Id == 0)
             {
+                coach.DateInscri = DateTime.Now;
                 _uow.CoachRepo.InsertElement(coach);
                 _uow.Save();
+                _uow.Dispose();
             }
 
             else
@@ -36,6 +38,7 @@ namespace BusinessLogicLayer
                 throw new Exception("Element not found");
             _uow.CoachRepo.DeleteElement(Coach);
             _uow.Save();
+            _uow.Dispose();
         }
 
         public Coach GetElementById(int? id)
@@ -68,6 +71,7 @@ namespace BusinessLogicLayer
             {
                 _uow.CoachRepo.UpdateElement(Coach);
                 _uow.Save();
+                _uow.Dispose();
             }
             else
                 throw new Exception("Id coach dosen't belong to the new coach who you entered");

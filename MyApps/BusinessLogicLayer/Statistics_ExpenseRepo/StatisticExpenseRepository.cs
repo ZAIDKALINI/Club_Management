@@ -10,7 +10,11 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
 {
     public class StatisticExpenseRepository
     {
-        UnitOfWork uow = new UnitOfWork();
+        IUnitOfWork uow;
+        public StatisticExpenseRepository(IUnitOfWork _uow)
+        {
+            uow = _uow;
+        }
        
         DateTime ConvertDate(string date)
         {
@@ -24,7 +28,7 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
             }
         }
    
-        public decimal GetBudgetByDate(string d1,string d2)
+        public double GetBudgetByDate(string d1,string d2)
         {
             // get expense belong in current row if parameters is null
             if(string.IsNullOrEmpty(d1) || string.IsNullOrEmpty(d2))

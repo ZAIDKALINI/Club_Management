@@ -11,7 +11,7 @@ namespace Entities
         public int Id { get; set; }
         public string Descreption { get; set; }
         public virtual Customer customer { get; set; }
-        public Decimal  Prix { get; set; }
+        public double  Prix { get; set; }
         public virtual TypeAssurance Type { get; set; }
     }
 }

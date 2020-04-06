@@ -11,7 +11,8 @@ namespace Entities.Expenses
         [Key]
         public int Id_Expense { get; set; }
         public string Description { get; set; }
-        public decimal Price { get; set; }
+    
+        public double Price { get; set; }
         public DateTime ExpenseDate { get; set; }
         [ForeignKey("category")]
         public int Id_Category { get; set; }

@@ -8,8 +8,8 @@ namespace Entities.StatisticRepo
     {
         public DateTime Date { get; set; }
         public string Description { get; set; }
-        public decimal Creditor { get; set; }
-        public decimal Debit { get; set; }
+        public double Creditor { get; set; }
+        public double Debit { get; set; }
 
 
     }

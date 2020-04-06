@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BusinessLogicLayer;
+using DataAccessLayer;
 using Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,9 +12,14 @@ namespace MyApps.Controllers
 {
     public class CustomersController : Controller
     {
-        CustomerRepository _repositoryCustomer = new CustomerRepository();
-        PayementRepository _repositoryPayement = new PayementRepository();
+        CustomerRepository _repositoryCustomer;
+        PayementRepository _repositoryPayement;
         IList<Customer> lst;
+        public CustomersController(IUnitOfWork uow)
+        {
+          _repositoryCustomer = new CustomerRepository(uow);
+          _repositoryPayement = new PayementRepository(uow);
+        }
         // GET: Customers
         public ActionResult Index()
         {
