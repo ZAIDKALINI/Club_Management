@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BusinessLogicLayer;
+using CustomException;
 using DataAccessLayer;
 using Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyApps.Alerts;
 
 namespace MyApps.Controllers
 {
@@ -21,14 +23,14 @@ namespace MyApps.Controllers
           _repositoryPayement = new PayementRepository(uow);
         }
         // GET: Customers
-        public ActionResult Index()
+        public IActionResult Index()
         {
              lst = _repositoryCustomer.GetElements();
             return View(lst);
         }
 
         // GET: Customers/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
             var customer = _repositoryPayement.GetElements(p => p.Person_Id == id);
             return View(customer);
@@ -37,7 +39,7 @@ namespace MyApps.Controllers
         }
 
         // GET: Customers/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
            
             return View();
@@ -46,23 +48,23 @@ namespace MyApps.Controllers
         // POST: Customers/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Customer customer)
+        public IActionResult Create(Customer customer)
         {
             try
             {
                 // TODO: Add insert logic here
                 _repositoryCustomer.AddNew(customer);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index)).WithSuccess("Ajouter", "vous avez ajouté avec succès ");
             }
-            catch
+            catch(AjouterException e)
             {
-                return View();
+                return View().WithDanger("ERREUR", e.Message);
             }
         }
 
         // GET: Customers/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             var customer = _repositoryCustomer.GetElementById(id);
             return View(customer);
@@ -71,24 +73,24 @@ namespace MyApps.Controllers
         // POST: Customers/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Customer customer)
+        public IActionResult Edit(int id, Customer customer)
         {
             try
             {
                 // TODO: Add update logic here
                 _repositoryCustomer.UpdateElement(id, customer);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index)).WithSuccess("Modifier", "vous avez modifié avec succès ");
             }
-            catch(Exception e)
+            catch(ModifierException e)
             {
-                ModelState.AddModelError("", e.Message);
-                return View();
+                
+                return View().WithDanger("ERREUR", e.Message);
             }
         }
 
         // GET: Customers/Delete/5
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             var customer = _repositoryCustomer.GetElementById(id);
             return View(customer);
@@ -97,21 +99,21 @@ namespace MyApps.Controllers
         // POST: Customers/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
                 // TODO: Add delete logic here
                 _repositoryCustomer.Delete(id);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index)).WithSuccess("Supprimer", "vous avez supprimé avec succès ");
             }
-            catch
+            catch(SupprimerException e)
             {
-                return View();
+                return View().WithDanger("ERREUR", e.Message); ;
             }
         }
-        public ActionResult Find(string search)
+        public IActionResult Find(string search)
         {
             //find by first name or last name
             try
@@ -125,7 +127,7 @@ namespace MyApps.Controllers
                 return View();
             }
         }
-        public ActionResult FindByDate(string d1,string d2)
+        public IActionResult FindByDate(string d1,string d2)
         {
             //find by first name or last name
             try

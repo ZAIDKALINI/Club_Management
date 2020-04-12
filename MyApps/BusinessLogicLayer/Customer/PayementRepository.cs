@@ -99,10 +99,10 @@ namespace BusinessLogicLayer
             pay.IsEnd = true;
             UOW.PayementsRepo.UpdateElement(pay);
             UOW.Save();
-            ResetRestIsEndForTrue(pay.Person_Id);
-            UOW.Save();
+            //ResetRestIsEndForTrue(pay.Person_Id);
+            //UOW.Save();
 
-            UOW.Dispose();
+            //UOW.Dispose();
         }
 
         public CustomerPayement GetElementById(int? id)

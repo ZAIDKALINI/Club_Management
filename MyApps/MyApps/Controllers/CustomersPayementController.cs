@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BusinessLogicLayer;
+using CustomException;
 using DataAccessLayer;
 using Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MyApps.Alerts;
 
 namespace MyApps.Controllers
 {
@@ -56,7 +59,7 @@ namespace MyApps.Controllers
         // POST: CustomersPayement/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CustomerPayement collection)
+        public IActionResult Create(CustomerPayement collection)
         {
             try
             {
@@ -64,11 +67,11 @@ namespace MyApps.Controllers
                 _repository.AddNew(collection);
                 var cust  = _repository.GetElements(p => p.Person_Id == collection.Person_Id);
               
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index)).WithSuccess("Ajouter", "vous avez ajouté avec succès "); 
             }
-            catch
+            catch(SupprimerException e)
             {
-                return View();
+                return View().WithDanger("ERREUR",e.Message);
             }
         }
 
@@ -86,53 +89,47 @@ namespace MyApps.Controllers
         // POST: CustomersPayement/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, CustomerPayement customerPayement)
+        public IActionResult Edit(int id, CustomerPayement customerPayement)
         {
             try
             {
+                
                 // TODO: Add update logic here
                 _repository.UpdateElement(id,customerPayement);
                 //_repository.ResetRestIsEndForTrue(customerPayement.Person_Id);
+                var payement = _repository.GetElementById(id);
+                var cust = _customerRepo.GetElements();
+                ViewData["Person_Id"] = new SelectList(cust, "Person_Id", "Last_Name", payement.Person_Id);
 
-                return RedirectToAction("GetCustumer");
+                return RedirectToAction("Index").WithSuccess("Modifier", "vous avez modifié avec succès ");
             }
-            catch(Exception e)
+            catch(SupprimerException e)
             {
-                ModelState.AddModelError("", e.Message);
-                return View();
+               
+                return View().WithDanger("ERREUR", e.Message); 
             }
         }
 
-        // GET: CustomersPayement/Delete/5
-        public ActionResult Delete(int id)
-        {
-
-            var customerPayement = _repository.GetElementById(id);
-            var customer = _customerRepo.GetElementById(id);
-            customerPayement.customer = customer;
-            return View(customerPayement);
-        }
-
-        // POST: CustomersPayement/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(int Id)
         {
             try
             {
-                // TODO: Add delete logic here
-                _repository.Delete(id);
-                return RedirectToAction(nameof(Index));
+               
+                _repository.Delete(Id);
+                return RedirectToAction("Index").WithSuccess("Supprimer", "vous avez supprimé avec succès ");
             }
-            catch
+            catch (SupprimerException e)
             {
-                return View();
+
+                return RedirectToAction("Index").WithDanger("ERREUR", e.Message);
             }
         }
-     /// <summary>
-     /// Get customer should pay thier month
-     /// </summary>
-     /// <returns></returns>
+        /// <summary>
+        /// Get customer should pay thier month
+        /// </summary>
+        /// <returns></returns>
         public ActionResult GetCustumer()
         {
             try

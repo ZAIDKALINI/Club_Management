@@ -760,3 +760,5 @@ C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\obj\Debug\netcoreapp3
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\obj\Debug\netcoreapp3.1\Razor\Views\CustomerPayements1\Index.cshtml.g.cs
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\bin\Debug\netcoreapp3.1\EntityFrameworkCore.Triggers.dll
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\obj\Debug\netcoreapp3.1\MyApps.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\bin\Debug\netcoreapp3.1\CustomException.dll
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\bin\Debug\netcoreapp3.1\CustomException.pdb

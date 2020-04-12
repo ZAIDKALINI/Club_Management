@@ -1,29 +1,7 @@
 ﻿@model IEnumerable<Entities.Customer>
 
 
-<!-- Button trigger modal -->
-<!-- Modal -->
-<!--PopUp-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-dark">
-                <h5 class="modal-title" id="exampleModalLabel">Ajouter</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="create">
 
-
-
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<!--EndPopUp-->
 <!--Index-->
 <br />
 <div class="container">
@@ -34,7 +12,7 @@
                 <div class="card-header bg-dark">
                     <h3 class="card-title">Les clients</h3>
 
-                    <a asp-action="Create" id="popUp" class="btn btn-warning float-right" data-toggle="modal" data-target="#exampleModal" title="Ajouter nouveau client"><i class="fas fa-user-plus"></i></a>
+                    <a asp-action="Create" class="btn btn-warning float-right" title="Ajouter nouveau client"><i class="fas fa-user-plus"></i></a>
 
                 </div>
 

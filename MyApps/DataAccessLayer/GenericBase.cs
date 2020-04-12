@@ -23,6 +23,8 @@ namespace BusinessLogicLayer
         {
 
           var o= dbSet.Remove(obj);
+            context.SaveChanges();
+          context.Entry(obj).State = EntityState.Detached;
         }
 
         public IEnumerable<TEntity> GetElements()

@@ -2,67 +2,91 @@
 @model Entities.Customer
 
 @{
-    Layout = null;
+
 
 }
 
+<div class="row mr-3">
 
-
-    <form asp-action="Create">
-        @Html.AntiForgeryToken()
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label asp-for=" Ref"></label>
-                        <input asp-for=" Ref" placeholder="Enter your Ref" class="form-control" />
-                        <span asp-validation-for=" Ref" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label asp-for=" Telephone"></label>
-                        <input type="tel" asp-for=" Telephone" placeholder="Enter your number phone" class="form-control" />
-                        <span asp-validation-for=" Telephone" class="text-danger"></span>
-                    </div>
-                </div>
-
+    <!-- left column -->
+    <div class="col-md-12 mt-5 ml-3">
+        <!-- general form elements -->
+        <div class="card card-dark">
+            <div class="card-header">
+                <h3 class="card-title">Ajouter nouveau client</h3>
             </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label asp-for=" Last_Name">Nom</label>
-                        <input asp-for=" Last_Name" placeholder="Enter your Last name" class="form-control" />
-                        <span asp-validation-for=" Last_Name" class="text-danger"></span>
+
+            <form asp-action="Create">
+                @Html.AntiForgeryToken()
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label asp-for="Ref" class="control-label"></label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend ">
+                                    <button type="button" id="btnRef" class="btn btn-secondary"><i class="fas fa-random"></i></button>
+                                </div>
+                                <!-- /btn-group -->
+                                <input type="text" asp-for="Ref" class="form-control " id="txtRef" readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for=" Telephone"></label>
+                                <input type="tel" asp-for=" Telephone" placeholder="Enter your number phone" class="form-control" />
+                                <span asp-validation-for=" Telephone" class="text-danger"></span>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label asp-for=" First_Name">Prénom</label>
-                        <input asp-for=" First_Name" placeholder="Enter your First name" class="form-control" />
-                        <span asp-validation-for=" First_Name" class="text-danger"></span>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for=" Last_Name"></label>
+                                <input asp-for=" Last_Name" placeholder="Enter your Last name" class="form-control" />
+                                <span asp-validation-for=" Last_Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for=" First_Name"></label>
+                                <input asp-for=" First_Name" placeholder="Enter your First name" class="form-control" />
+                                <span asp-validation-for=" First_Name" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+
                     </div>
                 </div>
 
 
+                <!--Submit btn -->
+                <div class="card-footer">
+                    <button type="submit" value="Create" class="btn btn-success" title="Enregistrer"><i class="fas fa-save"></i></button>
 
-            </div>
+                </div>
+
+            </form>
         </div>
-     
-     
-        <!--Submit btn -->
-        <div class="card-footer">
-            <button type="submit" value="Create" class="btn btn-success" title="Enregistrer"><i class="fas fa-save"></i></button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal" title="Annuler"><i class="fa fa-times"></i></button>
-        </div>
-
-    </form>
+    </div>
+</div>
 
 
+@section Scripts{
+    <script>
+    $(function () {
+        $("#txtDure").val("1")
+        $("#btnRef").click(function () {
+            $("#txtRef").val(Date.now())
+        })
+})
+    </script>
 
+}
 
 
 

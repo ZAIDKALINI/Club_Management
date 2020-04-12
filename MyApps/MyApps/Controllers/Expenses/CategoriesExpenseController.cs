@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BusinessLogicLayer.ExpenseRepo;
+using CustomException;
 using DataAccessLayer;
 using Entities.Expenses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyApps.Alerts;
 
 namespace MyApps.Controllers.Expenses
 {
@@ -41,18 +43,18 @@ namespace MyApps.Controllers.Expenses
         // POST: Categories/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Category_expense category)
+        public IActionResult Create(Category_expense category)
         {
             try
             {
                 _categorieRepo.AddNew(category);
                 
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index)).WithSuccess("Ajouter", "vous avez ajouté avec succès ");
             }
-            catch
+            catch(SupprimerException e)
             {
-                return View();
+                return View().WithDanger("ERREUR", e.Message); 
             }
         }
 
@@ -66,18 +68,18 @@ namespace MyApps.Controllers.Expenses
         // POST: Categories/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Category_expense category)
+        public IActionResult Edit(int id, Category_expense category)
         {
             try
             {
                 // TODO: Add update logic here
                 _categorieRepo.Edit(id, category);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index)).WithSuccess("Modifier", "vous avez modifié avec succès ");
             }
-            catch
+            catch(ModifierException e)
             {
-                return View();
+                return View().WithDanger("ERREUR", e.Message); 
             }
         }
 
@@ -91,18 +93,18 @@ namespace MyApps.Controllers.Expenses
         // POST: Categories/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
                 // TODO: Add delete logic here
 
                 _categorieRepo.Delete(id);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index)).WithSuccess("Supprimer", "vous avez supprimé avec succès ");
             }
-            catch
+            catch(SupprimerException e)
             {
-                return View();
+                return View().WithDanger("ERREUR", e.Message); ;
             }
         }
     }

@@ -17,17 +17,24 @@
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Reference de payement:</label>
-                                        <input asp-for="Ref" class="form-control" />
-                                        <span asp-validation-for="Ref" class="text-danger"></span>
+                                    <!---->
+                                    <label asp-for="Ref" class="control-label"></label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend ">
+                                            <button type="button" id="btnRef" class="btn btn-secondary"><i class="fas fa-random"></i></button>
+                                        </div>
+                                        <!-- /btn-group -->
+                                        <input type="text" asp-for="Ref" class="form-control " id="txtRef" readonly>
                                     </div>
+                                    <span asp-validation-for="Ref" class="text-danger"></span>
+                                    <!---->
+
 
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label class="control-label">Client:</label>
-                                        <select asp-for="Person_Id" class="form-control" asp-items="ViewBag.Person_Id"></select>
+                                        <label asp-for="customer" class="control-label"></label>
+                                        <select asp-for="Person_Id" class="form-control select2" asp-items="ViewBag.Person_Id"></select>
                                         <span asp-validation-for="Person_Id" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -37,7 +44,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label class="control-label">Prix:</label>
+                                        <label asp-for="Price" class="control-label"></label>
                                         <input asp-for="Price" class="form-control" />
                                         <span asp-validation-for="Price" class="text-danger"></span>
                                     </div>
@@ -46,7 +53,7 @@
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label class="control-label ">Date de payment:</label>
+                                        <label asp-for="Payement_date" class="control-label "></label>
                                         <input type="date" asp-for="Payement_date" class="form-control" />
                                         <span asp-validation-for="Price" class="text-danger"></span>
                                     </div>
@@ -56,8 +63,8 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label class="control-label ">dure:</label>
-                                        <input type="number" asp-for="duration" class="form-control"  required/>
+                                        <label asp-for="duration" class="control-label "></label>
+                                        <input type="number" asp-for="duration" min="1" id="txtDure" class="form-control" required />
                                         <span asp-validation-for="duration" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -66,7 +73,7 @@
 
 
                             <div class="card-footer">
-                                <button type="submit" value="Create" class="btn btn-success" title="Ajouter payement"><i class="fas fa-plus" ></i></button>
+                                <button type="submit" value="Create" class="btn btn-success"  data-toggle="modal" data-target="#exampleModal" title="Ajouter payement"><i class="fas fa-plus"></i></button>
                             </div>
                         </form>
                     </div>
@@ -77,10 +84,22 @@
 
 
 
-      </div>
-  </div>
+    </div>
+</div>
 
-           
+
+@section Scripts{
+    <script>
+        $(function () {
+         
+            $("#txtDure").val("1")
+            $("#btnRef").click(function () {
+                $("#txtRef").val(Date.now())
+            })
+        })
+    </script>
+
+}
 
 
 

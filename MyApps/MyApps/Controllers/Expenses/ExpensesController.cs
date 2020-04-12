@@ -1,10 +1,12 @@
 ﻿using System;
 using BusinessLogicLayer.ExpenseRepo;
+using CustomException;
 using DataAccessLayer;
 using Entities.Expenses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MyApps.Alerts;
 
 namespace MyApps.Controllers.Expenses
 {
@@ -42,18 +44,18 @@ namespace MyApps.Controllers.Expenses
         // POST: Expenses/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Expense expense)
+        public IActionResult Create(Expense expense)
         {
             try
             {
                 // TODO: Add insert logic here
                 _expenseRepo.AddNew(expense);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index)).WithSuccess("Ajouter", "vous avez ajouté avec succès ");
             }
-            catch(Exception e)
+            catch(AjouterException e)
             {
-                ModelState.AddModelError("", e.Message);
-                return View();
+         
+                return View().WithDanger("ERREUR", e.Message); 
             }
         }
 
@@ -69,18 +71,18 @@ namespace MyApps.Controllers.Expenses
         // POST: Expenses/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Expense expense)
+        public IActionResult Edit(int id, Expense expense)
         {
             try
             {
                 // TODO: Add update logic here
                 _expenseRepo.UpdateElement(id, expense);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index)).WithSuccess("Modifier", "vous avez modifié avec succès "); 
             }
-            catch
+            catch(ModifierException e)
             {
-                return View();
+                return View().WithDanger("ERREUR", e.Message); 
             }
         }
 
@@ -94,17 +96,17 @@ namespace MyApps.Controllers.Expenses
         // POST: Expenses/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
                 // TODO: Add delete logic here
                 _expenseRepo.Delete(id);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index)).WithSuccess("Supprimer", "vous avez supprimé avec succès ");
             }
-            catch
+            catch(SupprimerException e)
             {
-                return View();
+                return View().WithDanger("ERREUR", e.Message); 
             }
         }
     }

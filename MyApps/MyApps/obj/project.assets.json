@@ -2791,6 +2791,16 @@
           "bin/placeholder/BusinessLogicLayer.dll": {}
         }
       },
+      "CustomException/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/CustomException.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CustomException.dll": {}
+        }
+      },
       "DataAccessLayer/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -8985,6 +8995,11 @@
       "path": "../BusinessLogicLayer/BusinessLogicLayer.csproj",
       "msbuildProject": "../BusinessLogicLayer/BusinessLogicLayer.csproj"
     },
+    "CustomException/1.0.0": {
+      "type": "project",
+      "path": "../CustomException/CustomException.csproj",
+      "msbuildProject": "../CustomException/CustomException.csproj"
+    },
     "DataAccessLayer/1.0.0": {
       "type": "project",
       "path": "../DataAccessLayer/DataAccessLayer.csproj",
@@ -9000,6 +9015,7 @@
     ".NETCoreApp,Version=v3.1": [
       "AdminLTE >= 2.4.0",
       "BusinessLogicLayer >= 1.0.0",
+      "CustomException >= 1.0.0",
       "DataAccessLayer >= 1.0.0",
       "Entities >= 1.0.0",
       "EntityFrameworkCore.Triggers >= 1.2.2",
@@ -9036,6 +9052,9 @@
           "projectReferences": {
             "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\BusinessLogicLayer\\BusinessLogicLayer.csproj": {
               "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\BusinessLogicLayer\\BusinessLogicLayer.csproj"
+            },
+            "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\CustomException\\CustomException.csproj": {
+              "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\CustomException\\CustomException.csproj"
             },
             "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\DataAccessLayer\\DataAccessLayer.csproj": {
               "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Club_Management\\MyApps\\DataAccessLayer\\DataAccessLayer.csproj"

@@ -5,8 +5,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>AdminLTE 3 | Advanced form elements</title>
+    <!--Alert css-->
+    <link href="~/css/alert.css" rel="stylesheet" />
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <!-- DataTables -->
     <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.css">
     <!--MyOwnStyle-->
@@ -34,7 +37,12 @@
     <!-- Google Font: Source Sans Pro -->
 
 </head>
-
+@{ 
+    var data = TempData["_alert.type"];
+    var type = Newtonsoft.Json.JsonConvert.SerializeObject(TempData["_alert.type"]);
+    var title = Newtonsoft.Json.JsonConvert.SerializeObject(TempData["_alert.title"]);
+    var body = Newtonsoft.Json.JsonConvert.SerializeObject(TempData["_alert.body"]);
+}
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -127,7 +135,7 @@
                                 <li class="nav-item">
                                     <a asp-controller="CustomersPayement" asp-action="GetCustumer" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Payements</p>
+                                        <p>Fin de l'abonnement</p>
                                     </a>
                                 </li>
                                 <!--End Customers-->
@@ -203,13 +211,44 @@
 
 
                             </ul>
-                        <li class="nav-item">
-                            <a asp-controller="chart" asp-action="Index" class="nav-link link-muted ">
-                                <i class="fa fa-chart-line"></i>
-                                <p class="text-bold">  Rapport</p>
-                            </a>
+
                         </li>
-                        <!--End Expenses-->
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="fa fa-chart-line"></i>
+                                <p class="text-bold">
+                                    Rapports
+                                    <i class="fas fa-angle-left right"></i>
+
+                                </p>
+                            </a>
+                            <!--Rapports-->
+
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-controller="chart" asp-action="Index" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Monaitaire</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-controller="#" asp-action="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Clients</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+
+
+
+
+
+                            <!--End Expenses-->
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -222,6 +261,7 @@
 
             <section class="content">
                 <div class="container-fluid">
+                    
 
                     @RenderBody()
 
@@ -266,6 +306,8 @@
     <!-- For missing script -->
     <script src="~/MyJava.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/js/DeleteConfirmation.js"></script>
+
 
     <script>
         $(function () {
@@ -336,7 +378,37 @@
             });
         })
     </script>
+    <script>
+        function modal() {
+            alert('hello')
+        }
 
+    </script>
+    @if (data != null)
+    {
+        <script type="text/javascript">
+            
+        var type =@Html.Raw(type)
+          
+
+                          $(document).Toasts('create', {
+                            class: 'bg-' + type,
+                            title: @Html.Raw(title),
+                            subtitle: 'Subtitle',
+                            body: @Html.Raw(body),
+                            autohide: true,
+                            delay: 2500,
+                            showHideTransition: 'slide',
+                            icon: 'success',
+                        
+                             
+                            })
+              $('.toastrDefaultSuccess').click(function() {
+              toastr+'.type'+('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+    });
+
+        </script>
+    }
 
     @RenderSection("Scripts", required: false)
 
