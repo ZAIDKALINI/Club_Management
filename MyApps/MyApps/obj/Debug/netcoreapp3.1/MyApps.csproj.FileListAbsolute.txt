@@ -762,3 +762,4 @@ C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\bin\Debug\netcoreapp3
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\obj\Debug\netcoreapp3.1\MyApps.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\bin\Debug\netcoreapp3.1\CustomException.dll
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\bin\Debug\netcoreapp3.1\CustomException.pdb
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\obj\Debug\netcoreapp3.1\Razor\Views\ClientsChart\Index.cshtml.g.cs

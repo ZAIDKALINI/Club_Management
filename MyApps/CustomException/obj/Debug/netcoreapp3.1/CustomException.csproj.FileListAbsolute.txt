@@ -1,7 +1,6 @@
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\CustomException\bin\Debug\netcoreapp3.1\CustomException.deps.json
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\CustomException\bin\Debug\netcoreapp3.1\CustomException.dll
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\CustomException\bin\Debug\netcoreapp3.1\CustomException.pdb
-C:\Users\HP\Documents\GitHub\Club_Management\MyApps\CustomException\obj\Debug\netcoreapp3.1\CustomException.csprojAssemblyReference.cache
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\CustomException\obj\Debug\netcoreapp3.1\CustomException.AssemblyInfoInputs.cache
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\CustomException\obj\Debug\netcoreapp3.1\CustomException.AssemblyInfo.cs
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\CustomException\obj\Debug\netcoreapp3.1\CustomException.dll

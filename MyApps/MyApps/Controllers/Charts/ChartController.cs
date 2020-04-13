@@ -31,6 +31,7 @@ namespace MyApps.Controllers
                 crd = 0;
                 deb += lst.Where(r => r.Date.Month == item.Date.Month).Sum(r=>r.Debit);
                 crd += lst.Where(r => r.Date.Month == item.Date.Month).Sum(r => r.Creditor);
+                //test if this month is already in reports list
                 var t = reports.Where(r => r.Date.Month == item.Date.Month);
                  var count = t.Count();
                 if (count == 0)
