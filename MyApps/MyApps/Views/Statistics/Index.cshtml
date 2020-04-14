@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Entities.StatisticRepo.Reports>
+
 <div class="container">
     <div class="row h-100 justify-content-center">
         <div class="col-sm-4">
@@ -19,6 +20,7 @@
 
 
 <div id="demo">
+
     <div class="row">
         <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -86,6 +88,12 @@
                     <div class="card ">
                         <div class="card-header bg-dark">
                             <h2 class="card-title display-2">Rapport</h2>
+                            <form asp-action="PrintReport">
+                                <input id="d1" name="d1" value="" hidden />
+                                <input id="d2" name="d2" value="" hidden />
+                                <button type="submit" class="btn bg-success btn-sm float-right" id="printRapport"><i class="fa fa-print" aria-hidden="true"></i></button>
+                            </form>
+
 
                         </div>
 
@@ -136,24 +144,24 @@
                                                 }
                                             </tr>
                                         }
-                                        <tr>
-                                            <td colspan="2" class="bg-orange">
-                                                <h3 class="text-light">Total</h3>
+                                        @{
+                                            var result = debit - creditor;
+                                            string bgClass;
+                                        }
+                                        @if (result < 0)
+                                        {
+                                            bgClass = "danger";
+                                        }
+                                        else {
+                                          bgClass = "success";
+                                        }
+                                        <tr class="bg-@bgClass">
+                                            <td colspan="2" >
+                                               <strong>Total</strong>
                                             </td>
 
                                             <td colspan="2">
-                                                @{
-                                                    var result = debit - creditor;
-                                                }
-                                                @if (result < 0)
-                                                {
-                                                    <h4 class="text-danger"> @result</h4>
-                                                }
-                                                else
-                                                {
-                                                    <h4 class="text-success"> @result</h4>
-                                                }
-
+                                                <strong>@result</strong>
 
                                             </td>
                                         </tr>
@@ -172,35 +180,82 @@
 
 
 
-
-
 @section scripts{
+
     <script>
         $(function () {
-        
+            
 
-           
             $("#reservation").change(function () {
 
                 var d1 = $("#reservation").data('daterangepicker').startDate.format('YYYY-MM-DD');
                 var d2 = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
+                $("#d1").val(d1)
+                $("#d2").val(d2)
                 if (d1 != "" && d2 != "") {
-                    $.get("/Statistics/GetByDate", { "d1": d1, "d2": d2 }, function (data) {
+               
 
+                    /*get tbody of table for make changes*/
+                var setData = $("tbody")
+                   
+                   /*clear html content from tbody*/
+                setData.html("")
+                $.ajax({
+                    type: "post",
+                    url: "/Statistics/GetByDate?d1=" + d1 + "&d2=" + d2,
+                    contentType: 'application/json',
+                    data: JSON.stringify(),
+                    success: function (result) {
+                       
+                        if (result == 0) {
+                            setData.append('<tr class="bg-danger"><td colspan="4"> No data valaible !!</td></tr>')
+                        }
+                        else {
+                             
+                            var result /* result beween operation debit and creditor */
+                            var deb = 0 /* debit*/
+                            var crd = 0 /* criditor*/
+                                                    
+                         
+                            $.each(result, function (key, value) {
+                                var dataa = "<tr>" +
+                                    "<td>" + value.date + " </td>" +
+                                    "<td>" + value.description + "</td>" +
+                                    "<td>" + value.debit + " </td>" +
+                                    "<td>" + value.creditor + "</td>" +
+                                    "</tr>";
 
-                        $("#demo").html(data)
+                                deb += value.debit
+                                crd += value.creditor
+                        
+                                setData.append(dataa)
 
-                    })
+                            })
+                            var rs = deb - crd
+                            var colorClass
+                            if (rs < 0) {
+                                colorClass = "bg-danger"
+                            }
+                            else {
+                                colorClass = "bg-success"
+                            }
+                            dataa = '<tr class="'+ colorClass+'" >  <td colspan ="2"><strong> Total</strong> </td> <td colspan="2"><strong>' + rs + '</strong></td>';
+                            setData.append(dataa)
+
+                        }
+
+                    }
+                });
+
                 }
-             
-         
 
-             
+
             })
-        
+           
+
         })
 
-       
+
     </script>
 
 

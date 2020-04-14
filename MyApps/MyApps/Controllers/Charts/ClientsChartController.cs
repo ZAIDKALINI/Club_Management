@@ -24,6 +24,7 @@ namespace MyApps.Controllers.Charts
             var lstClient = _rep.GetElements(DateTime.Now.AddYears(-1).ToShortDateString(), DateTime.Now.ToShortDateString());
             foreach (var item in lstClient)
             {
+                TotalClt = 0;
                 TotalClt += lstClient.Where(c => c.DateInscri.Month == item.DateInscri.Month).Count();
                 //test if this month is already in reports list
                 var t = reports.Where(r => r.DateInscri.Month == item.DateInscri.Month).Count();

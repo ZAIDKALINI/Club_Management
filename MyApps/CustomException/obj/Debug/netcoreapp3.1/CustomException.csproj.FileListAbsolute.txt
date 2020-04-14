@@ -5,3 +5,4 @@ C:\Users\HP\Documents\GitHub\Club_Management\MyApps\CustomException\obj\Debug\ne
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\CustomException\obj\Debug\netcoreapp3.1\CustomException.AssemblyInfo.cs
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\CustomException\obj\Debug\netcoreapp3.1\CustomException.dll
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\CustomException\obj\Debug\netcoreapp3.1\CustomException.pdb
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\CustomException\obj\Debug\netcoreapp3.1\CustomException.csprojAssemblyReference.cache

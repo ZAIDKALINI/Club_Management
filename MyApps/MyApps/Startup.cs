@@ -41,7 +41,9 @@ namespace MyApps
                                 .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
-
+            services.AddControllers().AddNewtonsoftJson();
+            services.AddControllersWithViews().AddNewtonsoftJson();
+            services.AddRazorPages().AddNewtonsoftJson();
 
         }
 
@@ -64,6 +66,7 @@ namespace MyApps
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
