@@ -1,6 +1,7 @@
 ﻿using BusinessLogicLayer;
 using Entities;
 using Entities.Expenses;
+using Entities.Portfolio;
 using Entities.StatisticRepo;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -24,6 +25,7 @@ namespace DataAccessLayer
         private GenericBase<Expense> _ExpenseRepo;
         private GenericBase<CoachPayement> _CoachPayementRepo;
         private GenericBase<StatisticExpense> _StatisticExpense;
+        private GenericBase<Portfolio> _portfolio;
 
         public GenericBase<Customer> CustomeresRepo
         {
@@ -93,7 +95,15 @@ namespace DataAccessLayer
             }
         }
 
-    
+        public GenericBase<Portfolio> PortfolioRep
+        {
+            get
+            {
+                if (_portfolio == null)
+                    _portfolio = new GenericBase<Portfolio>(Context);
+                return _portfolio;
+            }
+        }
 
         public void Save()
         {

@@ -1,6 +1,7 @@
 ﻿using BusinessLogicLayer;
 using Entities;
 using Entities.Expenses;
+using Entities.Portfolio;
 using Entities.StatisticRepo;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace DataAccessLayer
         GenericBase<Expense> ExpenseRepo { get; }
         GenericBase<CoachPayement> CoachPayementRepo { get; }
         GenericBase<StatisticExpense> StatisticExpense { get; }
+        GenericBase<Portfolio> PortfolioRep { get; }
         public void Save();
     }
 }

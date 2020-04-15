@@ -1,5 +1,6 @@
 ﻿using Entities;
 using Entities.Expenses;
+using Entities.Portfolio;
 using EntityFrameworkCore.Triggers;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -38,8 +39,11 @@ namespace DataAccessLayer
         public virtual DbSet<Expense> Expenses { get; set; }
         public virtual DbSet<Assurance> Assurances { get; set; }
         public virtual DbSet<TypeAssurance> TypeAssurances { get; set; }
+        public DbSet<Portfolio> Portfolios { get; set; }
+        public DbSet<Owner> Owner { get; set; }
+   
 
-    
-        
+
+
     }
 } 

@@ -44,6 +44,7 @@ namespace MyApps
             services.AddControllers().AddNewtonsoftJson();
             services.AddControllersWithViews().AddNewtonsoftJson();
             services.AddRazorPages().AddNewtonsoftJson();
+            
 
         }
 

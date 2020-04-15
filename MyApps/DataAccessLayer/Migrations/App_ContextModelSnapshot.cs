@@ -149,12 +149,6 @@ namespace DataAccessLayer.Migrations
                     b.Property<int?>("CoachPerson_Id")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Inserted")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("Payement_date")
                         .HasColumnType("datetime2");
 
@@ -166,9 +160,6 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<string>("Ref")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Updated")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -214,14 +205,8 @@ namespace DataAccessLayer.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Inserted")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("IsEnd")
                         .HasColumnType("bit");
-
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("Payement_date")
                         .HasColumnType("datetime2");
@@ -234,9 +219,6 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<string>("Ref")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Updated")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("duration")
                         .HasColumnType("int");
@@ -287,6 +269,51 @@ namespace DataAccessLayer.Migrations
                     b.HasIndex("Id_Category");
 
                     b.ToTable("Expenses");
+                });
+
+            modelBuilder.Entity("Entities.Portfolio.Owner", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Profil")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Owner");
+                });
+
+            modelBuilder.Entity("Entities.Portfolio.Portfolio", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Portfolios");
                 });
 
             modelBuilder.Entity("Entities.TypeAssurance", b =>
