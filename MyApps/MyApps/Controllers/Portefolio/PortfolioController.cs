@@ -14,7 +14,7 @@ using MyApps.Models;
 
 namespace MyApps.Controllers.Portefolio
 {
-   
+   [Authorize]
     public class PortfolioController : Controller
     {
         private readonly PorfolioRepo _portfolio;

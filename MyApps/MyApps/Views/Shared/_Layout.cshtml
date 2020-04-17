@@ -16,7 +16,7 @@
     <link href="~/StyleSheet.css" rel="stylesheet" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
-    <link href="~/fontawesome-free-5.13.0-web/css/all.css" rel="stylesheet" />
+   
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- daterange picker -->
@@ -38,6 +38,7 @@
 
 </head>
 @{ 
+    // get values for makes alert after crud operation
     var data = TempData["_alert.type"];
     var type = Newtonsoft.Json.JsonConvert.SerializeObject(TempData["_alert.type"]);
     var title = Newtonsoft.Json.JsonConvert.SerializeObject(TempData["_alert.title"]);
@@ -68,16 +69,13 @@
 
 
 
-
-
-
         </nav>
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
                 <img src="~/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                      style="opacity: .8">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
+                <span class="brand-text font-weight-light">D3Codes 3</span>
             </a>
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
@@ -299,7 +297,7 @@
     <!-- AdminLTE for demo purposes -->
     <script src="~/dist/js/demo.js"></script>
     <!--fontawsome V.5.13.0-->
-    <script src="~/fontawesome-free-5.13.0-web/js/all.js"></script>
+  
     <!-- DataTables -->
     <script src="~/plugins/datatables/jquery.dataTables.js"></script>
     <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
@@ -378,16 +376,11 @@
             });
         })
     </script>
-    <script>
-        function modal() {
-            alert('hello')
-        }
-
-    </script>
+  
     @if (data != null)
     {
         <script type="text/javascript">
-            
+            //Message box  Toasts in crud action
         var type =@Html.Raw(type)
           
 

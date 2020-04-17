@@ -36,7 +36,7 @@ namespace MyApps.Controllers.Expenses
         // GET: Categories/Create
         public ActionResult Create()
         {
-            ViewBag.categories = _categorieRepo.GetCategories();
+           // ViewBag.categories = _categorieRepo.GetCategories();
             return View();
         }
 
@@ -106,6 +106,18 @@ namespace MyApps.Controllers.Expenses
             {
                 return View().WithDanger("ERREUR", e.Message); ;
             }
+        }
+        public IActionResult Find(string search)
+        {
+            IList<Category_expense> lst;
+            if (search == null)
+            {
+                lst= _categorieRepo.GetCategories();
+            }
+            else
+             lst = _categorieRepo.GetCategories(c=>c.Name_Category.ToUpper().Contains(search.ToUpper()));
+            
+            return Json(lst);
         }
     }
 }

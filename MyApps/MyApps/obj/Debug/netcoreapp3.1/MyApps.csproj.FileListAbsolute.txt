@@ -753,11 +753,6 @@ C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\obj\Debug\netcoreapp3
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Login.cshtml.g.cs
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\bin\Debug\netcoreapp3.1\libman.json
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\obj\Debug\netcoreapp3.1\Razor\Views\Chart\Index.cshtml.g.cs
-C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\obj\Debug\netcoreapp3.1\Razor\Views\CustomerPayements1\Create.cshtml.g.cs
-C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\obj\Debug\netcoreapp3.1\Razor\Views\CustomerPayements1\Delete.cshtml.g.cs
-C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\obj\Debug\netcoreapp3.1\Razor\Views\CustomerPayements1\Details.cshtml.g.cs
-C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\obj\Debug\netcoreapp3.1\Razor\Views\CustomerPayements1\Edit.cshtml.g.cs
-C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\obj\Debug\netcoreapp3.1\Razor\Views\CustomerPayements1\Index.cshtml.g.cs
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\bin\Debug\netcoreapp3.1\EntityFrameworkCore.Triggers.dll
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\bin\Debug\netcoreapp3.1\CustomException.dll
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\bin\Debug\netcoreapp3.1\CustomException.pdb

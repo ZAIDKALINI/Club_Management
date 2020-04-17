@@ -92,7 +92,7 @@ namespace MyApps.Controllers.Security
                     if (!string.IsNullOrEmpty(returnUrl))
                         return LocalRedirect(returnUrl);
                     else
-                        return RedirectToAction("Index", "home");
+                        return RedirectToAction("Index", "statistics");
                 }
                 else
                 {
