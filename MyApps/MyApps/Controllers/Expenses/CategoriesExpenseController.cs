@@ -16,7 +16,7 @@ namespace MyApps.Controllers.Expenses
     {
         CategoriesRepository _categorieRepo;
        
-        public CategoriesExpenseController(IUnitOfWork _uow)
+        public CategoriesExpenseController(IUnitOfWork<Category_expense> _uow)
         {
             _categorieRepo = new CategoriesRepository(_uow);
         }
@@ -77,7 +77,7 @@ namespace MyApps.Controllers.Expenses
 
                 return RedirectToAction(nameof(Index)).WithSuccess("Modifier", "vous avez modifié avec succès ");
             }
-            catch(ModifierException e)
+            catch(Exception e)
             {
                 return View().WithDanger("ERREUR", e.Message); 
             }

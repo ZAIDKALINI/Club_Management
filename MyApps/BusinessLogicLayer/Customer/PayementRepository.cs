@@ -9,10 +9,13 @@ namespace BusinessLogicLayer
 {
     public class PayementRepository
     {
-        IUnitOfWork UOW;
-        public PayementRepository(IUnitOfWork _UOW)
+        private IUnitOfWork<CustomerPayement> _uowPayment;
+        private IUnitOfWork<Customer> _uowCustomer;
+
+        public PayementRepository(IUnitOfWork<CustomerPayement> uowPayement, IUnitOfWork<Customer> uowCustomer)
         {
-            UOW = _UOW;
+            _uowPayment = uowPayement;
+            _uowCustomer = uowCustomer;
         }
         public void WirteDateEndPayement(CustomerPayement payement)
         {
@@ -25,12 +28,12 @@ namespace BusinessLogicLayer
             {
                 ResetRestIsEndForFalse(payement.Person_Id);
                 WirteDateEndPayement(payement);
-                UOW.PayementsRepo.InsertElement(payement);
-                UOW.Save();
+                _uowPayment.Entity.InsertElement(payement);
+                _uowPayment.Save();
                 ResetRestIsEndForTrue(payement.Person_Id);
                
               
-                UOW.Dispose();
+                _uowPayment.Dispose();
             
 
             }
@@ -44,25 +47,25 @@ namespace BusinessLogicLayer
        /// <param name="id">Customer id who make payement</param>
         public void ResetRestIsEndForFalse(int idPerson)
         {
-           var payement= UOW.PayementsRepo.GetElements(p => p.IsEnd == true&&p.Person_Id== idPerson).FirstOrDefault();
+           var payement= _uowPayment.Entity.GetElements(p => p.IsEnd == true&&p.Person_Id== idPerson).FirstOrDefault();
             if (payement != null)
             {
                 payement.IsEnd = false;
-                UOW.Save();
-                UOW.Dispose();
+                _uowPayment.Save();
+                _uowPayment.Dispose();
             }
        
         }
         public void ResetRestIsEndForTrue(int idPerson)
         {
-            var payement = UOW.PayementsRepo.GetElements(p => p.Person_Id == idPerson).OrderByDescending(p=>p.EndDate).FirstOrDefault();
+            var payement = _uowPayment.Entity.GetElements(p => p.Person_Id == idPerson).OrderByDescending(p=>p.EndDate).FirstOrDefault();
             var pay = GetElementById(payement.Id);
             if (pay != null)
             {
                 pay.IsEnd = true;
-                UOW.PayementsRepo.UpdateElement(pay);
-                UOW.Save();
-                UOW.Dispose();
+                _uowPayment.Entity.UpdateElement(pay);
+                _uowPayment.Save();
+                _uowPayment.Dispose();
             }
 
         }
@@ -79,9 +82,9 @@ namespace BusinessLogicLayer
                 throw new Exception("Element not found");
            
             int personId = payement.Person_Id;
-            UOW.PayementsRepo.DeleteElement(payement);
-            UOW.Save();
-            UOW.Dispose();
+            _uowPayment.Entity.DeleteElement(payement);
+            _uowPayment.Save();
+            _uowPayment.Dispose();
             if (payement.IsEnd)
             {
                 ResetRestIsEndForFalseForDelete(personId);
@@ -94,11 +97,11 @@ namespace BusinessLogicLayer
         /// <param name="id">person id</param>
         public void ResetRestIsEndForFalseForDelete(int? id)
         {            
-            var pay = UOW.PayementsRepo.GetElements(p => p.Person_Id ==id).OrderByDescending(p => p.EndDate).FirstOrDefault();
+            var pay = _uowPayment.Entity.GetElements(p => p.Person_Id ==id).OrderByDescending(p => p.EndDate).FirstOrDefault();
 
             pay.IsEnd = true;
-            UOW.PayementsRepo.UpdateElement(pay);
-            UOW.Save();
+            _uowPayment.Entity.UpdateElement(pay);
+            _uowPayment.Save();
             //ResetRestIsEndForTrue(pay.Person_Id);
             //UOW.Save();
 
@@ -107,9 +110,9 @@ namespace BusinessLogicLayer
 
         public CustomerPayement GetElementById(int? id)
         {
-            var payement = UOW.PayementsRepo.GetElements(c => c.Id == id).FirstOrDefault();
+            var payement = _uowPayment.Entity.GetElements(c => c.Id == id).FirstOrDefault();
           
-             payement.customer = UOW.CustomeresRepo.GetElements(c => c.Person_Id == payement.Person_Id).FirstOrDefault();
+             payement.customer = _uowCustomer.Entity.GetElements(c => c.Person_Id == payement.Person_Id).FirstOrDefault();
            
             return payement;
         }
@@ -117,20 +120,20 @@ namespace BusinessLogicLayer
       
         public IList<CustomerPayement> GetElements()
         {
-            var lst= UOW.PayementsRepo.GetElements().ToList();
+            var lst= _uowPayment.Entity.GetElements().ToList();
             foreach (var item in lst)
             {
-                item.customer = UOW.CustomeresRepo.GetElements(c => c.Person_Id == item.Person_Id).FirstOrDefault();
+                item.customer = _uowCustomer.Entity.GetElements(c => c.Person_Id == item.Person_Id).FirstOrDefault();
             }
             return lst;
         }
         public IList<CustomerPayement> GetElements(Func<CustomerPayement,bool> exp)
         {
-           var lstPayement= UOW.PayementsRepo.GetElements(exp).ToList();
+           var lstPayement= _uowPayment.Entity.GetElements(exp).ToList();
           // var lstCustomer= UOW.CustomeresRepo.GetElements().ToList();
             foreach (var item in lstPayement)
             {
-               var customer= UOW.CustomeresRepo.GetElements(c => item.Person_Id == c.Person_Id).FirstOrDefault();
+               var customer= _uowCustomer.Entity.GetElements(c => item.Person_Id == c.Person_Id).FirstOrDefault();
                 item.customer = customer;
             }
             return lstPayement;
@@ -143,9 +146,9 @@ namespace BusinessLogicLayer
             {
                 DateTime endDate = payement.Payement_date.AddMonths(payement.duration);
                 payement.EndDate = endDate;
-                UOW.PayementsRepo.UpdateElement(payement);
-                UOW.Save();
-                UOW.Dispose();
+                _uowPayment.Entity.UpdateElement(payement);
+                _uowPayment.Save();
+                _uowPayment.Dispose();
                 ResetRestIsEndForFalseForDelete(payement.Person_Id);
 
 
@@ -160,11 +163,11 @@ namespace BusinessLogicLayer
         {
             get 
             {
-                //var lst1 = (from c in UOW.PayementsRepo.GetElements() group c by c.Person_Id into newGroup select newGroup.);
-                var lst = UOW.PayementsRepo.GetElements(p => p.EndDate <= DateTime.Now && p.IsEnd==true).ToList();
+                //var lst1 = (from c in UOW.Entity.GetElements() group c by c.Person_Id into newGroup select newGroup.);
+                var lst = _uowPayment.Entity.GetElements(p => p.EndDate <= DateTime.Now && p.IsEnd==true).ToList();
                 foreach (var item in lst)
                 {
-                    item.customer = UOW.CustomeresRepo.GetElements(c => c.Person_Id == item.Person_Id).FirstOrDefault();
+                    item.customer = _uowCustomer.Entity.GetElements(c => c.Person_Id == item.Person_Id).FirstOrDefault();
                 }
                 return lst;
             }

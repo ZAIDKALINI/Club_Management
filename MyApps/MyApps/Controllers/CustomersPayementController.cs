@@ -18,20 +18,22 @@ namespace MyApps.Controllers
    
     public class CustomersPayementController : Controller
     {
-        PayementRepository _repository;
-        CustomerRepository _customerRepo;
+      
 
         IList<CustomerPayement> lst;
-        public CustomersPayementController(IUnitOfWork uow)
+        private PayementRepository _repositoryPayement;
+        private CustomerRepository _customerRepo;
+
+        public CustomersPayementController(IUnitOfWork<CustomerPayement> uowPayement, IUnitOfWork<Customer> uowCustomer)
         {
-             _repository = new PayementRepository(uow);
-             _customerRepo = new CustomerRepository(uow);
+            _repositoryPayement = new PayementRepository(uowPayement,uowCustomer);
+            _customerRepo = new CustomerRepository(uowCustomer);
            
         }
         // GET: CustomersPayement
         public ActionResult Index()
         {
-             lst = _repository.GetElements();
+             lst = _repositoryPayement.GetElements();
             ViewBag.Person_Id = new SelectList(_customerRepo.GetElements(), "Person_Id", "Last_Name");
            
             return View(lst);
@@ -41,7 +43,7 @@ namespace MyApps.Controllers
         public ActionResult Details(int id)
         {
          
-            var customerPayement=_repository.GetElementById(id);
+            var customerPayement=_repositoryPayement.GetElementById(id);
             var customer = _customerRepo.GetElementById(id);
             customerPayement.customer = customer;
         
@@ -64,8 +66,8 @@ namespace MyApps.Controllers
             try
             {
                 // TODO: Add insert logic here
-                _repository.AddNew(collection);
-                var cust  = _repository.GetElements(p => p.Person_Id == collection.Person_Id);
+                _repositoryPayement.AddNew(collection);
+                var cust  = _repositoryPayement.GetElements(p => p.Person_Id == collection.Person_Id);
               
                 return RedirectToAction(nameof(Index)).WithSuccess("Ajouter", "vous avez ajouté avec succès "); 
             }
@@ -79,7 +81,7 @@ namespace MyApps.Controllers
         public ActionResult Edit(int id)
         {
          
-            var payement = _repository.GetElementById(id);
+            var payement = _repositoryPayement.GetElementById(id);
             var cust = _customerRepo.GetElements();
             ViewData["Person_Id"] = new SelectList(cust, "Person_Id", "Last_Name", payement.Person_Id);
            
@@ -95,9 +97,9 @@ namespace MyApps.Controllers
             {
                 
                 // TODO: Add update logic here
-                _repository.UpdateElement(id,customerPayement);
+                _repositoryPayement.UpdateElement(id,customerPayement);
                 //_repository.ResetRestIsEndForTrue(customerPayement.Person_Id);
-                var payement = _repository.GetElementById(id);
+                var payement = _repositoryPayement.GetElementById(id);
                 var cust = _customerRepo.GetElements();
                 ViewData["Person_Id"] = new SelectList(cust, "Person_Id", "Last_Name", payement.Person_Id);
 
@@ -117,7 +119,7 @@ namespace MyApps.Controllers
             try
             {
                
-                _repository.Delete(Id);
+                _repositoryPayement.Delete(Id);
                 return RedirectToAction("Index").WithSuccess("Supprimer", "vous avez supprimé avec succès ");
             }
             catch (SupprimerException e)
@@ -137,7 +139,7 @@ namespace MyApps.Controllers
                 // TODO: Add update logic here
                 var cust = _customerRepo.GetElements();
             
-                var lst=  _repository.GetCustomersEndthierMonth;
+                var lst=  _repositoryPayement.GetCustomersEndthierMonth;
                 ViewBag.Person_Id = new SelectList(_customerRepo.GetElements(), "Person_Id", "Last_Name");
 
                 return View(nameof(Index),lst);

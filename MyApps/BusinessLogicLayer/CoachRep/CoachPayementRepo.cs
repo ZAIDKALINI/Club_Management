@@ -9,20 +9,25 @@ namespace BusinessLogicLayer
 {
     class CoachPayementRepo
     {
-        IUnitOfWork UOW;
-        public CoachPayementRepo(IUnitOfWork uow)
+        public IUnitOfWork<CoachPayement> _uowPayement { get; }
+
+        private IUnitOfWork<Coach> _uowCoach;
+
+        public CoachPayementRepo(IUnitOfWork<CoachPayement> uowPayement, IUnitOfWork<Coach> uowCoach)
         {
-            UOW = uow;
+            _uowPayement = uowPayement;
+            _uowCoach = uowCoach;
         }
-     
+
+
         public void AddNew(CoachPayement payement)
         {
             if (payement.Id == 0)
             {
                
-                UOW.CoachPayementRepo.InsertElement(payement);
-                UOW.Save();
-                UOW.Dispose();
+                _uowPayement.Entity.InsertElement(payement);
+                _uowPayement.Save();
+                _uowPayement.Dispose();
             }
 
             else
@@ -36,14 +41,14 @@ namespace BusinessLogicLayer
             var payement = GetElementById(id);
             if (payement == null)
                 throw new Exception("Element not found");
-            UOW.CoachPayementRepo.DeleteElement(payement);
-            UOW.Save();
-            UOW.Dispose();
+            _uowPayement.Entity.DeleteElement(payement);
+            _uowPayement.Save();
+            _uowPayement.Dispose();
         }
 
         public CoachPayement GetElementById(int? id)
         {
-            var payement = UOW.CoachPayementRepo.GetElements(c => c.Id == id);
+            var payement = _uowPayement.Entity.GetElements(c => c.Id == id);
             return payement.FirstOrDefault();
            
         }
@@ -51,7 +56,7 @@ namespace BusinessLogicLayer
 
         public IList<CoachPayement> GetElements()
         {
-            return UOW.CoachPayementRepo.GetElements().ToList();
+            return _uowPayement.Entity.GetElements().ToList();
         }
         /// <summary>
         /// find by expression linq or lambda
@@ -60,8 +65,8 @@ namespace BusinessLogicLayer
         /// <returns></returns>
         public IList<CoachPayement> GetElements(Func<CoachPayement, bool> exp)
         {
-            var lstPayement = UOW.CoachPayementRepo.GetElements(exp).ToList();
-            var lstCustomer = UOW.CoachRepo.GetElements().ToList();
+            var lstPayement = _uowPayement.Entity.GetElements(exp).ToList();
+            var lstCustomer = _uowCoach.Entity.GetElements().ToList();
             foreach (var item in lstPayement)
             {
                 var coach = lstCustomer.FirstOrDefault(c => item.Person_Id == c.Person_Id);
@@ -76,9 +81,9 @@ namespace BusinessLogicLayer
             if (id == payement.Id)
             {
               
-                UOW.CoachPayementRepo.UpdateElement(payement);
-                UOW.Save();
-                UOW.Dispose();
+                _uowPayement.Entity.UpdateElement(payement);
+                _uowPayement.Save();
+                _uowPayement.Dispose();
             }
             else
                 throw new Exception("Old id  dosen't belong to the new payement id");
