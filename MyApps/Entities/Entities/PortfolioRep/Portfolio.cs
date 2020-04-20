@@ -4,8 +4,9 @@ using System.Text;
 
 namespace Entities.Portfolio
 {
-    public class Portfolio : EntityBase
+    public class Portfolio 
     {
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime UpdateDate { get; set; }

@@ -6,10 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace BusinessLogicLayer
 {
-    public class GenericBase<TEntity> where TEntity : class
+    public class GenericBase<TEntity> : IGenericBasecs<TEntity> where TEntity : class
     {
         App_Context context;
         internal DbSet<TEntity> dbSet;
@@ -59,11 +60,11 @@ namespace BusinessLogicLayer
 
         public void UpdateElement(TEntity NewObj)
         {
-           
+          
             context.Attach(NewObj).State = EntityState.Modified;
             context.SaveChanges();
             context.Entry(NewObj).State = EntityState.Detached;
-            context.Dispose();
+            // context.Dispose();
         }
      
 

@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataAccessLayer;
+using Entities;
+using Entities.Expenses;
+using Entities.Portfolio;
+using Entities.StatisticRepo;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,7 +38,9 @@ namespace MyApps
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<App_Context>();
             services.AddControllersWithViews();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped(typeof(IUnitOfWork<>),typeof(UnitOfWork<>));
+           
+           
             services.AddMvc(config => {
                 var policy = new AuthorizationPolicyBuilder()
                                 .RequireAuthenticatedUser()

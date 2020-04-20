@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BusinessLogicLayer;
 using CustomException;
 using DataAccessLayer;
+using Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyApps.Alerts;
@@ -14,7 +15,7 @@ namespace MyApps.Controllers
     public class CoachesController : Controller
     {
         CoachRepository _repository;
-        public CoachesController(IUnitOfWork uow)
+        public CoachesController(IUnitOfWork<Coach> uow)
         {
             _repository = new CoachRepository(uow);
         }
