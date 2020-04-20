@@ -9,8 +9,8 @@ namespace BusinessLogicLayer
 {
     class CoachPayementRepo
     {
-        IUnitOfWork<CoachPayement> UOW;
-        public CoachPayementRepo(IUnitOfWork<CoachPayement> uow)
+        IUnitOfWork UOW;
+        public CoachPayementRepo(IUnitOfWork uow)
         {
             UOW = uow;
         }
@@ -20,9 +20,9 @@ namespace BusinessLogicLayer
             if (payement.Id == 0)
             {
                
-                UOW.Entity.InsertElement(payement);
+                UOW.CoachPayementRepo.InsertElement(payement);
                 UOW.Save();
-        
+                UOW.Dispose();
             }
 
             else
@@ -36,14 +36,14 @@ namespace BusinessLogicLayer
             var payement = GetElementById(id);
             if (payement == null)
                 throw new Exception("Element not found");
-            UOW.Entity.DeleteElement(payement);
+            UOW.CoachPayementRepo.DeleteElement(payement);
             UOW.Save();
-    
+            UOW.Dispose();
         }
 
         public CoachPayement GetElementById(int? id)
         {
-            var payement = UOW.Entity.GetElements(c => c.Id == id);
+            var payement = UOW.CoachPayementRepo.GetElements(c => c.Id == id);
             return payement.FirstOrDefault();
            
         }
@@ -51,7 +51,7 @@ namespace BusinessLogicLayer
 
         public IList<CoachPayement> GetElements()
         {
-            return UOW.Entity.GetElements().ToList();
+            return UOW.CoachPayementRepo.GetElements().ToList();
         }
         /// <summary>
         /// find by expression linq or lambda
@@ -60,14 +60,13 @@ namespace BusinessLogicLayer
         /// <returns></returns>
         public IList<CoachPayement> GetElements(Func<CoachPayement, bool> exp)
         {
-            var lstPayement = UOW.Entity.GetElements(exp).ToList();
-
-            //var lstCustomer = UOW.CoachRepo.GetElements().ToList();
-            //foreach (var item in lstPayement)
-            //{
-            //    var coach = lstCustomer.FirstOrDefault(c => item.Person_Id == c.Person_Id);
-            //    item.Coach = coach;
-            //}
+            var lstPayement = UOW.CoachPayementRepo.GetElements(exp).ToList();
+            var lstCustomer = UOW.CoachRepo.GetElements().ToList();
+            foreach (var item in lstPayement)
+            {
+                var coach = lstCustomer.FirstOrDefault(c => item.Person_Id == c.Person_Id);
+                item.Coach = coach;
+            }
             return lstPayement;
         }
 
@@ -77,9 +76,9 @@ namespace BusinessLogicLayer
             if (id == payement.Id)
             {
               
-                UOW.Entity.UpdateElement(payement);
+                UOW.CoachPayementRepo.UpdateElement(payement);
                 UOW.Save();
-   
+                UOW.Dispose();
             }
             else
                 throw new Exception("Old id  dosen't belong to the new payement id");

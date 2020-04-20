@@ -9,20 +9,20 @@ namespace BusinessLogicLayer.ExpenseRepo
 {
     public class CategoriesRepository
     {
-        IUnitOfWork<Category_expense> _uow;
-        public CategoriesRepository(IUnitOfWork<Category_expense> uow)
+        IUnitOfWork _uow;
+        public CategoriesRepository(IUnitOfWork uow)
         {
             _uow = uow;
         }
         public void AddNew(Category_expense category)
         {
-            _uow.Entity.InsertElement(category);
+            _uow.ExpenseCategorieRepo.InsertElement(category);
             _uow.Save();
-           
+            _uow.Dispose();
         }
         public Category_expense FindById(int id)
         {
-            var cat = _uow.Entity.GetElementByID(id);
+            var cat = _uow.ExpenseCategorieRepo.GetElementByID(id);
             return cat;
         }
         public void Delete(int id)
@@ -30,27 +30,27 @@ namespace BusinessLogicLayer.ExpenseRepo
             var cat = FindById(id);
             if (cat == null)
                 throw new Exception("Not found");
-            _uow.Entity.DeleteElement(cat);
+            _uow.ExpenseCategorieRepo.DeleteElement(cat);
             _uow.Save();
-           
+            _uow.Dispose();
         }
         public void Edit(int id, Category_expense category)
         {
             var cat = FindById(id);
             if(cat==null)
             throw new Exception("Not found");
-            _uow.Entity.UpdateElement(category);
+            _uow.ExpenseCategorieRepo.UpdateElement(category);
             _uow.Save();
-           
+            _uow.Dispose();
         }
         public IList<Category_expense> GetCategories()
         {
-           return _uow.Entity.GetElements().ToList();
+           return _uow.ExpenseCategorieRepo.GetElements().ToList();
                 
         }
         public IList<Category_expense> GetCategories(Func <Category_expense,bool> exp)
         {
-           var lst= _uow.Entity.GetElements().Where(exp).ToList();
+           var lst= _uow.ExpenseCategorieRepo.GetElements().Where(exp).ToList();
             return lst;
 
         }

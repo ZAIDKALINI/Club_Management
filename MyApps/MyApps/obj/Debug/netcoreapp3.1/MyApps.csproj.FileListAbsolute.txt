@@ -768,5 +768,3 @@ C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\obj\Debug\netcoreapp3
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\obj\Debug\netcoreapp3.1\Razor\Views\Portfolio\Index.cshtml.g.cs
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\obj\Debug\netcoreapp3.1\Razor\Views\Portfolio\Create.cshtml.g.cs
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\obj\Debug\netcoreapp3.1\Razor\Views\Portfolio\Edit.cshtml.g.cs
-C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\bin\Debug\netcoreapp3.1\Castle.Core.dll
-C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Proxies.dll
