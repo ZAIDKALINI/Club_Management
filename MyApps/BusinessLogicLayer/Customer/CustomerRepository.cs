@@ -9,8 +9,8 @@ namespace BusinessLogicLayer
 {
     public class CustomerRepository
     {
-        IUnitOfWork<Customer> UOW;
-        public CustomerRepository(IUnitOfWork<Customer> _UOW)
+        IUnitOfWork UOW;
+        public CustomerRepository(IUnitOfWork _UOW)
         {
             UOW = _UOW;
         }
@@ -19,9 +19,9 @@ namespace BusinessLogicLayer
             if (customer.Person_Id == 0)
             {
                 customer.DateInscri = DateTime.Now;
-                UOW.Entity.InsertElement(customer);
+                UOW.CustomeresRepo.InsertElement(customer);
                 UOW.Save();
-            
+                UOW.Dispose();
             }
 
             else
@@ -35,15 +35,15 @@ namespace BusinessLogicLayer
             var customer = GetElementById(id);
             if (customer == null)
                 throw new Exception("Element not found");
-            UOW.Entity.DeleteElement(customer);
+            UOW.CustomeresRepo.DeleteElement(customer);
             UOW.Save();
-         
+            UOW.Dispose();
         }
 
         public Customer GetElementById(int? id)
         {
-            var customer = UOW.Entity.GetElementByID((int)id);
-            return customer;
+            var customer = UOW.CustomeresRepo.GetElements(c => c.Person_Id == id);
+            return customer.FirstOrDefault();
         }
 
 
@@ -53,11 +53,11 @@ namespace BusinessLogicLayer
         /// <returns></returns>
         public IList<Customer> GetElements()
         {
-            return UOW.Entity.GetElements().ToList();
+            return UOW.CustomeresRepo.GetElements().ToList();
         }
         public IEnumerable<Customer> GetElements(Func<Customer, bool> expression)
         {
-           var lst= UOW.Entity.GetElements(expression);
+           var lst= UOW.CustomeresRepo.GetElements(expression);
             return lst;
 
         }
@@ -105,9 +105,9 @@ namespace BusinessLogicLayer
                 //set date inscri 
                 var cus = GetElementById(id);
                 customer.DateInscri = cus.DateInscri;
-                UOW.Entity.UpdateElement(customer);
+                UOW.CustomeresRepo.UpdateElement(customer);
                 UOW.Save();
-               
+                UOW.Dispose();
             }
             else
                 throw new Exception("Id category dosen't belong to the new category");

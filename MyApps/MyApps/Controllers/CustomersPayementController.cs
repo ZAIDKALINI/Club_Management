@@ -22,10 +22,10 @@ namespace MyApps.Controllers
         CustomerRepository _customerRepo;
 
         IList<CustomerPayement> lst;
-        public CustomersPayementController(IUnitOfWork<CustomerPayement> uowPayement,IUnitOfWork<Customer>uowCustomer)
+        public CustomersPayementController(IUnitOfWork uow)
         {
-             _repository = new PayementRepository(uowPayement, uowCustomer);
-             _customerRepo = new CustomerRepository(uowCustomer);
+             _repository = new PayementRepository(uow);
+             _customerRepo = new CustomerRepository(uow);
            
         }
         // GET: CustomersPayement

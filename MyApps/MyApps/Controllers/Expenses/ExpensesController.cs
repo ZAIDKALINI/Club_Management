@@ -14,10 +14,10 @@ namespace MyApps.Controllers.Expenses
     {
         ExpensesRepository _expenseRepo;
         CategoriesRepository _categorieExpense;
-        public ExpensesController(IUnitOfWork<Expense> uowExpense, IUnitOfWork<Category_expense> uowCategorie)
+        public ExpensesController(IUnitOfWork _uow)
         {
-             _expenseRepo = new ExpensesRepository(uowExpense, uowCategorie);
-             _categorieExpense = new CategoriesRepository(uowCategorie);
+             _expenseRepo = new ExpensesRepository(_uow);
+             _categorieExpense = new CategoriesRepository(_uow);
         }
         // GET: Expenses
         public ActionResult Index()

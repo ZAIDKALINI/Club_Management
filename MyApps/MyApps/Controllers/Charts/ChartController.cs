@@ -5,8 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using BusinessLogicLayer.Statistics_ExpenseRepo;
 using DataAccessLayer;
-using Entities;
-using Entities.Expenses;
 using Entities.StatisticRepo;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +14,9 @@ namespace MyApps.Controllers
     {
         Reporting reporting;
         List<Reports> reports;
-        public ChartController(IUnitOfWork<Expense> uowExpense, IUnitOfWork<CustomerPayement> uowIncome)
+        public ChartController(IUnitOfWork uow)
         {
-            reporting = new Reporting(uowExpense,uowIncome);
+            reporting = new Reporting(uow);
             reports = new List<Reports>();
         }
         public IActionResult Index()
