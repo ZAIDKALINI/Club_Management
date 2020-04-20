@@ -34,7 +34,7 @@ namespace MyApps
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<App_Context>();
             services.AddControllersWithViews();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped(typeof(IUnitOfWork<>),typeof(UnitOfWork<>));
             services.AddMvc(config => {
                 var policy = new AuthorizationPolicyBuilder()
                                 .RequireAuthenticatedUser()
