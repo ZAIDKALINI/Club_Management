@@ -24,8 +24,8 @@ C:\Users\HP\Documents\GitHub\Club_Management-598bfa793c21201e2a63fbb1b1eaa11f0b0
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\Entities\bin\Debug\netstandard2.0\Entities.deps.json
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\Entities\bin\Debug\netstandard2.0\Entities.dll
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\Entities\bin\Debug\netstandard2.0\Entities.pdb
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\Entities\obj\Debug\netstandard2.0\Entities.csprojAssemblyReference.cache
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\Entities\obj\Debug\netstandard2.0\Entities.AssemblyInfoInputs.cache
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\Entities\obj\Debug\netstandard2.0\Entities.AssemblyInfo.cs
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\Entities\obj\Debug\netstandard2.0\Entities.dll
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\Entities\obj\Debug\netstandard2.0\Entities.pdb
-C:\Users\HP\Documents\GitHub\Club_Management\MyApps\Entities\obj\Debug\netstandard2.0\Entities.csprojAssemblyReference.cache

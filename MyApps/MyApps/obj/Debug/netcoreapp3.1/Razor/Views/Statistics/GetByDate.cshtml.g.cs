@@ -27,7 +27,7 @@ using MyApps.Models;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"984d821547676ee28c662f2d62acfe0d51913ae4", @"/Views/Statistics/GetByDate.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"395ba230260e5a70cc402d960fb8f71197c81e6f", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"92babec59efb94aaf7278b725723179c0316171f", @"/Views/_ViewImports.cshtml")]
     public class Views_Statistics_GetByDate : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<IEnumerable<Entities.StatisticRepo.Reports>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "PrintReport", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);

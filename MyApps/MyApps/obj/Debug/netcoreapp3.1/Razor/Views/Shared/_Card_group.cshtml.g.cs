@@ -27,7 +27,7 @@ using MyApps.Models;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"ed0b2b23168ca32048a9b04aa7a4bda6c75c851a", @"/Views/Shared/_Card_group.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"395ba230260e5a70cc402d960fb8f71197c81e6f", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"92babec59efb94aaf7278b725723179c0316171f", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared__Card_group : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

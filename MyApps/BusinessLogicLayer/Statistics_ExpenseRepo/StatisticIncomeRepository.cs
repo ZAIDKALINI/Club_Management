@@ -1,5 +1,4 @@
 ﻿using DataAccessLayer;
-using Entities;
 using Entities.Incomes;
 using Entities.StatisticRepo;
 using System;
@@ -11,11 +10,10 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
 {
     public class StatisticIncomeRepository
     {
-        private IUnitOfWork<CustomerPayement> _repository;
-
-        public StatisticIncomeRepository(IUnitOfWork<CustomerPayement> uow)
+        PayementRepository _repository;
+        public StatisticIncomeRepository(IUnitOfWork uow)
         {
-            _repository = uow;
+            _repository = new PayementRepository(uow);
         }
         DateTime ConvertDate(string date)
         {
@@ -41,7 +39,7 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
             {
                 var firstDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 var lastDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
-                var sum = _repository.Entity.GetElements(s => s.Payement_date >= firstDate && s.Payement_date <= lastDate).Select(s => s.Price).Sum();
+                var sum = _repository.GetElements(s => s.Payement_date >= firstDate && s.Payement_date <= lastDate).Select(s => s.Price).Sum();
                 return sum;
 
             }
@@ -49,7 +47,7 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
             // get expense between 2 date if parameters not null
             var D1 = ConvertDate(d1);
             var D2 = ConvertDate(d2);
-            var sum1 = _repository.Entity.GetElements(s => s.Payement_date >= D1 && s.Payement_date <= D2).Select(s=>s.Price).Sum();
+            var sum1 = _repository.GetElements(s => s.Payement_date >= D1 && s.Payement_date <= D2).Select(s=>s.Price).Sum();
            
             return sum1;
 
@@ -86,7 +84,7 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
         int getCountCustomerbyDate(DateTime d1,DateTime d2)
         {
            
-            var count1 = _repository.Entity.GetElements().Where(s => s.Payement_date >= d1 && s.Payement_date <= d2).Count();
+            var count1 = _repository.GetElements().Where(s => s.Payement_date >= d1 && s.Payement_date <= d2).Count();
             return count1;
         }
 

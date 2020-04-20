@@ -1,7 +1,5 @@
 ﻿using BusinessLogicLayer.Statistics_ExpenseRepo;
 using DataAccessLayer;
-using Entities;
-using Entities.Expenses;
 using Entities.StatisticRepo;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -14,11 +12,11 @@ namespace MyApps.Controllers.Statistique
         StatisticExpenseRepository _repositoryExpense;
         StatisticIncomeRepository _repositoryIncome;
         Reporting rpt;
-        public StatisticsController(IUnitOfWork<Expense> uowExpense, IUnitOfWork<CustomerPayement> uowPayement)
+        public StatisticsController(IUnitOfWork uow)
         {
-             _repositoryExpense = new StatisticExpenseRepository(uowExpense);
-             _repositoryIncome = new StatisticIncomeRepository(uowPayement);
-             rpt = new Reporting(uowExpense,uowPayement);
+             _repositoryExpense = new StatisticExpenseRepository(uow);
+             _repositoryIncome = new StatisticIncomeRepository(uow);
+             rpt = new Reporting(uow);
 
         }
         // GET: Statistics

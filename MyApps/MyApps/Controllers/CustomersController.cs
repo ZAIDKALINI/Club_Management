@@ -17,10 +17,10 @@ namespace MyApps.Controllers
         CustomerRepository _repositoryCustomer;
         PayementRepository _repositoryPayement;
         IList<Customer> lst;
-        public CustomersController(IUnitOfWork<Customer> uowCustomer,IUnitOfWork<CustomerPayement> uowPayement)
+        public CustomersController(IUnitOfWork uow)
         {
-          _repositoryCustomer = new CustomerRepository(uowCustomer);
-          _repositoryPayement = new PayementRepository(uowPayement, uowCustomer);
+          _repositoryCustomer = new CustomerRepository(uow);
+          _repositoryPayement = new PayementRepository(uow);
         }
         // GET: Customers
         public IActionResult Index()

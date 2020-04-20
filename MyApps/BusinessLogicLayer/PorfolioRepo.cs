@@ -9,8 +9,8 @@ namespace BusinessLogicLayer
 {
     public class PorfolioRepo
     {
-        IUnitOfWork<Portfolio> UOW;
-        public PorfolioRepo(IUnitOfWork<Portfolio> _UOW)
+        IUnitOfWork UOW;
+        public PorfolioRepo(IUnitOfWork _UOW)
         {
             UOW = _UOW;
         }
@@ -19,7 +19,7 @@ namespace BusinessLogicLayer
             if (portfolio.Id == 0)
             {
                 portfolio.UpdateDate = DateTime.Now;
-                UOW.Entity.InsertElement(portfolio);
+                UOW.PortfolioRep.InsertElement(portfolio);
                 UOW.Save();
                 UOW.Dispose();
             }
@@ -35,14 +35,14 @@ namespace BusinessLogicLayer
             var portfolio = GetElementById(id);
             if (portfolio == null)
                 throw new Exception("Element not found");
-            UOW.Entity.DeleteElement(portfolio);
+            UOW.PortfolioRep.DeleteElement(portfolio);
             UOW.Save();
             UOW.Dispose();
         }
 
         public Portfolio GetElementById(int? id)
         {
-            var portfolio = UOW.Entity.GetElements(c => c.Id == id);
+            var portfolio = UOW.PortfolioRep.GetElements(c => c.Id == id);
             return portfolio.FirstOrDefault();
         }
 
@@ -53,11 +53,11 @@ namespace BusinessLogicLayer
         /// <returns></returns>
         public IList<Portfolio> GetElements()
         {
-            return UOW.Entity.GetElements().ToList();
+            return UOW.PortfolioRep.GetElements().ToList();
         }
         public IEnumerable<Portfolio> GetElements(Func<Portfolio, bool> expression)
         {
-            var lst = UOW.Entity.GetElements(expression);
+            var lst = UOW.PortfolioRep.GetElements(expression);
             return lst;
 
         }
@@ -104,7 +104,7 @@ namespace BusinessLogicLayer
             {
                 
                 portfolio.UpdateDate = DateTime.Now;
-                UOW.Entity.UpdateElement(portfolio);
+                UOW.PortfolioRep.UpdateElement(portfolio);
                 UOW.Save();
                 UOW.Dispose();
             }
