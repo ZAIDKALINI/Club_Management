@@ -10,12 +10,14 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
 {
     public class Reporting
     {
-        IUnitOfWork uow;
+        IUnitOfWork<Expense> _expense;
+        IUnitOfWork<CustomerPayement> _income;
         List<Reports> reports;
-        public Reporting(IUnitOfWork _uow)
+        public Reporting(IUnitOfWork<Expense> expense,IUnitOfWork<CustomerPayement> income)
         {
             reports = new List<Reports>();
-            uow = _uow;
+            _expense = expense;
+            _income = income;
         }
         /// <summary>
         /// Get report for new customer
@@ -23,8 +25,8 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
         /// <returns></returns>
         public IList<Reports> getDailyReport()
         {
-            var lstC = uow.ExpenseRepo.GetElements(r => r.ExpenseDate == DateTime.Now);
-            var lstD = uow.PayementsRepo.GetElements(r => r.Payement_date == DateTime.Now);
+            var lstC = _expense.Entity.GetElements(r => r.ExpenseDate == DateTime.Now);
+            var lstD = _income.Entity.GetElements(r => r.Payement_date == DateTime.Now);
             //Insert Creditor
             foreach (var item in lstC)
             {
@@ -61,8 +63,8 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
                 getMonthlyReport();
             else if (from1 != null && to1 != null)
             {
-                var lstCriditor = uow.ExpenseRepo.GetElements(r => r.ExpenseDate >= from1 && r.ExpenseDate <= to1);
-                var lstDebitor = uow.PayementsRepo.GetElements(r => r.Payement_date >= from1 && r.Payement_date <= to1);
+                var lstCriditor = _expense.Entity.GetElements(r => r.ExpenseDate >= from1 && r.ExpenseDate <= to1);
+                var lstDebitor = _income.Entity.GetElements(r => r.Payement_date >= from1 && r.Payement_date <= to1);
                 fillList(lstCriditor, lstDebitor);
             }
 
@@ -73,8 +75,8 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
         {
             var firstDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             var lastDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
-            var lstCriditor = uow.ExpenseRepo.GetElements(r => r.ExpenseDate >= firstDate && r.ExpenseDate <= lastDate);
-            var lstDebitor = uow.PayementsRepo.GetElements(r => r.Payement_date >= firstDate && r.Payement_date <= lastDate);
+            var lstCriditor = _expense.Entity.GetElements(r => r.ExpenseDate >= firstDate && r.ExpenseDate <= lastDate);
+            var lstDebitor = _income.Entity.GetElements(r => r.Payement_date >= firstDate && r.Payement_date <= lastDate);
             fillList(lstCriditor, lstDebitor);
 
 

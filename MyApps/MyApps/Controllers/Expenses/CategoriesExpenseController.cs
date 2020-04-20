@@ -16,7 +16,7 @@ namespace MyApps.Controllers.Expenses
     {
         CategoriesRepository _categorieRepo;
        
-        public CategoriesExpenseController(IUnitOfWork _uow)
+        public CategoriesExpenseController(IUnitOfWork<Category_expense> _uow)
         {
             _categorieRepo = new CategoriesRepository(_uow);
         }

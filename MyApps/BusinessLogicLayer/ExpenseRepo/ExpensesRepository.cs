@@ -9,10 +9,12 @@ namespace BusinessLogicLayer.ExpenseRepo
 {
     public class ExpensesRepository
     {
-        IUnitOfWork UOW;
-        public ExpensesRepository(IUnitOfWork _uow)
+        IUnitOfWork<Expense> _uowExpense;
+        IUnitOfWork<Category_expense> _uowCategory;
+        public ExpensesRepository(IUnitOfWork<Expense> uowExpense, IUnitOfWork<Category_expense> uowCategory)
         {
-            UOW = _uow;
+            _uowExpense = uowExpense;
+            _uowCategory = uowCategory;
         }
        
       
@@ -21,9 +23,9 @@ namespace BusinessLogicLayer.ExpenseRepo
             if (expense.Id_Expense == 0)
             {
 
-                UOW.ExpenseRepo.InsertElement(expense);
-                UOW.Save();
-                UOW.Dispose();
+                _uowExpense.Entity.InsertElement(expense);
+                _uowExpense.Save();
+            
             }
 
             else
@@ -37,23 +39,23 @@ namespace BusinessLogicLayer.ExpenseRepo
             var expense = GetElementById(id);
             if (expense == null)
                 throw new Exception("Element not found");
-            UOW.ExpenseRepo.DeleteElement(expense);
-            UOW.Save();
-            UOW.Dispose();
+            _uowExpense.Entity.DeleteElement(expense);
+            _uowExpense.Save();
+           
         }
 
         public Expense GetElementById(int? id)
         {
-            var expense = UOW.ExpenseRepo.GetElements(c => c.Id_Expense == id).FirstOrDefault();
+            var expense = _uowExpense.Entity.GetElements(c => c.Id_Expense == id).FirstOrDefault();
             //get category for current expense
-            var category=GetCategoryForExpense(expense);
-           expense= SetCategoryForExpense(expense, category);
+            var category = GetCategoryForExpense(expense);
+            expense = SetCategoryForExpense(expense, category);
             return expense;
         }
 
         Category_expense GetCategoryForExpense(Expense expense)
         {
-            var category = UOW.ExpenseCategorieRepo.GetElements(c => c.Id_Category == expense.Id_Category).FirstOrDefault();
+            var category = _uowCategory.Entity.GetElements(c => c.Id_Category == expense.Id_Category).FirstOrDefault();
             return category;
         }
         Expense SetCategoryForExpense(Expense expense,Category_expense category_Expense)
@@ -64,18 +66,18 @@ namespace BusinessLogicLayer.ExpenseRepo
 
         public IList<Expense> GetElements()
         {
-            var lstExp= UOW.ExpenseRepo.GetElements().ToList();
+            var lstExp= _uowExpense.Entity.GetElements().ToList();
             foreach (var item in lstExp)
             {
-               item.category=  GetCategoryForExpense(item);
+                item.category = GetCategoryForExpense(item);
             }
             return lstExp;
 
         }
         public IList<Expense> GetElements(Func<Expense, bool> exp)
         {
-            var lstexpense = UOW.ExpenseRepo.GetElements(exp).ToList();
-            var lstCategorie = UOW.ExpenseCategorieRepo.GetElements().ToList();
+            var lstexpense = _uowExpense.Entity.GetElements(exp).ToList();
+            var lstCategorie = _uowCategory.Entity.GetElements().ToList();
             foreach (var item in lstexpense)
             {
                 var categorie = lstCategorie.FirstOrDefault(c => item.Id_Category == c.Id_Category);
@@ -89,10 +91,10 @@ namespace BusinessLogicLayer.ExpenseRepo
         {
             if (id == expense.Id_Expense)
             {
-                expense.category = UOW.ExpenseCategorieRepo.GetElements(c => c.Id_Category == expense.Id_Category).FirstOrDefault();
-                UOW.ExpenseRepo.UpdateElement(expense);
-                UOW.Save();
-                UOW.Dispose();
+                //expense.category = UOW.ExpenseCategorieRepo.GetElements(c => c.Id_Category == expense.Id_Category).FirstOrDefault();
+                _uowExpense.Entity.UpdateElement(expense);
+                _uowExpense.Save();
+            
             }
             else
                 throw new Exception("Id category dosen't belong to the new category");

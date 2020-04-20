@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using BusinessLogicLayer;
 using DataAccessLayer;
+using Entities;
+using Entities.Expenses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MyApps.Controllers.Charts
@@ -12,9 +14,9 @@ namespace MyApps.Controllers.Charts
     {
         List<ChartClient> reports;
         CustomerRepository _rep;
-        public ClientsChartController(IUnitOfWork uow)
+        public ClientsChartController(IUnitOfWork<Customer> uowCustomer)
         {
-            _rep = new CustomerRepository(uow);
+            _rep = new CustomerRepository(uowCustomer);
             reports = new List<ChartClient>();
         }
         public IActionResult Index()

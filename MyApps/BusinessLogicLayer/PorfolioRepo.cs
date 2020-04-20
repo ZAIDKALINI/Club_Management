@@ -9,19 +9,19 @@ namespace BusinessLogicLayer
 {
     public class PorfolioRepo
     {
-        IUnitOfWork UOW;
-        public PorfolioRepo(IUnitOfWork _UOW)
+        IUnitOfWork<Portfolio> _portfolio;
+        public PorfolioRepo(IUnitOfWork<Portfolio> portfolio)
         {
-            UOW = _UOW;
+            _portfolio = portfolio;
         }
         public void AddNew(Portfolio portfolio)
         {
             if (portfolio.Id == 0)
             {
                 portfolio.UpdateDate = DateTime.Now;
-                UOW.PortfolioRep.InsertElement(portfolio);
-                UOW.Save();
-                UOW.Dispose();
+                _portfolio.Entity.InsertElement(portfolio);
+                _portfolio.Save();
+              
             }
 
             else
@@ -35,14 +35,14 @@ namespace BusinessLogicLayer
             var portfolio = GetElementById(id);
             if (portfolio == null)
                 throw new Exception("Element not found");
-            UOW.PortfolioRep.DeleteElement(portfolio);
-            UOW.Save();
-            UOW.Dispose();
+            _portfolio.Entity.DeleteElement(portfolio);
+            _portfolio.Save();
+          
         }
 
         public Portfolio GetElementById(int? id)
         {
-            var portfolio = UOW.PortfolioRep.GetElements(c => c.Id == id);
+            var portfolio = _portfolio.Entity.GetElements(c => c.Id == id);
             return portfolio.FirstOrDefault();
         }
 
@@ -53,11 +53,11 @@ namespace BusinessLogicLayer
         /// <returns></returns>
         public IList<Portfolio> GetElements()
         {
-            return UOW.PortfolioRep.GetElements().ToList();
+            return _portfolio.Entity.GetElements().ToList();
         }
         public IEnumerable<Portfolio> GetElements(Func<Portfolio, bool> expression)
         {
-            var lst = UOW.PortfolioRep.GetElements(expression);
+            var lst = _portfolio.Entity.GetElements(expression);
             return lst;
 
         }
@@ -104,9 +104,9 @@ namespace BusinessLogicLayer
             {
                 
                 portfolio.UpdateDate = DateTime.Now;
-                UOW.PortfolioRep.UpdateElement(portfolio);
-                UOW.Save();
-                UOW.Dispose();
+                _portfolio.Entity.UpdateElement(portfolio);
+                _portfolio.Save();
+               
             }
             else
                 throw new Exception("Id category dosen't belong to the new category");

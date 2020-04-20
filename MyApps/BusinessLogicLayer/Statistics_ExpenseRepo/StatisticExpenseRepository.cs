@@ -10,10 +10,10 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
 {
     public class StatisticExpenseRepository
     {
-        IUnitOfWork uow;
-        public StatisticExpenseRepository(IUnitOfWork _uow)
+        IUnitOfWork<Expense> _expense;
+        public StatisticExpenseRepository(IUnitOfWork<Expense> expense)
         {
-            uow = _uow;
+            _expense = expense;
         }
        
         DateTime ConvertDate(string date)
@@ -35,14 +35,14 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
             {
                 var firstDate= new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 var lastDate= new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
-                var sum = uow.ExpenseRepo.GetElements().Where(s => s.ExpenseDate >= firstDate && s.ExpenseDate <= lastDate).Select(s => s.Price).Sum();
+                var sum = _expense.Entity.GetElements().Where(s => s.ExpenseDate >= firstDate && s.ExpenseDate <= lastDate).Select(s => s.Price).Sum();
                 return sum;
                 
             }
             // get expense between 2 date if parameters not null
             var D1 = ConvertDate(d1);
             var D2 = ConvertDate(d2);
-            var sum1= uow.ExpenseRepo.GetElements().Where(s => s.ExpenseDate >= D1 && s.ExpenseDate <= D2).Select(s => s.Price).Sum();
+            var sum1= _expense.Entity.GetElements().Where(s => s.ExpenseDate >= D1 && s.ExpenseDate <= D2).Select(s => s.Price).Sum();
             return sum1;
 
         }
@@ -52,14 +52,14 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
             {
                 var firstDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 var lastDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
-                var count = uow.ExpenseRepo.GetElements().Where(s => s.ExpenseDate >= firstDate && s.ExpenseDate <= lastDate).Select(s => s.Price).Count();
+                var count = _expense.Entity.GetElements().Where(s => s.ExpenseDate >= firstDate && s.ExpenseDate <= lastDate).Select(s => s.Price).Count();
                 return count;
 
             }
             // get expense between 2 date if parameters not null
             var D1 = ConvertDate(d1);
             var D2 = ConvertDate(d2);
-            var count1 = uow.ExpenseRepo.GetElements().Where(s => s.ExpenseDate >= D1 && s.ExpenseDate <= D2).Select(s => s.Price).Count();
+            var count1 = _expense.Entity.GetElements().Where(s => s.ExpenseDate >= D1 && s.ExpenseDate <= D2).Select(s => s.Price).Count();
             return count1;
         }
     }

@@ -5,10 +5,8 @@ using System.Text;
 
 namespace Entities.Expenses
 {
-    public class Category_expense
+    public class Category_expense:CategoryBase
     {
-        [Key]
-        public int Id_Category { get; set; }
-        public string Name_Category { get; set; }
+       
     }
 }

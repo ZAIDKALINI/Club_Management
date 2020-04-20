@@ -22,9 +22,9 @@ namespace MyApps.Controllers.Portefolio
         private readonly IHostingEnvironment _hosting;
 
         [Obsolete]
-        public PortfolioController(IUnitOfWork uow, IHostingEnvironment hosting)
+        public PortfolioController(IUnitOfWork<Portfolio> uowPortfolio, IHostingEnvironment hosting)
         {
-            _portfolio = new PorfolioRepo(uow);
+            _portfolio = new PorfolioRepo(uowPortfolio);
             _hosting = hosting;
         }
         [AllowAnonymous]
