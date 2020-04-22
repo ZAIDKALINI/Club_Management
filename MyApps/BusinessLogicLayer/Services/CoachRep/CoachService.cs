@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicLayer
 {
-    public class CoachRepository
+    public class CoachService
     {
         IUnitOfWork<Coach> _uow;
-        public CoachRepository(IUnitOfWork<Coach> uow)
+        public CoachService(IUnitOfWork<Coach> uow)
         {
             _uow = uow;
         }

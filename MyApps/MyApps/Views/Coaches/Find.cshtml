@@ -4,48 +4,87 @@
     ViewData["Title"] = "Find";
     Layout = null;
 }
-<div class="table-responsive">
-<table id="example2" class="table table-hover table-bordered  text-center">
-    <thead class="bg-dark">
-        <tr>
+    <div class="container">
+        <div class="row">
+            <div class="col-12  mt-1">
+                <div class="card ">
+                    <div class="card-header bg-dark">
+                        <h3 class="card-title">Les Entraineurs</h3>
+                        <!-- Button trigger modal -->
+                        <a asp-action="Create" class="btn btn-warning float-right" title="Ajouter nouveau payement"><i class="fas fa-user-plus"></i></a>
+                    </div>
+                    <!--Input Search-->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-4"> </div>
 
-            <th>
-                @Html.DisplayName("Name")
-            </th>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Trouver</label>
+                                    <input type="text" name="search" id="txtSearch" class="form-control" placeholder="Ecrire..." />
+                                </div>
+                            </div>
 
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body" id="demo">
+                        <div class="table-responsive">
+                            <table id="example2" class="table table-hover table-bordered  text-center">
+                                <thead class="bg-dark">
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Ref)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.First_Name)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Last_Name)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Telephone)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.DateInscri)
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Ref)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.First_Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Last_Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Telephone)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.DateInscri)
+                                            </td>
+                                            <td>
+                                                <a asp-action="Edit" asp-route-id="@item.Person_Id" class="btn bg-success btn-sm" title="Modifier"><i class="fa fa-edit"></i></a>
 
-            <th>
-                @Html.DisplayNameFor(model => model.Telephone)
-            </th>
-            <th>
-                @Html.DisplayName("Date inscrption")
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
+                                                <a asp-action="Delete" asp-route-id="@item.Person_Id" class="btn bg-danger btn-sm" title="Supprimer"><i class="fa fa-trash"> </i></a>
+                                            </td>
+                                        </tr>
+                                    }
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.First_Name)  @Html.DisplayFor(modelItem => item.Last_Name)
-                </td>
+                                </tbody>
+                            </table>
+                        </div>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Telephone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateInscri)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Person_Id" class="btn bg-success btn-sm" title="Modifier"><i class="fa fa-edit"></i></a>
-             
-                    <a asp-action="Delete" asp-route-id="@item.Person_Id" class="btn bg-danger btn-sm" title="Supprimer" ><i class="fa fa-trash"> </i></a>
-                </td>
-            </tr>
-        }
+                    </div>
+                </div>
+            </div>
 
-    </tbody>
-</table>
+        </div>
     </div>

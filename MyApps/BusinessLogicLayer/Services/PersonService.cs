@@ -1,5 +1,5 @@
 ﻿using DataAccessLayer;
-using Entities.Portfolio;
+using Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,43 +7,44 @@ using System.Text;
 
 namespace BusinessLogicLayer
 {
-    public class PorfolioRepo
+    class PersonService 
     {
-        IUnitOfWork<Portfolio> UOW;
-        public PorfolioRepo(IUnitOfWork<Portfolio> _UOW)
+        IUnitOfWork<Customer> UOW;
+        public PersonService(IUnitOfWork<Customer> _UOW)
         {
             UOW = _UOW;
         }
-        public void AddNew(Portfolio portfolio)
+        public virtual void AddNew(Customer person)
         {
-            if (portfolio.Id == 0)
+            if (person.Person_Id == 0)
             {
-                portfolio.UpdateDate = DateTime.Now;
-                UOW.Entity.InsertElement(portfolio);
+                person.DateInscri = DateTime.Now;
+                UOW.Entity.InsertElement(person);
                 UOW.Save();
                 UOW.Dispose();
+                
             }
 
             else
                 throw new Exception("IdShould be identity");
         }
 
-        public void Delete(int? id)
+        public virtual void Delete(int? id)
         {
             if (id == null)
                 throw new Exception("Id is null");
-            var portfolio = GetElementById(id);
-            if (portfolio == null)
+            var customer = GetElementById(id);
+            if (customer == null)
                 throw new Exception("Element not found");
-            UOW.Entity.DeleteElement(portfolio);
+            UOW.Entity.DeleteElement(customer);
             UOW.Save();
             UOW.Dispose();
         }
 
-        public Portfolio GetElementById(int? id)
+        public virtual Customer GetElementById(int? id)
         {
-            var portfolio = UOW.Entity.GetElements(c => c.Id == id);
-            return portfolio.FirstOrDefault();
+            var customer = UOW.Entity.GetElements(c => c.Person_Id == id);
+            return customer.FirstOrDefault();
         }
 
 
@@ -51,11 +52,11 @@ namespace BusinessLogicLayer
         /// getAllElement
         /// </summary>
         /// <returns></returns>
-        public IList<Portfolio> GetElements()
+        public virtual IList<Customer> GetElements()
         {
             return UOW.Entity.GetElements().ToList();
         }
-        public IEnumerable<Portfolio> GetElements(Func<Portfolio, bool> expression)
+        public virtual IEnumerable<Customer> GetElements(Func<Customer, bool> expression)
         {
             var lst = UOW.Entity.GetElements(expression);
             return lst;
@@ -66,12 +67,12 @@ namespace BusinessLogicLayer
         /// </summary>
         /// <param name="search">cherche multi cretaire</param>
         /// <returns></returns>
-        public IEnumerable<Portfolio> GetElements(string search)
+        public virtual IEnumerable<Customer> GetElements(string search)
         {
 
             if (!String.IsNullOrEmpty(search))
             {
-                var lst = GetElements(c => c.Description.ToUpper().Contains(search.ToUpper()) || c.UpdateDate.ToString().Contains(search)).ToList();
+                var lst = GetElements(c => c.First_Name.ToUpper().Contains(search.ToUpper()) || c.Last_Name.ToUpper().Contains(search.ToUpper())).ToList();
                 return lst;
             }
 
@@ -88,28 +89,30 @@ namespace BusinessLogicLayer
         /// <param name="d1">First date</param>
         /// <param name="d2">Last date</param>
         /// <returns></returns>
-        public IEnumerable<Portfolio> GetElements(string d1, string d2)
+        public virtual IEnumerable<Customer> GetElements(string d1, string d2)
         {
-            IList<Portfolio> lst;
+            IList<Customer> lst;
             var _d1 = Convert.ToDateTime(d1);
             var _d2 = Convert.ToDateTime(d2);
-            lst = GetElements().Where(c => c.UpdateDate >= _d1 && c.UpdateDate <= _d2).ToList();
+            lst = GetElements().Where(c => c.DateInscri >= _d1 && c.DateInscri <= _d2).ToList();
             return lst;
 
         }
 
-        public void UpdateElement(int id, Portfolio portfolio)
+        public virtual void UpdateElement(int id, Customer customer)
         {
-            if (id == portfolio.Id)
+            if (id == customer.Person_Id)
             {
-                
-                portfolio.UpdateDate = DateTime.Now;
-                UOW.Entity.UpdateElement(portfolio);
+                //set date inscri 
+                var cus = GetElementById(id);
+                customer.DateInscri = cus.DateInscri;
+                UOW.Entity.UpdateElement(customer);
                 UOW.Save();
                 UOW.Dispose();
             }
             else
                 throw new Exception("Id category dosen't belong to the new category");
         }
+
     }
-}
+    }

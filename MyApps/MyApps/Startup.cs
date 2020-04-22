@@ -33,14 +33,16 @@ namespace MyApps
             services.AddDbContextPool<App_Context>(options=>options.UseSqlServer(Configuration.GetConnectionString("Default")).EnableSensitiveDataLogging());
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<App_Context>();
+           
             services.AddControllersWithViews();
             services.AddScoped(typeof(IUnitOfWork<>),typeof(UnitOfWork<>));
-            services.AddMvc(config => {
-                var policy = new AuthorizationPolicyBuilder()
-                                .RequireAuthenticatedUser()
-                                .Build();
-                config.Filters.Add(new AuthorizeFilter(policy));
-            });
+            //services.AddMvc(config => {
+            //    var policy = new AuthorizationPolicyBuilder()
+            //                    .RequireAuthenticatedUser()
+            //                    .Build();
+            //    config.Filters.Add(new AuthorizeFilter(policy));
+            //});
+            services.AddMvc();
             services.AddControllers().AddNewtonsoftJson();
             services.AddControllersWithViews().AddNewtonsoftJson();
             services.AddRazorPages().AddNewtonsoftJson();
@@ -57,7 +59,7 @@ namespace MyApps
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }

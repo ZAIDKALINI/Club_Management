@@ -4,43 +4,40 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div  class="row mr-3">
 
-<h4>Category_expense</h4>
-<hr />
-<div class="container">
-    <div class="row h-100 justify-content-center">
-        <!-- left column -->
-        <div class="col-md-6">
-            <!-- general form elements -->
-            <div class="card card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">Classe de dépense</h3>
-                </div>
-                <form asp-action="Edit">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="Id_Category" />
-                    <div class="row">
-                        <div class="col-sm-6">
+   
+        <div class="container">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12 mt-1">
+                    <div class="card-header">
+                        <h3 class="card-title">Classe de dépense</h3>
+                    </div>
+                    <div class="container ">
+                        <form asp-action="Edit">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Id_Category" />
+
                             <div class="form-group">
                                 <label asp-for="Name_Category"></label>
                                 <input asp-for="Name_Category" placeholder="Entrer categorie de depense" class="form-control" />
                                 <span asp-validation-for="Name_Category" class="text-danger"></span>
                             </div>
-                        </div>
+
+
+                            <div class="card-footer text-center">
+                                <button type="submit" value="Create" class="btn btn-success" title="Enregistrer"><i class="fas fa-save"></i></button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="card-footer">
-                        <button type="submit" value="Create" class="btn btn-primary">Effactuer</button>
-                    </div>
-                </form>
+                </div>
             </div>
+
         </div>
-    </div>
-
-</div>
+  </div>
 
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
 

@@ -1,7 +1,7 @@
-﻿using DataAccessLayer.Interface;
+﻿
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq.Expressions;
 
 namespace DataAccessLayer
 {
@@ -14,5 +14,7 @@ namespace DataAccessLayer
         TEntity GetElementByID(int ObjId);
         void InsertElement(TEntity Obj);
         void UpdateElement(TEntity NewObj);
+        IEnumerable<TEntity> GetWithItems(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includes);
+        IEnumerable<TEntity> GetWithItems(params Expression<Func<TEntity, object>>[] includes);
     }
 }

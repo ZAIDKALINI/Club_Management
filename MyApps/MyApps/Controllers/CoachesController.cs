@@ -14,10 +14,10 @@ namespace MyApps.Controllers
 {
     public class CoachesController : Controller
     {
-        CoachRepository _repository;
+        CoachService _repository;
         public CoachesController(IUnitOfWork<Coach> uow)
         {
-            _repository = new CoachRepository(uow);
+            _repository = new CoachService(uow);
         }
         // GET: Coaches
         public ActionResult Index()

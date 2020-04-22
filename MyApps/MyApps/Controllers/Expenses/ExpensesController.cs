@@ -3,6 +3,7 @@ using BusinessLogicLayer.ExpenseRepo;
 using CustomException;
 using DataAccessLayer;
 using Entities.Expenses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,14 +11,15 @@ using MyApps.Alerts;
 
 namespace MyApps.Controllers.Expenses
 {
+ 
     public class ExpensesController : Controller
     {
-        ExpensesRepository _expenseRepo;
-        CategoriesRepository _categorieExpense;
+        ExpensesService _expenseRepo;
+        CategoriesService _categorieExpense;
         public ExpensesController(IUnitOfWork<Expense> uowExpense, IUnitOfWork<Category_expense> uowCategory)
         {
-             _expenseRepo = new ExpensesRepository(uowExpense, uowCategory);
-             _categorieExpense = new CategoriesRepository(uowCategory);
+             _expenseRepo = new ExpensesService(uowExpense);
+             _categorieExpense = new CategoriesService(uowCategory);
         }
         // GET: Expenses
         public ActionResult Index()

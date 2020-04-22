@@ -7,10 +7,10 @@ using System.Text;
 
 namespace BusinessLogicLayer
 {
-    public class CustomerRepository
+    public class CustomerService
     {
         IUnitOfWork<Customer> UOW;
-        public CustomerRepository(IUnitOfWork<Customer> _UOW)
+        public CustomerService(IUnitOfWork<Customer> _UOW)
         {
             UOW = _UOW;
         }

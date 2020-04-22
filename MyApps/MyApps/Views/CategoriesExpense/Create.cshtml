@@ -9,11 +9,10 @@
 
 
 <!-- left column -->
-<div dir="ltr" class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
 
-        <div class="row">
+ 
+
+        <div class="row mr-3">
             <div class="col-md-12 mt-1">
                 <div class="card card-dark">
                     <div class="card-header">
@@ -29,8 +28,8 @@
                                 <span asp-validation-for="Name_Category" class="text-danger"></span>
                             </div>
 
-                            <div class="card-footer">
-                                <button type="submit" value="Create" class="btn btn-success">Effactuer</button>
+                            <div class="card-footer text-center">
+                                <button type="submit" value="Create" title="Enregister" class="btn btn-success"><i class="fas fa-save"></i></button>
                             </div>
                         </form>
                     </div>
@@ -39,23 +38,23 @@
             </div>
 
         </div>
-        <div class="row">
+        <div class="row mr-3">
             <div class="col-md-12 mt-1">
                 <div class="card card-dark">
                     <div class="card-header">
                         <h3 class="card-title">Classe de dépense</h3>
                     </div>
                     <div class="container ">
-                      
+
                     </div>
 
                     <div class="container">
                         <div class="row body">
 
-                        
+
                         </div>
-                         
-                  
+
+
                     </div>
 
 
@@ -64,11 +63,15 @@
 
         </div>
 
+        <p>
+            <a class="btn btn-outline-primary" asp-action="Index">
+                Liste categorie
+            </a>
+        </p>
 
-    </div>
-</div>
 
-<hr />
+
+
 @section Scripts{ 
 <script>
     $(function () {

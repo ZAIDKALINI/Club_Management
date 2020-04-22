@@ -13,7 +13,7 @@ namespace DataAccessLayer
     {
          IGenericBase<TEntity> Entity { get; }
         
-        
+
         public void Save();
     }
 

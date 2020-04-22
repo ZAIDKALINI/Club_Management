@@ -17,14 +17,14 @@ namespace MyApps.Controllers.Portefolio
    [Authorize]
     public class PortfolioController : Controller
     {
-        private readonly PorfolioRepo _portfolio;
+        private readonly PorfolioService _portfolio;
         [Obsolete]
         private readonly IHostingEnvironment _hosting;
 
         [Obsolete]
         public PortfolioController(IUnitOfWork<Portfolio> uow, IHostingEnvironment hosting)
         {
-            _portfolio = new PorfolioRepo(uow);
+            _portfolio = new PorfolioService(uow);
             _hosting = hosting;
         }
         [AllowAnonymous]

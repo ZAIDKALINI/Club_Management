@@ -12,10 +12,10 @@ namespace MyApps.Controllers.Charts
     public class ClientsChartController : Controller
     {
         List<ChartClient> reports;
-        CustomerRepository _rep;
+        CustomerService _rep;
         public ClientsChartController(IUnitOfWork<Customer> uow)
         {
-            _rep = new CustomerRepository(uow);
+            _rep = new CustomerService(uow);
             reports = new List<ChartClient>();
         }
         public IActionResult Index()

@@ -5,6 +5,7 @@ using EntityFrameworkCore.Triggers;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,14 +13,15 @@ namespace DataAccessLayer
 {
     public class App_Context:IdentityDbContext<ApplicationUser>
     {
-        //public App_Context()
-        //{
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
-        //}
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer("Data Source=.;DataBase=GymDB;Integrated Security=True");
-        //}
+            foreach (var foreignKey in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+        }
         public App_Context(DbContextOptions Options) : base(Options)
         {
           

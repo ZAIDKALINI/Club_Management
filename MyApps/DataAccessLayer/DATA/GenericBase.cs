@@ -1,11 +1,11 @@
 ﻿using DataAccessLayer;
-using Entities;
-using Entities.Expenses;
+
 using Microsoft.EntityFrameworkCore;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace BusinessLogicLayer
 {
@@ -65,7 +65,20 @@ namespace BusinessLogicLayer
             context.Entry(NewObj).State = EntityState.Detached;
             context.Dispose();
         }
-     
+        public IEnumerable<TEntity> GetWithItems(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includes)
+        {
+            IQueryable<TEntity> query = dbSet.AsQueryable().Where(predicate);
+          
+            return includes.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+        }
+
+
+
+        public IEnumerable<TEntity> GetWithItems(params Expression<Func<TEntity, object>>[] includes)
+        {
+            var query = dbSet.AsQueryable();
+            return includes.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+        }
 
     }
 }

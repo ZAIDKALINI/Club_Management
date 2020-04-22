@@ -14,13 +14,13 @@ namespace MyApps.Controllers
 {
     public class CustomersController : Controller
     {
-        CustomerRepository _repositoryCustomer;
-        PayementRepository _repositoryPayement;
+        CustomerService _repositoryCustomer;
+        PayementService _repositoryPayement;
         IList<Customer> lst;
         public CustomersController(IUnitOfWork<Customer> uowCustomer,IUnitOfWork<CustomerPayement> uowPayement)
         {
-          _repositoryCustomer = new CustomerRepository(uowCustomer);
-          _repositoryPayement = new PayementRepository(uowPayement, uowCustomer);
+          _repositoryCustomer = new CustomerService(uowCustomer);
+          _repositoryPayement = new PayementService(uowPayement);
         }
         // GET: Customers
         public IActionResult Index()
@@ -30,9 +30,15 @@ namespace MyApps.Controllers
         }
 
         // GET: Customers/Details/5
+        /// <summary>
+        /// Get dtails payement for Customer spesific 
+        /// </summary>
+        /// <param name="idPayement">id Customer</param>
+        /// <returns></returns>
         public IActionResult Details(int id)
         {
-            var customer = _repositoryPayement.GetElements(p => p.Person_Id == id);
+            
+            var customer = _repositoryPayement.GetPayementByCustomer(id);
             return View(customer);
 
          

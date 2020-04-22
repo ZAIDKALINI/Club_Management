@@ -5,81 +5,81 @@
 }
 
 
-<div class="container">
-    <div class="row">
-        <!-- left column -->
-        <div class="col-md-12">
-            <!-- general form elements -->
-            <div class="card card-dark">
-                <div class="card-header">
-                    <h3 class="card-title">Effactuer le payment</h3>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card-body">
-                            <form asp-action="Edit">
-                                <input type="hidden" asp-for="Id_Expense" />
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Désignation:</label>
-                                            <input asp-for="Description" class="form-control" />
-                                            <span asp-validation-for="Description" class="text-danger"></span>
+<div dir="ltr" class="row">
+
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="container">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12 mt-1">
+                    <div class="card card-dark">
+                        <div class="card-header">
+                            <h3 class="card-title">Effactuer le payment</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card-body">
+                                    <form asp-action="Edit">
+                                        <input type="hidden" asp-for="Id_Expense" />
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Désignation:</label>
+                                                    <input asp-for="Description" class="form-control" />
+                                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Classe de dépense:</label>
+                                                    @Html.DropDownList("Id_Category", null, htmlAttributes: new { @class = "form-control select2" })
+                                                    <span asp-validation-for="Id_Category" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
                                         </div>
 
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Classe de dépense:</label>
-                                            @Html.DropDownList("Id_Category", null, htmlAttributes: new { @class = "form-control select2" })
-                                            <span asp-validation-for="Id_Category" class="text-danger"></span>
-                                        </div>
-                                    </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Prix:</label>
+                                                    <input asp-for="Price" class="form-control" />
+                                                    <span asp-validation-for="Price" class="text-danger"></span>
+                                                </div>
+                                            </div>
 
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Date de depense:</label>
+                                                    <input asp-for="ExpenseDate" class="form-control" />
+                                                    <span asp-validation-for="ExpenseDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="card-footer">
+                                            <button type="submit" value="Create" class="btn btn-success" title="Enregistrer"><i class="fas fa-save"></i></button>
+                                        </div>
+                                    </form>
                                 </div>
+                            </div>
 
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Prix:</label>
-                                            <input asp-for="Price" class="form-control" />
-                                            <span asp-validation-for="Price" class="text-danger"></span>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Date de depense:</label>
-                                            <input asp-for="ExpenseDate" class="form-control" />
-                                            <span asp-validation-for="ExpenseDate" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="card-footer">
-                                    <button type="submit" value="Create" class="btn btn-success" title="Enregistrer"><i class="fas fa-save"></i></button>
-                                </div>
-                            </form>
                         </div>
                     </div>
-
-                    </div>
                 </div>
+
+
+
             </div>
-
-
-
         </div>
+
+
     </div>
-
-
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 

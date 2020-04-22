@@ -3,19 +3,19 @@ using Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+
 
 namespace BusinessLogicLayer
 {
-    public class PayementRepository
+    public class PayementService
     {
         private IUnitOfWork<CustomerPayement> _uowPayment;
-        private IUnitOfWork<Customer> _uowCustomer;
 
-        public PayementRepository(IUnitOfWork<CustomerPayement> uowPayement, IUnitOfWork<Customer> uowCustomer)
+
+        public PayementService(IUnitOfWork<CustomerPayement> uowPayement)
         {
             _uowPayment = uowPayement;
-            _uowCustomer = uowCustomer;
+           
         }
         public void WirteDateEndPayement(CustomerPayement payement)
         {
@@ -47,7 +47,7 @@ namespace BusinessLogicLayer
        /// <param name="id">Customer id who make payement</param>
         public void ResetRestIsEndForFalse(int idPerson)
         {
-           var payement= _uowPayment.Entity.GetElements(p => p.IsEnd == true&&p.Person_Id== idPerson).FirstOrDefault();
+           var payement= _uowPayment.Entity.GetWithItems(p => p.IsEnd == true&&p.Person_Id== idPerson).FirstOrDefault();
             if (payement != null)
             {
                 payement.IsEnd = false;
@@ -58,7 +58,7 @@ namespace BusinessLogicLayer
         }
         public void ResetRestIsEndForTrue(int idPerson)
         {
-            var payement = _uowPayment.Entity.GetElements(p => p.Person_Id == idPerson).OrderByDescending(p=>p.EndDate).FirstOrDefault();
+            var payement = _uowPayment.Entity.GetWithItems(p => p.Person_Id == idPerson).OrderByDescending(p=>p.EndDate).FirstOrDefault();
             var pay = GetElementById(payement.Id);
             if (pay != null)
             {
@@ -97,7 +97,7 @@ namespace BusinessLogicLayer
         /// <param name="id">person id</param>
         public void ResetRestIsEndForFalseForDelete(int? id)
         {            
-            var pay = _uowPayment.Entity.GetElements(p => p.Person_Id ==id).OrderByDescending(p => p.EndDate).FirstOrDefault();
+            var pay = _uowPayment.Entity.GetWithItems(p => p.Person_Id ==id,c=>c.customer).OrderByDescending(p => p.EndDate).FirstOrDefault();
 
             pay.IsEnd = true;
             _uowPayment.Entity.UpdateElement(pay);
@@ -107,37 +107,35 @@ namespace BusinessLogicLayer
 
             //UOW.Dispose();
         }
-
+        /// <summary>
+        /// get payement by id
+        /// </summary>
+        /// <param name="id">id payement</param>
+        /// <returns>Customer payement</returns>
         public CustomerPayement GetElementById(int? id)
         {
-            var payement = _uowPayment.Entity.GetElements(c => c.Id == id).FirstOrDefault();
+            var payement = _uowPayment.Entity.GetWithItems(c => c.Id == id,customer=>customer).FirstOrDefault();
           
-             payement.customer = _uowCustomer.Entity.GetElements(c => c.Person_Id == payement.Person_Id).FirstOrDefault();
+            // payement.customer = _uowCustomer.Entity.GetElements(c => c.Person_Id == payement.Person_Id).FirstOrDefault();
            
             return payement;
         }
-
-      
+        /// <summary>
+        /// get payment by customer spesific
+        /// </summary>
+        /// <param name="id">Customer</param>
+        /// <returns>List payment</returns>
+        public List<CustomerPayement> GetPayementByCustomer(int id)
+        {
+            var payement = _uowPayment.Entity.GetWithItems(c => c.Person_Id == id, customer => customer.customer).ToList();
+            return payement;
+        }
         public IList<CustomerPayement> GetElements()
         {
-            var lst= _uowPayment.Entity.GetElements().ToList();
-            foreach (var item in lst)
-            {
-                item.customer = _uowCustomer.Entity.GetElements(c => c.Person_Id == item.Person_Id).FirstOrDefault();
-            }
+            var lst= _uowPayment.Entity.GetWithItems(c=>c.customer).ToList();
             return lst;
         }
-        public IList<CustomerPayement> GetElements(Func<CustomerPayement,bool> exp)
-        {
-           var lstPayement= _uowPayment.Entity.GetElements(exp).ToList();
-          // var lstCustomer= UOW.CustomeresRepo.GetElements().ToList();
-            foreach (var item in lstPayement)
-            {
-               var customer= _uowCustomer.Entity.GetElements(c => item.Person_Id == c.Person_Id).FirstOrDefault();
-                item.customer = customer;
-            }
-            return lstPayement;
-        }
+       
 
 
         public void UpdateElement(int id, CustomerPayement payement)
@@ -163,12 +161,9 @@ namespace BusinessLogicLayer
         {
             get 
             {
-                //var lst1 = (from c in UOW.Entity.GetElements() group c by c.Person_Id into newGroup select newGroup.);
-                var lst = _uowPayment.Entity.GetElements(p => p.EndDate <= DateTime.Now && p.IsEnd==true).ToList();
-                foreach (var item in lst)
-                {
-                    item.customer = _uowCustomer.Entity.GetElements(c => c.Person_Id == item.Person_Id).FirstOrDefault();
-                }
+               
+                var lst = _uowPayment.Entity.GetWithItems(p => p.EndDate <= DateTime.Now && p.IsEnd==true,c=>c.customer).ToList();
+              
                 return lst;
             }
         }

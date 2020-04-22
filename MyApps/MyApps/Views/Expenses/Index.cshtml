@@ -6,65 +6,64 @@
 
 
 
-<p>
-    
-</p>
 
-<div class="row">
-    <div class="col-12 mt-5">
-        <div class="card">
-            <div class="card-header bg-dark">
-                <h3 class="card-title">Dépense Mensuel</h3>
-                <a asp-action="Create" class="btn btn-warning float-right" title="Ajouter dépense"><i class="fas fa-hand-holding-usd"></i></a>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table id="example2" class="table table-hover table-bordered  text-center">
-                        <thead class="bg-dark">
-                            <tr>
-                                <th class="blue">
-                                    @Html.DisplayName("Categorie")
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Description)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Price)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.ExpenseDate)
-                                </th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-1">
+            <div class="card">
+                <div class="card-header bg-dark">
+                    <h3 class="card-title">Dépense Mensuel</h3>
+                    <a asp-action="Create" class="btn btn-warning float-right" title="Ajouter dépense"><i class="fas fa-hand-holding-usd"></i></a>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="example2" class="table table-hover table-bordered  text-center">
+                            <thead class="bg-dark">
                                 <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.category.Name_Category)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Description)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Price)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ExpenseDate)
-                                    </td>
-                                    <td>
-                                        <a asp-action="Edit" asp-route-id="@item.Id_Expense" class="btn btn-success btn-sm" title="Modifier"><i class="fa fa-edit"></i></a>
-                                        <a asp-action="Delete" asp-route-id="@item.Id_Expense" class="btn btn-danger btn-sm" title="Supprimer"><i class="fa fa-trash"></i></a>
-                                    </td>
+                                    <th class="blue">
+                                        @Html.DisplayName("Categorie")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Description)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Price)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ExpenseDate)
+                                    </th>
+                                    <th></th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.category.Name_Category)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Price)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ExpenseDate)
+                                        </td>
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@item.Id_Expense" class="btn btn-success btn-sm" title="Modifier"><i class="fa fa-edit"></i></a>
+                                            <a asp-action="Delete" asp-route-id="@item.Id_Expense" class="btn btn-danger btn-sm" title="Supprimer"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-</div>
+    </div>
+    </div>

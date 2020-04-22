@@ -21,13 +21,13 @@ namespace MyApps.Controllers
       
 
         IList<CustomerPayement> lst;
-        private PayementRepository _repositoryPayement;
-        private CustomerRepository _customerRepo;
+        private PayementService _repositoryPayement;
+        private CustomerService _customerRepo;
 
         public CustomersPayementController(IUnitOfWork<CustomerPayement> uowPayement, IUnitOfWork<Customer> uowCustomer)
         {
-            _repositoryPayement = new PayementRepository(uowPayement,uowCustomer);
-            _customerRepo = new CustomerRepository(uowCustomer);
+            _repositoryPayement = new PayementService(uowPayement);
+            _customerRepo = new CustomerService(uowCustomer);
            
         }
         // GET: CustomersPayement
@@ -67,9 +67,9 @@ namespace MyApps.Controllers
             {
                 // TODO: Add insert logic here
                 _repositoryPayement.AddNew(collection);
-                var cust  = _repositoryPayement.GetElements(p => p.Person_Id == collection.Person_Id);
+              //  var cust  = _repositoryPayement.GetElements(p => p.Person_Id == collection.Person_Id);
               
-                return RedirectToAction(nameof(Index)).WithSuccess("Ajouter", "vous avez ajouté avec succès "); 
+                return RedirectToAction("Details","Customer", new { id = collection.Person_Id }).WithSuccess("Ajouter", "vous avez ajouté avec succès "); 
             }
             catch(SupprimerException e)
             {

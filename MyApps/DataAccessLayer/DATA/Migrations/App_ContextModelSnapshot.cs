@@ -466,18 +466,21 @@ namespace DataAccessLayer.Migrations
                 {
                     b.HasOne("Entities.TypeAssurance", "Type")
                         .WithMany()
-                        .HasForeignKey("TypeId");
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Entities.Customer", "customer")
                         .WithMany()
-                        .HasForeignKey("customerPerson_Id");
+                        .HasForeignKey("customerPerson_Id")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Entities.CoachPayement", b =>
                 {
                     b.HasOne("Entities.Coach", "Coach")
                         .WithMany()
-                        .HasForeignKey("CoachPerson_Id");
+                        .HasForeignKey("CoachPerson_Id")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Entities.CustomerPayement", b =>
@@ -485,7 +488,7 @@ namespace DataAccessLayer.Migrations
                     b.HasOne("Entities.Customer", "customer")
                         .WithMany()
                         .HasForeignKey("Person_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -494,7 +497,7 @@ namespace DataAccessLayer.Migrations
                     b.HasOne("Entities.Expenses.Category_expense", "category")
                         .WithMany()
                         .HasForeignKey("Id_Category")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -503,7 +506,7 @@ namespace DataAccessLayer.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -512,7 +515,7 @@ namespace DataAccessLayer.Migrations
                     b.HasOne("DataAccessLayer.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -521,7 +524,7 @@ namespace DataAccessLayer.Migrations
                     b.HasOne("DataAccessLayer.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -530,13 +533,13 @@ namespace DataAccessLayer.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DataAccessLayer.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -545,7 +548,7 @@ namespace DataAccessLayer.Migrations
                     b.HasOne("DataAccessLayer.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

@@ -14,11 +14,11 @@ namespace MyApps.Controllers.Expenses
 {
     public class CategoriesExpenseController : Controller
     {
-        CategoriesRepository _categorieRepo;
+        CategoriesService _categorieRepo;
        
         public CategoriesExpenseController(IUnitOfWork<Category_expense> _uow)
         {
-            _categorieRepo = new CategoriesRepository(_uow);
+            _categorieRepo = new CategoriesService(_uow);
         }
         // GET: Categories
         public ActionResult Index()

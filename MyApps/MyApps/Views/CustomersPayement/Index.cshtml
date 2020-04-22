@@ -3,7 +3,7 @@
 
 
 <div class="container">
-    <div class="col-12">
+    <div class="col-12 mt-1">
         <div class="card">
             <div class="card-header bg-dark">
                 <h3 class="card-title">Abonnement</h3>
@@ -48,6 +48,7 @@
                                     @Html.DisplayFor(modelItem => item.EndDate)
                                 </td>
                                 <td>
+                                    <!--For confirm Delete  -->
                                     <form asp-action="Delete" asp-route-id="@item.Id" method="post" id="main">
                                         <a asp-action="Edit" asp-route-id="@item.Id"  class="btn bg-success btn-sm"><i class="fa fa-edit"></i></a>
 
@@ -59,7 +60,7 @@
                                         </span>
 
                                         <span id="deleteSpan_@item.Id">
-                                            <a href="#" class="btn btn-danger"
+                                            <a href="#" class="btn btn-danger btn-sm"
                                                onclick="confirmDelete('@item.Id', true)"><i class="fa fa-trash"> </i></a>
                                         </span>
                                     </form>

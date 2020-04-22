@@ -47,6 +47,7 @@ namespace MyApps.Controllers.Security
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -70,6 +71,7 @@ namespace MyApps.Controllers.Security
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await SignInManager.SignOutAsync();
@@ -80,6 +82,7 @@ namespace MyApps.Controllers.Security
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)

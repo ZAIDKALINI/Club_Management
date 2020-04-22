@@ -24,3 +24,16 @@ C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\obj\Debug
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\obj\Debug\netcoreapp3.1\BusinessLogicLayer.csproj.CopyComplete
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\obj\Debug\netcoreapp3.1\BusinessLogicLayer.dll
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\obj\Debug\netcoreapp3.1\BusinessLogicLayer.pdb
+C:\Users\HP\Desktop\Club_Management-6c19e8618cca57b3672350a3ea8b840f86261ccd\MyApps\BusinessLogicLayer\bin\Debug\netcoreapp3.1\BusinessLogicLayer.deps.json
+C:\Users\HP\Desktop\Club_Management-6c19e8618cca57b3672350a3ea8b840f86261ccd\MyApps\BusinessLogicLayer\bin\Debug\netcoreapp3.1\BusinessLogicLayer.dll
+C:\Users\HP\Desktop\Club_Management-6c19e8618cca57b3672350a3ea8b840f86261ccd\MyApps\BusinessLogicLayer\bin\Debug\netcoreapp3.1\BusinessLogicLayer.pdb
+C:\Users\HP\Desktop\Club_Management-6c19e8618cca57b3672350a3ea8b840f86261ccd\MyApps\BusinessLogicLayer\bin\Debug\netcoreapp3.1\DataAccessLayer.dll
+C:\Users\HP\Desktop\Club_Management-6c19e8618cca57b3672350a3ea8b840f86261ccd\MyApps\BusinessLogicLayer\bin\Debug\netcoreapp3.1\Entities.dll
+C:\Users\HP\Desktop\Club_Management-6c19e8618cca57b3672350a3ea8b840f86261ccd\MyApps\BusinessLogicLayer\bin\Debug\netcoreapp3.1\DataAccessLayer.pdb
+C:\Users\HP\Desktop\Club_Management-6c19e8618cca57b3672350a3ea8b840f86261ccd\MyApps\BusinessLogicLayer\bin\Debug\netcoreapp3.1\Entities.pdb
+C:\Users\HP\Desktop\Club_Management-6c19e8618cca57b3672350a3ea8b840f86261ccd\MyApps\BusinessLogicLayer\obj\Debug\netcoreapp3.1\BusinessLogicLayer.csprojAssemblyReference.cache
+C:\Users\HP\Desktop\Club_Management-6c19e8618cca57b3672350a3ea8b840f86261ccd\MyApps\BusinessLogicLayer\obj\Debug\netcoreapp3.1\BusinessLogicLayer.AssemblyInfoInputs.cache
+C:\Users\HP\Desktop\Club_Management-6c19e8618cca57b3672350a3ea8b840f86261ccd\MyApps\BusinessLogicLayer\obj\Debug\netcoreapp3.1\BusinessLogicLayer.AssemblyInfo.cs
+C:\Users\HP\Desktop\Club_Management-6c19e8618cca57b3672350a3ea8b840f86261ccd\MyApps\BusinessLogicLayer\obj\Debug\netcoreapp3.1\BusinessLogicLayer.csproj.CopyComplete
+C:\Users\HP\Desktop\Club_Management-6c19e8618cca57b3672350a3ea8b840f86261ccd\MyApps\BusinessLogicLayer\obj\Debug\netcoreapp3.1\BusinessLogicLayer.dll
+C:\Users\HP\Desktop\Club_Management-6c19e8618cca57b3672350a3ea8b840f86261ccd\MyApps\BusinessLogicLayer\obj\Debug\netcoreapp3.1\BusinessLogicLayer.pdb

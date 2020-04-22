@@ -7,10 +7,10 @@ using System.Text;
 
 namespace BusinessLogicLayer.ExpenseRepo
 {
-    public class CategoriesRepository
+    public class CategoriesService
     {
         IUnitOfWork<Category_expense> _uow;
-        public CategoriesRepository(IUnitOfWork<Category_expense> uow)
+        public CategoriesService(IUnitOfWork<Category_expense> uow)
         {
             _uow = uow;
         }

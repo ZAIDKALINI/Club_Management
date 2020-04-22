@@ -21,6 +21,8 @@ namespace DataAccessLayer
         private IGenericBase<TEntity> _Entity;
        
 
+       
+
         public IGenericBase<TEntity> Entity
         {
             get
@@ -31,9 +33,10 @@ namespace DataAccessLayer
             }
 
         }
+        
 
 
-       
+
 
         public void Save()
         {

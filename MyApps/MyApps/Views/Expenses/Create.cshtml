@@ -3,83 +3,86 @@
 @{
     ViewData["Title"] = "Create";
 }
-
-
-
-<br />
-<div class="row">
-    <!-- left column -->
-    <div class="col-md-12">
-        <!-- general form elements -->
-        <div class="card card-dark">
-            <div class="card-header">
-                <h3 class="card-title">Effactuer le payment</h3>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card-body">
-                        <form asp-action="Create">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label asp-for="Description" class="control-label"></label>
-                                    <textarea asp-for="Description" class="form-control" cols="40" rows="1"></textarea>
-                                 
-                                    <span asp-validation-for="Description" class="text-danger"></span>
-
+    <div  class="row mr-3">
+    
+        
+                <div class="container">
+                    <div class="row">
+                        <!-- left column -->
+                        <div class="col-md-12 mt-1">
+                            <!-- general form elements -->
+                            <div class="card card-dark">
+                                <div class="card-header">
+                                    <h3 class="card-title">Effactuer le payment</h3>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Classe dépense:</label>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend ">
-                                                <a asp-controller="CategoriesExpense" asp-action="create" id="btnRef" class="btn btn-secondary"><i class="fas fa-plus"></i></a>
-                                            </div>
-                                            @Html.DropDownList("Id_Category", null, htmlAttributes: new { @class = "form-control select2" })
-                                        </div>
-                                       
-                                            <span asp-validation-for="Id_Category" class="text-danger"></span>
-                                        </div>
-                                    </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body">
+                                            <form asp-action="Create">
+                                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <label asp-for="Description" class="control-label"></label>
+                                                        <textarea asp-for="Description" class="form-control" cols="40" rows="1"></textarea>
 
+                                                        <span asp-validation-for="Description" class="text-danger"></span>
+
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Classe dépense:</label>
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-prepend ">
+                                                                    <a asp-controller="CategoriesExpense" asp-action="create" title="Nouveu categorie" id="btnRef" class="btn btn-secondary"><i class="fas fa-plus"></i></a>
+                                                                </div>
+                                                                @Html.DropDownList("Id_Category", null, htmlAttributes: new { @class = "form-control select2" })
+                                                            </div>
+
+                                                            <span asp-validation-for="Id_Category" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Prix:</label>
+                                                            <input asp-for="Price" class="form-control" />
+                                                            <span asp-validation-for="Price" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label asp-for="ExpenseDate" class="control-label"></label>
+                                                            <div class="vdpComponent vdpWithInput">
+                                                                <input type="date" asp-for="ExpenseDate" value="@DateTime.Now" class="form-control" />
+                                                            </div>
+
+                                                            <span asp-validation-for="ExpenseDate" class="text-danger"></span>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="card-footer text-center">
+                                                    <button type="submit" value="Create" title="Ajouter" class="btn btn-success"><i class="fas fa-save"></i></button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Prix:</label>
-                                        <input asp-for="Price" class="form-control" />
-                                        <span asp-validation-for="Price" class="text-danger"></span>
-                                    </div>
-                                </div>
 
 
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label asp-for="ExpenseDate" class="control-label"></label>
-                                        <div class="vdpComponent vdpWithInput">
-                                            <input type="date"  asp-for="ExpenseDate" value="@DateTime.Now" class="form-control" />
-                                        </div>
-                                     
-                                        <span asp-validation-for="ExpenseDate" class="text-danger"></span>
-                                    </div>
-
-                                </div>
-                            </div>
-                          
-                            <div class="card-footer">
-                                <button type="submit" value="Create" class="btn btn-success">Effactuer</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
-
                 </div>
-            </div>
-        </div>
+     </div>
 
 
-
-    </div>
-</div>
-
-
+   
