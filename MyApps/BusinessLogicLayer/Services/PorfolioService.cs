@@ -16,7 +16,7 @@ namespace BusinessLogicLayer
         }
         public void AddNew(Portfolio portfolio)
         {
-            if (portfolio.Id == 0)
+            if (portfolio.Id == Guid.Empty)
             {
                 portfolio.UpdateDate = DateTime.Now;
                 UOW.Entity.InsertElement(portfolio);
@@ -28,7 +28,7 @@ namespace BusinessLogicLayer
                 throw new Exception("IdShould be identity");
         }
 
-        public void Delete(int? id)
+        public void Delete(Guid id)
         {
             if (id == null)
                 throw new Exception("Id is null");
@@ -40,7 +40,7 @@ namespace BusinessLogicLayer
             UOW.Dispose();
         }
 
-        public Portfolio GetElementById(int? id)
+        public Portfolio GetElementById(Guid id)
         {
             var portfolio = UOW.Entity.GetElements(c => c.Id == id);
             return portfolio.FirstOrDefault();
@@ -98,7 +98,7 @@ namespace BusinessLogicLayer
 
         }
 
-        public void UpdateElement(int id, Portfolio portfolio)
+        public void UpdateElement(Guid id, Portfolio portfolio)
         {
             if (id == portfolio.Id)
             {

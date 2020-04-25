@@ -9,6 +9,7 @@ using Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MyApps.Alerts;
@@ -23,24 +24,28 @@ namespace MyApps.Controllers
         IList<CustomerPayement> lst;
         private PayementService _repositoryPayement;
         private CustomerService _customerRepo;
+        SignInManager<ApplicationUser> signInManager;
 
-        public CustomersPayementController(IUnitOfWork<CustomerPayement> uowPayement, IUnitOfWork<Customer> uowCustomer)
+        public CustomersPayementController(IUnitOfWork<CustomerPayement> uowPayement, IUnitOfWork<Customer> uowCustomer, 
+                                            SignInManager<ApplicationUser> signInManager)
         {
             _repositoryPayement = new PayementService(uowPayement);
             _customerRepo = new CustomerService(uowCustomer);
-           
+            this.signInManager = signInManager;
+
+
         }
         // GET: CustomersPayement
         public ActionResult Index()
         {
-             lst = _repositoryPayement.GetElements();
-            ViewBag.Person_Id = new SelectList(_customerRepo.GetElements(), "Person_Id", "Last_Name");
+             lst = _repositoryPayement.GetElements(User.Identity.Name);
+            ViewBag.Person_Id = new SelectList(_customerRepo.GetElements(User.Identity.Name), "Person_Id", "Last_Name");
            
             return View(lst);
         }
 
         // GET: CustomersPayement/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(Guid id)
         {
          
             var customerPayement=_repositoryPayement.GetElementById(id);
@@ -54,7 +59,7 @@ namespace MyApps.Controllers
         public ActionResult Create()
         {
 
-            ViewData["Person_Id"] = new SelectList(_customerRepo.GetElements(), "Person_Id", "Last_Name");
+            ViewData["Person_Id"] = new SelectList(_customerRepo.GetElements(User.Identity.Name), "Person_Id", "Last_Name");
             return View();
         }
 
@@ -69,7 +74,7 @@ namespace MyApps.Controllers
                 _repositoryPayement.AddNew(collection);
               //  var cust  = _repositoryPayement.GetElements(p => p.Person_Id == collection.Person_Id);
               
-                return RedirectToAction("Details","Customer", new { id = collection.Person_Id }).WithSuccess("Ajouter", "vous avez ajouté avec succès "); 
+                return RedirectToAction("Details","Customers", new { id = collection.Person_Id }).WithSuccess("Ajouter", "vous avez ajouté avec succès "); 
             }
             catch(SupprimerException e)
             {
@@ -78,11 +83,11 @@ namespace MyApps.Controllers
         }
 
         // GET: CustomersPayement/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(Guid id)
         {
          
             var payement = _repositoryPayement.GetElementById(id);
-            var cust = _customerRepo.GetElements();
+            var cust = _customerRepo.GetElements(User.Identity.Name);
             ViewData["Person_Id"] = new SelectList(cust, "Person_Id", "Last_Name", payement.Person_Id);
            
             return View(payement);
@@ -91,7 +96,7 @@ namespace MyApps.Controllers
         // POST: CustomersPayement/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, CustomerPayement customerPayement)
+        public IActionResult Edit(Guid id, CustomerPayement customerPayement)
         {
             try
             {
@@ -100,7 +105,7 @@ namespace MyApps.Controllers
                 _repositoryPayement.UpdateElement(id,customerPayement);
                 //_repository.ResetRestIsEndForTrue(customerPayement.Person_Id);
                 var payement = _repositoryPayement.GetElementById(id);
-                var cust = _customerRepo.GetElements();
+                var cust = _customerRepo.GetElements(User.Identity.Name);
                 ViewData["Person_Id"] = new SelectList(cust, "Person_Id", "Last_Name", payement.Person_Id);
 
                 return RedirectToAction("Index").WithSuccess("Modifier", "vous avez modifié avec succès ");
@@ -114,7 +119,7 @@ namespace MyApps.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int Id)
+        public IActionResult Delete(Guid Id)
         {
             try
             {
@@ -137,10 +142,10 @@ namespace MyApps.Controllers
             try
             {
                 // TODO: Add update logic here
-                var cust = _customerRepo.GetElements();
+                var cust = _customerRepo.GetElements(User.Identity.Name);
             
-                var lst=  _repositoryPayement.GetCustomersEndthierMonth;
-                ViewBag.Person_Id = new SelectList(_customerRepo.GetElements(), "Person_Id", "Last_Name");
+                var lst=  _repositoryPayement.GetCustomersEndthierMonth(User.Identity.Name);
+                ViewBag.Person_Id = new SelectList(_customerRepo.GetElements(User.Identity.Name), "Person_Id", "Last_Name");
 
                 return View(nameof(Index),lst);
             }

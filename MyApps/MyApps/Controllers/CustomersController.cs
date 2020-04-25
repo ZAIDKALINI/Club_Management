@@ -6,26 +6,31 @@ using BusinessLogicLayer;
 using CustomException;
 using DataAccessLayer;
 using Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyApps.Alerts;
 
 namespace MyApps.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CustomersController : Controller
     {
         CustomerService _repositoryCustomer;
         PayementService _repositoryPayement;
         IList<Customer> lst;
-        public CustomersController(IUnitOfWork<Customer> uowCustomer,IUnitOfWork<CustomerPayement> uowPayement)
+        SignInManager<ApplicationUser> signInManager;
+        public CustomersController(IUnitOfWork<Customer> uowCustomer,IUnitOfWork<CustomerPayement> uowPayement, SignInManager<ApplicationUser> signInManager)
         {
           _repositoryCustomer = new CustomerService(uowCustomer);
           _repositoryPayement = new PayementService(uowPayement);
+            this.signInManager = signInManager;
         }
         // GET: Customers
         public IActionResult Index()
         {
-             lst = _repositoryCustomer.GetElements();
+             lst = _repositoryCustomer.GetElements(User.Identity.Name);
             return View(lst);
         }
 
@@ -35,10 +40,10 @@ namespace MyApps.Controllers
         /// </summary>
         /// <param name="idPayement">id Customer</param>
         /// <returns></returns>
-        public IActionResult Details(int id)
+        public IActionResult Details(Guid id)
         {
             
-            var customer = _repositoryPayement.GetPayementByCustomer(id);
+            var customer = _repositoryPayement.GetPayementByCustomer(id,User.Identity.Name);
             return View(customer);
 
          
@@ -70,7 +75,7 @@ namespace MyApps.Controllers
         }
 
         // GET: Customers/Edit/5
-        public IActionResult Edit(int id)
+        public IActionResult Edit(Guid id)
         {
             var customer = _repositoryCustomer.GetElementById(id);
             return View(customer);
@@ -79,7 +84,7 @@ namespace MyApps.Controllers
         // POST: Customers/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Customer customer)
+        public IActionResult Edit(Guid id, Customer customer)
         {
             try
             {
@@ -96,7 +101,7 @@ namespace MyApps.Controllers
         }
 
         // GET: Customers/Delete/5
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Guid id)
         {
             var customer = _repositoryCustomer.GetElementById(id);
             return View(customer);
@@ -105,7 +110,7 @@ namespace MyApps.Controllers
         // POST: Customers/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(Guid id, IFormCollection collection)
         {
             try
             {
@@ -125,7 +130,7 @@ namespace MyApps.Controllers
             try
             {
                 // TODO: Add delete logic here
-                var lst = _repositoryCustomer.GetElements(search);
+                var lst = _repositoryCustomer.GetElements(search,User.Identity.Name);
                 return View(lst);
             }
             catch
@@ -140,7 +145,7 @@ namespace MyApps.Controllers
             {
 
                 // TODO: Add delete logic here
-                lst = _repositoryCustomer.GetElements(d1, d2).ToList();
+                lst = _repositoryCustomer.GetElements(d1, d2,User.Identity.Name).ToList();
                     return View("Find",lst);
             }
             catch
@@ -148,5 +153,6 @@ namespace MyApps.Controllers
                 return View();
             }
         }
+       
     }
 }

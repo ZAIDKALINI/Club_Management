@@ -11,7 +11,7 @@ namespace DataAccessLayer
         IEnumerable<TEntity> GetElements();
         IEnumerable<TEntity> GetElements(Func<TEntity, bool> expression);
         IEnumerable<TEntity> SelectElements(Func<TEntity, TEntity> expression);
-        TEntity GetElementByID(int ObjId);
+        TEntity GetElementByID(Guid ObjId);
         void InsertElement(TEntity Obj);
         void UpdateElement(TEntity NewObj);
         IEnumerable<TEntity> GetWithItems(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includes);

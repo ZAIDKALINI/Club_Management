@@ -6,12 +6,14 @@ using BusinessLogicLayer.ExpenseRepo;
 using CustomException;
 using DataAccessLayer;
 using Entities.Expenses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyApps.Alerts;
 
 namespace MyApps.Controllers.Expenses
 {
+    [Authorize(Roles = "Admin")]
     public class CategoriesExpenseController : Controller
     {
         CategoriesService _categorieRepo;
@@ -59,7 +61,7 @@ namespace MyApps.Controllers.Expenses
         }
 
         // GET: Categories/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(Guid id)
         {
             var category = _categorieRepo.FindById(id);
             return View(category);
@@ -68,7 +70,7 @@ namespace MyApps.Controllers.Expenses
         // POST: Categories/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Category_expense category)
+        public IActionResult Edit(Guid id, Category_expense category)
         {
             try
             {
@@ -84,7 +86,7 @@ namespace MyApps.Controllers.Expenses
         }
 
         // GET: Categories/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(Guid id)
         {
             var category = _categorieRepo.FindById(id);
             return View(category);
@@ -93,7 +95,7 @@ namespace MyApps.Controllers.Expenses
         // POST: Categories/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(Guid id, IFormCollection collection)
         {
             try
             {

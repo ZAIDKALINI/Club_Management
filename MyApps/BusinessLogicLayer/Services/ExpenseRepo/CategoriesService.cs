@@ -20,12 +20,12 @@ namespace BusinessLogicLayer.ExpenseRepo
             _uow.Save();
             _uow.Dispose();
         }
-        public Category_expense FindById(int id)
+        public Category_expense FindById(Guid id)
         {
             var cat = _uow.Entity.GetElementByID(id);
             return cat;
         }
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
             var cat = FindById(id);
             if (cat == null)
@@ -34,7 +34,7 @@ namespace BusinessLogicLayer.ExpenseRepo
             _uow.Save();
             _uow.Dispose();
         }
-        public void Edit(int id, Category_expense category)
+        public void Edit(Guid id, Category_expense category)
         {
             var cat = FindById(id);
             if(cat==null)

@@ -7,10 +7,10 @@ namespace Entities
 {
    
   
-    public class Person
+    public class Person:EntityBase
     {
         [Key]
-        public int Person_Id { get; set; }
+        public Guid Person_Id { get; set; }
         public string Ref { get; set; }
        
         public string First_Name { get; set; }

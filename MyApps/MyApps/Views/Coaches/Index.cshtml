@@ -59,34 +59,40 @@
                                     <th>
                                         @Html.DisplayNameFor(model => model.DateInscri)
                                     </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CreatedBy)
+                                    </th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Ref)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.First_Name)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Last_Name)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Telephone)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.DateInscri)
-                                        </td>
-                                        <td>
-                                            <a asp-action="Edit" asp-route-id="@item.Person_Id" class="btn bg-success btn-sm" title="Modifier"><i class="fa fa-edit"></i></a>
-                                        
-                                            <a asp-action="Delete" asp-route-id="@item.Person_Id" class="btn bg-danger btn-sm" title="Supprimer"><i class="fa fa-trash"> </i></a>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Ref)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.First_Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Last_Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Telephone)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DateInscri)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Person_Id" class="btn bg-success btn-sm" title="Modifier"><i class="fa fa-edit"></i></a>
+
+                                        <a asp-action="Delete" asp-route-id="@item.Person_Id" class="btn bg-danger btn-sm" title="Supprimer"><i class="fa fa-trash"> </i></a>
+                                    </td>
+                                </tr>
                                 }
 
                             </tbody>

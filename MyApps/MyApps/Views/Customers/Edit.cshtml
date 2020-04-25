@@ -11,46 +11,8 @@
                 <h3 class="card-title">Editer</h3>
             </div>
             <form asp-action="Edit">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="Person_Id" />
-           
-            
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="Ref"></label>
-                                <input asp-for="Ref" placeholder="ScannerRef" class="form-control" />
-                                <span asp-validation-for="Ref" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="Telephone"></label>
-                                <input type="tel" asp-for="Telephone" placeholder="Entrez numero de telephone" class="form-control" />
-                                <span asp-validation-for="Telephone" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="First_Name">Prénom</label>
-                                <input asp-for="First_Name" placeholder="Tapez le prénom" class="form-control" />
-                                <span asp-validation-for="First_Name" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="Last_Name">Nom</label>
-                                <input asp-for="Last_Name" placeholder="Tapez le nom" class="form-control" />
-                                <span asp-validation-for="Last_Name" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <partial name="BasesEntity/_PersonBase" />
+                <partial name="BasesEntity/_BaseEntity" />
 
                 <!--Submit btn -->
                 <div class="card-footer text-center">

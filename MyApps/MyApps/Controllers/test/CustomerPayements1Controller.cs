@@ -29,7 +29,7 @@ namespace MyApps.Controllers.test
         }
 
         // GET: CustomerPayements1/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
@@ -72,7 +72,7 @@ namespace MyApps.Controllers.test
         }
 
         // GET: CustomerPayements1/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
@@ -93,7 +93,7 @@ namespace MyApps.Controllers.test
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Person_Id,duration,EndDate,IsEnd,Id,Ref,Price,Payement_date")] CustomerPayement customerPayement)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Person_Id,duration,EndDate,IsEnd,Id,Ref,Price,Payement_date")] CustomerPayement customerPayement)
         {
             if (id != customerPayement.Id)
             {
@@ -125,7 +125,7 @@ namespace MyApps.Controllers.test
         }
 
         // GET: CustomerPayements1/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
@@ -146,7 +146,7 @@ namespace MyApps.Controllers.test
         // POST: CustomerPayements1/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var customerPayement = await _context.CustomerPayements.FindAsync(id);
             _context.CustomerPayements.Remove(customerPayement);
@@ -154,7 +154,7 @@ namespace MyApps.Controllers.test
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CustomerPayementExists(int id)
+        private bool CustomerPayementExists(Guid id)
         {
             return _context.CustomerPayements.Any(e => e.Id == id);
         }

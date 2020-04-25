@@ -11,7 +11,8 @@ using MyApps.Alerts;
 
 namespace MyApps.Controllers.Expenses
 {
- 
+
+    [Authorize(Roles = "Admin")]
     public class ExpensesController : Controller
     {
         ExpensesService _expenseRepo;
@@ -29,7 +30,7 @@ namespace MyApps.Controllers.Expenses
         }
 
         // GET: Expenses/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(Guid id)
         {
             return View();
         }
@@ -62,7 +63,7 @@ namespace MyApps.Controllers.Expenses
         }
 
         // GET: Expenses/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(Guid id)
         {
             var exp = _expenseRepo.GetElementById(id);
             var lstCat = _categorieExpense.GetCategories();
@@ -73,7 +74,7 @@ namespace MyApps.Controllers.Expenses
         // POST: Expenses/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Expense expense)
+        public IActionResult Edit(Guid id, Expense expense)
         {
             try
             {
@@ -89,7 +90,7 @@ namespace MyApps.Controllers.Expenses
         }
 
         // GET: Expenses/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(Guid id)
         {
             var exp = _expenseRepo.GetElementById(id);
             return View(exp);
@@ -98,7 +99,7 @@ namespace MyApps.Controllers.Expenses
         // POST: Expenses/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(Guid id, IFormCollection collection)
         {
             try
             {

@@ -14,52 +14,8 @@
             </div>
 
             <form asp-action="Create">
-                @Html.AntiForgeryToken()
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label asp-for="Ref" class="control-label"></label>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend ">
-                                    <button type="button" id="btnRef" class="btn btn-secondary"><i class="fas fa-random"></i></button>
-                                </div>
-                                <!-- /btn-group -->
-                                <input type="text" asp-for="Ref" class="form-control " id="txtRef" readonly>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for=" Telephone"></label>
-                                <input type="tel" asp-for=" Telephone" placeholder="Enter your number phone" class="form-control" />
-                                <span asp-validation-for=" Telephone" class="text-danger"></span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for=" Last_Name"></label>
-                                <input asp-for=" Last_Name" placeholder="Enter your Last name" class="form-control" />
-                                <span asp-validation-for=" Last_Name" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for=" First_Name"></label>
-                                <input asp-for=" First_Name" placeholder="Enter your First name" class="form-control" />
-                                <span asp-validation-for=" First_Name" class="text-danger"></span>
-                            </div>
-                        </div>
-
-
-
-                    </div>
-                </div>
-
+                <partial name="BasesEntity/_PersonBase" />
+                <partial name="BasesEntity/_BaseEntity" />
 
                 <!--Submit btn -->
                 <div class="card-footer text-center">

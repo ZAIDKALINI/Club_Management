@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using BusinessLogicLayer;
 using DataAccessLayer;
+using Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyApps.Models;
+using MyApps.Alerts;
+
 
 namespace MyApps.Controllers.Security
 {
@@ -17,14 +21,18 @@ namespace MyApps.Controllers.Security
         private readonly RoleManager<IdentityRole> roleManager;
         public UserManager<ApplicationUser> userManager { get; }
         private readonly ILogger<AdministrationController> logger;
+            PersonService<Customer> PersonService;
+            IUnitOfWork<UserCutomer> uowUserCustomer;
 
-        public AdministrationController(RoleManager<IdentityRole> roleManager, 
-                                UserManager<ApplicationUser> _userManager,
-                                             ILogger<AdministrationController> logger)
+
+        public AdministrationController(RoleManager<IdentityRole> roleManager,UserManager<ApplicationUser> _userManager,
+                                           ILogger<AdministrationController> logger, IUnitOfWork<Customer> uowCust, IUnitOfWork<UserCutomer> uowUserCustomer)
         {
             this.roleManager = roleManager;
             userManager = _userManager;
             this.logger = logger;
+            this.uowUserCustomer = uowUserCustomer;
+             PersonService = new PersonService<Customer>(uowCust);
         }
         public IActionResult Index()
         {
@@ -492,7 +500,52 @@ namespace MyApps.Controllers.Security
             return RedirectToAction("EditUser", new { Id = model.UserId });
 
         }
+        public  IActionResult GiveCustomerToUser()
+        {
+         
+            var customers = PersonService.GetElements(User.Identity.Name);
+            return View(customers);
+        }
+      
+        public IActionResult EditCustomerUsers(Guid id)
+        {
 
+           var customer=  PersonService.GetElementById(id);
+            UserCustomerViewModel model = new UserCustomerViewModel();
+            model.First_Name = customer.First_Name;
+            model.Last_Name = customer.Last_Name;
+            model.Person_Id = customer.Person_Id;
+            model.Telephone = customer.Telephone;
+
+            return View(model);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditCustomerUsers(UserCustomerViewModel model)
+        {
+
+            var user = await userManager.FindByNameAsync(model.userName);
+            var customer =  PersonService.GetElementById(model.Person_Id);
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {model.userName} cannot be found";
+                  return View("NotFound");
+            }
+            //if (customer == null)
+            //{
+            //    ViewBag.ErrorMessage = $"User with Id = {model.Last_Name} {model.First_Name} cannot be found";
+            //    return View("NotFound");
+            //}
+            uowUserCustomer.Entity.InsertElement(new UserCutomer()
+            {
+                User = user,
+                customer= customer
+            });
+            
+            return RedirectToAction("EditCustomerUsers",new {id=model.Person_Id }).WithSuccess("Affecter role", "Votre rôle affecter avec uccès");
+
+        }
+      
 
     }
 }

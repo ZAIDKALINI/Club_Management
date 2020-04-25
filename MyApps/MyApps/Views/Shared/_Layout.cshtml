@@ -89,7 +89,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-                        with font-awesome or any other icon font library -->
+    with font-awesome or any other icon font library -->
                         <li class="nav-item">
                             <a asp-controller="statistics" asp-action="Index" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -190,27 +190,7 @@
                                 </li>
 
                             </ul>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-hospital-alt"></i>
-                                <p class="text-bold">
-                                    Gestion d'assurance
-                                    <i class="fas fa-angle-left right"></i>
 
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a asp-controller="#" asp-action="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Assurance</p>
-                                    </a>
-                                </li>
-
-
-                            </ul>
-
-                        </li>
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="fa fa-chart-line"></i>
@@ -241,12 +221,44 @@
                                 </li>
 
                             </ul>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-hospital-alt"></i>
+                                <p class="text-bold">
+                                   Administration
+                                    <i class="fas fa-angle-left right"></i>
+
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-controller="Administration" asp-action="ListRoles" class="nav-link" title="Gestionnaire des rôle">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Rôle</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Administration" asp-action="ListUsers" class="nav-link" title="Gestionnaire des Utulisateurs">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Utulisateurs</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Administration" asp-action="GiveCustomerToUser" class="nav-link" title="Affecter client pour un utulisateur">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Affecter les client </p>
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </li>
 
 
 
 
 
-                            <!--End Expenses-->
+                        <!--End Expenses-->
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

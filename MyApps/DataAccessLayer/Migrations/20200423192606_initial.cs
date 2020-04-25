@@ -50,8 +50,8 @@ namespace DataAccessLayer.Migrations
                 name: "Category_Expenses",
                 columns: table => new
                 {
-                    Id_Category = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id_Category = table.Column<Guid>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
                     Name_Category = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -63,8 +63,8 @@ namespace DataAccessLayer.Migrations
                 name: "Coaches",
                 columns: table => new
                 {
-                    Person_Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Person_Id = table.Column<Guid>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
                     Ref = table.Column<string>(nullable: true),
                     First_Name = table.Column<string>(nullable: true),
                     Last_Name = table.Column<string>(nullable: true),
@@ -80,8 +80,8 @@ namespace DataAccessLayer.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    Person_Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Person_Id = table.Column<Guid>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
                     Ref = table.Column<string>(nullable: true),
                     First_Name = table.Column<string>(nullable: true),
                     Last_Name = table.Column<string>(nullable: true),
@@ -94,16 +94,34 @@ namespace DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TypeAssurances",
+                name: "Owner",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name_assurance = table.Column<string>(nullable: true)
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    FullName = table.Column<string>(nullable: true),
+                    Profil = table.Column<string>(nullable: true),
+                    Avatar = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TypeAssurances", x => x.Id);
+                    table.PrimaryKey("PK_Owner", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Portfolios",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    ImageUrl = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Portfolios", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -124,7 +142,7 @@ namespace DataAccessLayer.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -145,7 +163,7 @@ namespace DataAccessLayer.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -165,7 +183,7 @@ namespace DataAccessLayer.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -183,13 +201,13 @@ namespace DataAccessLayer.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -209,19 +227,19 @@ namespace DataAccessLayer.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Expenses",
                 columns: table => new
                 {
-                    Id_Expense = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id_Expense = table.Column<Guid>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Price = table.Column<double>(nullable: false),
                     ExpenseDate = table.Column<DateTime>(nullable: false),
-                    Id_Category = table.Column<int>(nullable: false)
+                    Id_Category = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -231,29 +249,6 @@ namespace DataAccessLayer.Migrations
                         column: x => x.Id_Category,
                         principalTable: "Category_Expenses",
                         principalColumn: "Id_Category",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CoachPayements",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Ref = table.Column<string>(nullable: true),
-                    Price = table.Column<double>(nullable: false),
-                    Payement_date = table.Column<DateTime>(nullable: false),
-                    Person_Id = table.Column<int>(nullable: false),
-                    CoachPerson_Id = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CoachPayements", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CoachPayements_Coaches_CoachPerson_Id",
-                        column: x => x.CoachPerson_Id,
-                        principalTable: "Coaches",
-                        principalColumn: "Person_Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -261,12 +256,12 @@ namespace DataAccessLayer.Migrations
                 name: "CustomerPayements",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
                     Ref = table.Column<string>(nullable: true),
                     Price = table.Column<double>(nullable: false),
                     Payement_date = table.Column<DateTime>(nullable: false),
-                    Person_Id = table.Column<int>(nullable: false),
+                    Person_Id = table.Column<Guid>(nullable: false),
                     duration = table.Column<int>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
                     IsEnd = table.Column<bool>(nullable: false)
@@ -279,34 +274,31 @@ namespace DataAccessLayer.Migrations
                         column: x => x.Person_Id,
                         principalTable: "Customers",
                         principalColumn: "Person_Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Assurances",
+                name: "userCutomers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Descreption = table.Column<string>(nullable: true),
-                    customerPerson_Id = table.Column<int>(nullable: true),
-                    Prix = table.Column<double>(nullable: false),
-                    TypeId = table.Column<int>(nullable: true)
+                    Id = table.Column<Guid>(nullable: false),
+                    IdUSer = table.Column<string>(nullable: true),
+                    IdCustomer = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Assurances", x => x.Id);
+                    table.PrimaryKey("PK_userCutomers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Assurances_TypeAssurances_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "TypeAssurances",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Assurances_Customers_customerPerson_Id",
-                        column: x => x.customerPerson_Id,
+                        name: "FK_userCutomers_Customers_IdCustomer",
+                        column: x => x.IdCustomer,
                         principalTable: "Customers",
                         principalColumn: "Person_Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_userCutomers_AspNetUsers_IdUSer",
+                        column: x => x.IdUSer,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -350,21 +342,6 @@ namespace DataAccessLayer.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Assurances_TypeId",
-                table: "Assurances",
-                column: "TypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Assurances_customerPerson_Id",
-                table: "Assurances",
-                column: "customerPerson_Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CoachPayements_CoachPerson_Id",
-                table: "CoachPayements",
-                column: "CoachPerson_Id");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CustomerPayements_Person_Id",
                 table: "CustomerPayements",
                 column: "Person_Id");
@@ -373,6 +350,16 @@ namespace DataAccessLayer.Migrations
                 name: "IX_Expenses_Id_Category",
                 table: "Expenses",
                 column: "Id_Category");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_userCutomers_IdCustomer",
+                table: "userCutomers",
+                column: "IdCustomer");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_userCutomers_IdUSer",
+                table: "userCutomers",
+                column: "IdUSer");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -393,10 +380,7 @@ namespace DataAccessLayer.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Assurances");
-
-            migrationBuilder.DropTable(
-                name: "CoachPayements");
+                name: "Coaches");
 
             migrationBuilder.DropTable(
                 name: "CustomerPayements");
@@ -405,22 +389,25 @@ namespace DataAccessLayer.Migrations
                 name: "Expenses");
 
             migrationBuilder.DropTable(
+                name: "Owner");
+
+            migrationBuilder.DropTable(
+                name: "Portfolios");
+
+            migrationBuilder.DropTable(
+                name: "userCutomers");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "TypeAssurances");
-
-            migrationBuilder.DropTable(
-                name: "Coaches");
+                name: "Category_Expenses");
 
             migrationBuilder.DropTable(
                 name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "Category_Expenses");
+                name: "AspNetUsers");
         }
     }
 }

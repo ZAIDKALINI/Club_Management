@@ -1,0 +1,142 @@
+﻿@inject DataAccessLayer.IUnitOfWork<DataAccessLayer.UserCutomer> uowUserCutomer
+@inject Microsoft.AspNetCore.Identity.UserManager<DataAccessLayer.ApplicationUser> SignInManager
+@inject DataAccessLayer.IUnitOfWork<Entities.CustomerPayement> uowPayementCustomer
+@{
+    var userId = SignInManager.GetUserId(User);
+    var Customer = uowUserCutomer.Entity.GetWithItems(c => c.IdUSer == userId,c=>c.customer).FirstOrDefault();
+    var tablePayement = uowPayementCustomer.Entity.GetWithItems(c => c.Person_Id == Customer.IdCustomer, c => c.customer);
+    Layout = null;
+}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 3 | User Profile</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <!--navbar-->
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand text-light" href="#">D3Codes</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+               
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                      
+
+                        <a class="nav-link text-light" asp-controller="portfolio" asp-action="Index"> <span class="fas fa-sign-in-alt"></span> Accueil</a>
+                    </li>
+                </ul>
+
+
+            </div>
+        </nav>
+        <!--/navbar-->
+    </header>
+    <br />
+    <section class="content m-5">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <!--Card image profile-->
+                    <div class="card card-primary card-outline">
+                        <div class="card-body box-profile">
+                            <div class="text-center">
+
+                                <img src="~/images/profile/zaid.jpg" class="img-thumbnail img-fluid" style="width:210px" height:"210px" alt="User profile picture" />
+                            </div>
+
+                            <h3 class="profile-username text-center">@Customer.customer.First_Name @Customer.customer.Last_Name</h3>
+                            <ul class="ml-4 mb-0 fa-ul text-muted">
+                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Addresse: Demo Street 123, Demo City 04312, NJ</li>
+                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Tele #: @Customer.customer.Telephone</li>
+                            </ul>
+                            <ul class="list-group">
+                                <li class="list-group-item"><span><i class="fas fa-mobile-phone fa-sm"></i></span> <p class="lead"><b>Tele #</b>@Customer.customer.Telephone</p></li>
+                            </ul>
+
+
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+
+                </div>
+                <!-- /.col -->
+                <div class="col-md-7">
+                    <div class="card">
+                        <div class="card-header p-2 bg-info text-center">
+                            Reglement de payement
+                        </div><!-- /.card-header -->
+                        <div class="card-body text-center">
+
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered" style="width:100%">
+                                    <thead class="bg-gradient-info">
+                                        <tr class="text-center">
+                                            <th scope="col">#</th>
+                                            <th scope="col"> Nom</th>
+                                            <th scope="col">Date de facture</th>
+                                            <th scope="col">Prix</th>
+                                            <th scope="col">Date de fin</th>
+                                            <th scope="col">Dure</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in @tablePayement)
+                                        {
+                                            <tr class="text-center">
+                                                <th scope="row"></th>
+                                                <td>@item.customer.First_Name @item.customer.Last_Name</td>
+                                                <td>@item.Payement_date</td>
+                                                <td>@item.Price</td>
+                                                <td>@item.EndDate</td>
+                                                <td>@item.duration</td>
+
+                                            </tr>
+                                        }
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                     
+
+
+
+
+
+
+                        </div><!-- /.card-body -->
+                    </div>
+                    <!-- /.nav-tabs-custom -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+</body>
+
+<script src="~/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="~/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="~/dist/js/demo.js"></script>

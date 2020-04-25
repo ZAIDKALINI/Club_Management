@@ -6,12 +6,14 @@ using BusinessLogicLayer;
 using CustomException;
 using DataAccessLayer;
 using Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyApps.Alerts;
 
 namespace MyApps.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class CoachesController : Controller
     {
         CoachService _repository;
@@ -22,13 +24,13 @@ namespace MyApps.Controllers
         // GET: Coaches
         public ActionResult Index()
         {
-            var lst = _repository.GetElements();
+            var lst = _repository.GetElements(User.Identity.Name);
       
             return View(lst);
         }
 
         // GET: Coaches/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(Guid id)
         {
             var coach = _repository.GetElementById(id);
             return View(coach);
@@ -59,7 +61,7 @@ namespace MyApps.Controllers
         }
 
         // GET: Coaches/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(Guid id)
         {
             var coach = _repository.GetElementById(id);
             return View(coach);
@@ -69,7 +71,7 @@ namespace MyApps.Controllers
         // POST: Coaches/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Entities.Coach collection)
+        public IActionResult Edit(Guid id, Entities.Coach collection)
         {
             try
             {
@@ -84,7 +86,7 @@ namespace MyApps.Controllers
         }
 
         // GET: Coaches/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(Guid id)
         {
             var coach = _repository.GetElementById(id);
             return View(coach);
@@ -93,7 +95,7 @@ namespace MyApps.Controllers
         // POST: Coaches/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(Guid id, IFormCollection collection)
         {
             try
             {
@@ -107,13 +109,13 @@ namespace MyApps.Controllers
                 return View().WithDanger("ERREUR", e.Message);
             }
         }
-        public ActionResult Find(string search)
+        public ActionResult Find(string search,string createdBy)
         {
             //find by first name or last name
             try
             {
                 // TODO: Add delete logic here
-                var lst = _repository.GetElements(search);
+                var lst = _repository.GetElements(search,createdBy);
                 return View(lst);
             }
             catch

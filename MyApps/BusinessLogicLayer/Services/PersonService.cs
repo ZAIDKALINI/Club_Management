@@ -7,18 +7,19 @@ using System.Text;
 
 namespace BusinessLogicLayer
 {
-    class PersonService 
+    public class PersonService<T>where T : Person
     {
-        IUnitOfWork<Customer> UOW;
-        public PersonService(IUnitOfWork<Customer> _UOW)
+        IUnitOfWork<T> UOW;
+        public PersonService(IUnitOfWork<T> _UOW)
         {
             UOW = _UOW;
         }
-        public virtual void AddNew(Customer person)
+        public virtual void AddNew(T person)
         {
-            if (person.Person_Id == 0)
+            if (person.Person_Id==Guid.Empty)
             {
                 person.DateInscri = DateTime.Now;
+                
                 UOW.Entity.InsertElement(person);
                 UOW.Save();
                 UOW.Dispose();
@@ -29,7 +30,7 @@ namespace BusinessLogicLayer
                 throw new Exception("IdShould be identity");
         }
 
-        public virtual void Delete(int? id)
+        public virtual void Delete(Guid id)
         {
             if (id == null)
                 throw new Exception("Id is null");
@@ -41,7 +42,7 @@ namespace BusinessLogicLayer
             UOW.Dispose();
         }
 
-        public virtual Customer GetElementById(int? id)
+        public virtual T GetElementById(Guid id)
         {
             var customer = UOW.Entity.GetElements(c => c.Person_Id == id);
             return customer.FirstOrDefault();
@@ -52,11 +53,11 @@ namespace BusinessLogicLayer
         /// getAllElement
         /// </summary>
         /// <returns></returns>
-        public virtual IList<Customer> GetElements()
+        public virtual IList<T> GetElements(string createdBy)
         {
-            return UOW.Entity.GetElements().ToList();
+            return UOW.Entity.GetElements(c=>c.CreatedBy== createdBy).ToList();
         }
-        public virtual IEnumerable<Customer> GetElements(Func<Customer, bool> expression)
+        public virtual IEnumerable<T> GetElements(Func<T, bool> expression)
         {
             var lst = UOW.Entity.GetElements(expression);
             return lst;
@@ -67,17 +68,18 @@ namespace BusinessLogicLayer
         /// </summary>
         /// <param name="search">cherche multi cretaire</param>
         /// <returns></returns>
-        public virtual IEnumerable<Customer> GetElements(string search)
+        public virtual IEnumerable<T> GetElements(string search,string createdBy)
         {
 
             if (!String.IsNullOrEmpty(search))
             {
-                var lst = GetElements(c => c.First_Name.ToUpper().Contains(search.ToUpper()) || c.Last_Name.ToUpper().Contains(search.ToUpper())).ToList();
+                var lst = GetElements(c => c.First_Name.ToUpper().Contains(search.ToUpper()) || c.Last_Name.ToUpper().Contains(search.ToUpper())
+                                            || c.Telephone.Contains(search.ToUpper()) && c.CreatedBy==createdBy).ToList();
                 return lst;
             }
 
 
-            var lst1 = GetElements();
+            var lst1 = GetElements(c=>c.CreatedBy== createdBy);
             return lst1;
 
 
@@ -89,30 +91,31 @@ namespace BusinessLogicLayer
         /// <param name="d1">First date</param>
         /// <param name="d2">Last date</param>
         /// <returns></returns>
-        public virtual IEnumerable<Customer> GetElements(string d1, string d2)
+        public virtual IEnumerable<T> GetElements(string d1, string d2,string createdBy)
         {
-            IList<Customer> lst;
+            IList<T> lst;
             var _d1 = Convert.ToDateTime(d1);
             var _d2 = Convert.ToDateTime(d2);
-            lst = GetElements().Where(c => c.DateInscri >= _d1 && c.DateInscri <= _d2).ToList();
+            lst = GetElements(c=>c.CreatedBy==createdBy).Where(c => c.DateInscri >= _d1 && c.DateInscri <= _d2 && c.CreatedBy==createdBy).ToList();
             return lst;
 
         }
 
-        public virtual void UpdateElement(int id, Customer customer)
+        public virtual void UpdateElement(Guid id, T Person)
         {
-            if (id == customer.Person_Id)
+            if (id == Person.Person_Id)
             {
                 //set date inscri 
                 var cus = GetElementById(id);
-                customer.DateInscri = cus.DateInscri;
-                UOW.Entity.UpdateElement(customer);
+                Person.DateInscri = cus.DateInscri;
+                UOW.Entity.UpdateElement(Person);
                 UOW.Save();
                 UOW.Dispose();
             }
             else
                 throw new Exception("Id category dosen't belong to the new category");
         }
+       
 
     }
-    }
+}

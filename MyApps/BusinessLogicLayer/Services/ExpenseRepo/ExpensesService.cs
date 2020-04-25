@@ -21,7 +21,7 @@ namespace BusinessLogicLayer.ExpenseRepo
       
         public void AddNew(Expense expense)
         {
-            if (expense.Id_Expense == 0)
+            if (expense.Id_Expense == Guid.Empty)
             {
 
                 _uowExpense.Entity.InsertElement(expense);
@@ -33,7 +33,7 @@ namespace BusinessLogicLayer.ExpenseRepo
                 throw new Exception("IdShould be identity");
         }
 
-        public void Delete(int? id)
+        public void Delete(Guid id)
         {
             if (id == null)
                 throw new Exception("Id is null");
@@ -45,7 +45,7 @@ namespace BusinessLogicLayer.ExpenseRepo
             _uowExpense.Dispose();
         }
 
-        public Expense GetElementById(int? id)
+        public Expense GetElementById(Guid id)
         {
             var expense = _uowExpense.Entity.GetWithItems(c => c.Id_Expense == id,e=>e.category).FirstOrDefault();
             return expense;
@@ -63,7 +63,7 @@ namespace BusinessLogicLayer.ExpenseRepo
         
 
 
-        public void UpdateElement(int id, Expense expense)
+        public void UpdateElement(Guid id, Expense expense)
         {
             if (id == expense.Id_Expense)
             {

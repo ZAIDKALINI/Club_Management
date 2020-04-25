@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(App_Context))]
-    [Migration("20200422162102_deleteAsNoaction")]
-    partial class deleteAsNoaction
+    [Migration("20200423192606_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -86,40 +86,35 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Entities.Assurance", b =>
+            modelBuilder.Entity("DataAccessLayer.UserCutomer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Descreption")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("IdCustomer")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("Prix")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("TypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("customerPerson_Id")
-                        .HasColumnType("int");
+                    b.Property<string>("IdUSer")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TypeId");
+                    b.HasIndex("IdCustomer");
 
-                    b.HasIndex("customerPerson_Id");
+                    b.HasIndex("IdUSer");
 
-                    b.ToTable("Assurances");
+                    b.ToTable("userCutomers");
                 });
 
             modelBuilder.Entity("Entities.Coach", b =>
                 {
-                    b.Property<int>("Person_Id")
+                    b.Property<Guid>("Person_Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateInscri")
                         .HasColumnType("datetime2");
@@ -141,41 +136,14 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Coaches");
                 });
 
-            modelBuilder.Entity("Entities.CoachPayement", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CoachPerson_Id")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Payement_date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Person_Id")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Ref")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CoachPerson_Id");
-
-                    b.ToTable("CoachPayements");
-                });
-
             modelBuilder.Entity("Entities.Customer", b =>
                 {
-                    b.Property<int>("Person_Id")
+                    b.Property<Guid>("Person_Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateInscri")
                         .HasColumnType("datetime2");
@@ -199,10 +167,12 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("Entities.CustomerPayement", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
@@ -213,8 +183,8 @@ namespace DataAccessLayer.Migrations
                     b.Property<DateTime>("Payement_date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Person_Id")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Person_Id")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -234,10 +204,12 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("Entities.Expenses.Category_expense", b =>
                 {
-                    b.Property<int>("Id_Category")
+                    b.Property<Guid>("Id_Category")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name_Category")
                         .HasColumnType("nvarchar(max)");
@@ -249,10 +221,12 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("Entities.Expenses.Expense", b =>
                 {
-                    b.Property<int>("Id_Expense")
+                    b.Property<Guid>("Id_Expense")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -260,8 +234,8 @@ namespace DataAccessLayer.Migrations
                     b.Property<DateTime>("ExpenseDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Id_Category")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Id_Category")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -275,12 +249,14 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("Entities.Portfolio.Owner", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
@@ -296,10 +272,12 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("Entities.Portfolio.Portfolio", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -316,21 +294,6 @@ namespace DataAccessLayer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Portfolios");
-                });
-
-            modelBuilder.Entity("Entities.TypeAssurance", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name_assurance")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TypeAssurances");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -464,24 +427,17 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Entities.Assurance", b =>
+            modelBuilder.Entity("DataAccessLayer.UserCutomer", b =>
                 {
-                    b.HasOne("Entities.TypeAssurance", "Type")
-                        .WithMany()
-                        .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("Entities.Customer", "customer")
                         .WithMany()
-                        .HasForeignKey("customerPerson_Id")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
+                        .HasForeignKey("IdCustomer")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-            modelBuilder.Entity("Entities.CoachPayement", b =>
-                {
-                    b.HasOne("Entities.Coach", "Coach")
+                    b.HasOne("DataAccessLayer.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("CoachPerson_Id")
+                        .HasForeignKey("IdUSer")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

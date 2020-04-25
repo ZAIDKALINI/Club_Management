@@ -1,0 +1,118 @@
+﻿
+@model List<Entities.Customer>
+
+@{
+
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="card card-solid">
+    <div class="card-body pb-0">
+        <div class="row d-flex align-items-stretch">
+            @foreach (var item in Model)
+            {
+                <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+                    <div class="card bg-light">
+                        <div class="card-header text-muted border-bottom-0">
+                            Digital Strategist
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="row">
+                                <!--content-->
+                                <div class="col-7">
+                                    <h2 class="lead"><b>@item.First_Name @item.Last_Name</b></h2>
+
+                                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Addresse: Demo Street 123, Demo City 04312, NJ</li>
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Tele #: @item.Telephone</li>
+                                    </ul>
+                                </div>
+                                <div class="col-5 text-center">
+                                    <img src="../../dist/img/user1-128x128.jpg" alt="" class="img-circle img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="text-right">
+                                <a href="#" class="btn btn-sm bg-teal">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a asp-action="EditCustomerUsers" asp-route-id="@item.Person_Id" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-user"> Choisir utilisateurs</i> 
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>   
+ </div>   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            @*<form method="post">
+
+
+                <div class="form-group row">
+                    <label asp-for="userName" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <input asp-for="userName" class="form-control">
+                        <span asp-validation-for="userName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="Customer.CustomerName" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <input asp-for="Customer.CustomerName" class="form-control">
+                        <span asp-validation-for="Customer.CustomerName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Customer.CreatedBy" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <input asp-for="Customer.CreatedBy" class="form-control">
+                        <span asp-validation-for="Customer.CreatedBy" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+
+            </form>*@

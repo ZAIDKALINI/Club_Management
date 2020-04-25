@@ -40,7 +40,7 @@ namespace BusinessLogicLayer
         {
             return dbSet.Select(expression);
         }
-        public TEntity GetElementByID(int ObjId)
+        public TEntity GetElementByID(Guid ObjId)
         {
             
             var Obj = dbSet.Find(ObjId);

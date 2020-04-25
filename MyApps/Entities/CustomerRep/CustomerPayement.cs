@@ -8,7 +8,7 @@ namespace Entities
     public class CustomerPayement:Payement
     {
         [ForeignKey("customer")]
-        public int Person_Id { get; set; }
+        public Guid Person_Id { get; set; }
         [ForeignKey("Person_Id")]
         public virtual Customer customer{ get; set; }
         public int duration { get; set; }

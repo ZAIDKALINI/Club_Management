@@ -68,7 +68,7 @@ namespace MyApps.Controllers.Portefolio
         }
 
         // GET: Portfolio/Edit/5
-        public IActionResult Edit(int? id)
+        public IActionResult Edit(Guid id)
         {
             if (id == null)
             {
@@ -88,7 +88,7 @@ namespace MyApps.Controllers.Portefolio
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Title,Description,ImageUrl,Id")] Portfolio portfolio)
+        public IActionResult Edit(Guid id, [Bind("Title,Description,ImageUrl,Id")] Portfolio portfolio)
         {
             if (id != portfolio.Id)
             {
@@ -119,7 +119,7 @@ namespace MyApps.Controllers.Portefolio
         }
 
         // GET: Portfolio/Delete/5
-        public IActionResult Delete(int? id)
+        public IActionResult Delete(Guid id)
         {
             if (id == null)
             {
@@ -138,18 +138,18 @@ namespace MyApps.Controllers.Portefolio
         // POST: Portfolio/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(Guid id)
         {
             _portfolio.Delete(id);
   
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult GetPortfolio(int id)
+        public IActionResult GetPortfolio(Guid id)
         {
             var portfolio = _portfolio.GetElementById(id);
             return Json(portfolio);
         }
-        private bool PortfolioExists(int id)
+        private bool PortfolioExists(Guid id)
         {
             return _portfolio.GetElements().Any(e => e.Id == id);
         }
