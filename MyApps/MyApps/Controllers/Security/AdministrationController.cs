@@ -12,27 +12,28 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyApps.Models;
 using MyApps.Alerts;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyApps.Controllers.Security
 {
+    [Authorize(Roles = "Admin")]
     public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
         public UserManager<ApplicationUser> userManager { get; }
         private readonly ILogger<AdministrationController> logger;
-            PersonService<Customer> PersonService;
-            IUnitOfWork<UserCutomer> uowUserCustomer;
+        PersonService<Customer> PersonService;
+        IUnitOfWork<UserCutomer> uowUserCustomer;
 
 
-        public AdministrationController(RoleManager<IdentityRole> roleManager,UserManager<ApplicationUser> _userManager,
+        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> _userManager,
                                            ILogger<AdministrationController> logger, IUnitOfWork<Customer> uowCust, IUnitOfWork<UserCutomer> uowUserCustomer)
         {
             this.roleManager = roleManager;
             userManager = _userManager;
             this.logger = logger;
             this.uowUserCustomer = uowUserCustomer;
-             PersonService = new PersonService<Customer>(uowCust);
+            PersonService = new PersonService<Customer>(uowCust);
         }
         public IActionResult Index()
         {
@@ -268,7 +269,7 @@ namespace MyApps.Controllers.Security
             {
                 user.Email = model.Email;
                 user.UserName = model.UserName;
-               
+
 
                 var result = await userManager.UpdateAsync(user);
 
@@ -343,20 +344,20 @@ namespace MyApps.Controllers.Security
                     return View("ListRoles");
 
                 }
-          
-            catch (DbUpdateException ex)
-            {
-                //Log the exception to a file. We discussed logging to a file
-                // using Nlog in Part 63 of ASP.NET Core tutorial
-                logger.LogError($"Exception Occured : {ex}");
-                // Pass the ErrorTitle and ErrorMessage that you want to show to
-                // the user using ViewBag. The Error view retrieves this data
-                // from the ViewBag and displays to the user.
-                ViewBag.ErrorTitle = $" Le rôle \"{role.Name}\" est en cours d'utilisation";
-                ViewBag.ErrorMessage = $"Le rôle d'administrateur {role.Name} ne peut pas être supprimé car il y a des utilisateurs dans ce rôle. Si vous souhaitez supprimer ce rôle, veuillez supprimer les utilisateurs du rôle, puis essayez de supprimer";
-                return View("Error");
+
+                catch (DbUpdateException ex)
+                {
+                    //Log the exception to a file. We discussed logging to a file
+                    // using Nlog in Part 63 of ASP.NET Core tutorial
+                    logger.LogError($"Exception Occured : {ex}");
+                    // Pass the ErrorTitle and ErrorMessage that you want to show to
+                    // the user using ViewBag. The Error view retrieves this data
+                    // from the ViewBag and displays to the user.
+                    ViewBag.ErrorTitle = $" Le rôle \"{role.Name}\" est en cours d'utilisation";
+                    ViewBag.ErrorMessage = $"Le rôle d'administrateur {role.Name} ne peut pas être supprimé car il y a des utilisateurs dans ce rôle. Si vous souhaitez supprimer ce rôle, veuillez supprimer les utilisateurs du rôle, puis essayez de supprimer";
+                    return View("Error");
+                }
             }
-           }
         }
         [HttpGet]
         public async Task<IActionResult> ManageUserRoles(string userId)
@@ -500,22 +501,39 @@ namespace MyApps.Controllers.Security
             return RedirectToAction("EditUser", new { Id = model.UserId });
 
         }
-        public  IActionResult GiveCustomerToUser()
+        public IActionResult GiveCustomerToUser()
         {
-         
-            var customers = PersonService.GetElements(User.Identity.Name);
+
+            var customers = PersonService.GetElements();
             return View(customers);
         }
-      
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">Person Id</param>
+        /// <returns></returns>
         public IActionResult EditCustomerUsers(Guid id)
         {
 
-           var customer=  PersonService.GetElementById(id);
+            var customer = PersonService.GetElementById(id);
+            var UserCustomer = uowUserCustomer.Entity.GetWithItems(u => u.IdCustomer == id, u => u.User).FirstOrDefault();
+            string nameUser = "";
+                if (UserCustomer != null)
+            {
+                 nameUser = uowUserCustomer.Entity.GetWithItems(u => u.IdCustomer == id, u => u.User).FirstOrDefault().User.UserName;
+               // var idUser = uowUserCustomer.Entity.GetWithItems(u => u.IdCustomer == id, u => u.User).FirstOrDefault().IdUSer;
+            }
+          
+
             UserCustomerViewModel model = new UserCustomerViewModel();
             model.First_Name = customer.First_Name;
             model.Last_Name = customer.Last_Name;
             model.Person_Id = customer.Person_Id;
-            model.Telephone = customer.Telephone;
+            model.Telephone = customer.Phone;
+            model.image = customer.image;
+            model.userName = nameUser;
+
+
 
             return View(model);
 
@@ -525,11 +543,11 @@ namespace MyApps.Controllers.Security
         {
 
             var user = await userManager.FindByNameAsync(model.userName);
-            var customer =  PersonService.GetElementById(model.Person_Id);
+            var customer = PersonService.GetElementById(model.Person_Id);
             if (user == null)
             {
                 ViewBag.ErrorMessage = $"User with Id = {model.userName} cannot be found";
-                  return View("NotFound");
+                return View("NotFound");
             }
             //if (customer == null)
             //{
@@ -539,13 +557,27 @@ namespace MyApps.Controllers.Security
             uowUserCustomer.Entity.InsertElement(new UserCutomer()
             {
                 User = user,
-                customer= customer
+                customer = customer
             });
-            
-            return RedirectToAction("EditCustomerUsers",new {id=model.Person_Id }).WithSuccess("Affecter role", "Votre rôle affecter avec uccès");
+
+            return RedirectToAction("EditCustomerUsers", new { id = model.Person_Id }).WithSuccess("Affecter role", "Votre rôle affecter avec uccès");
 
         }
-      
+        [HttpPost]
+        public IActionResult DeleteUserCustomer(Guid id)
+        {
+            var user = uowUserCustomer.Entity.GetElements(user=>user.IdCustomer== id).FirstOrDefault();
 
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {id} cannot be found";
+                return View("NotFound");
+            }
+
+            uowUserCustomer.Entity.DeleteElement(user);
+
+            return RedirectToAction("EditCustomerUsers", new { Id = id });
+        }
+      
     }
 }

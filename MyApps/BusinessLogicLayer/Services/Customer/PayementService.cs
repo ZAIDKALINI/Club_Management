@@ -22,11 +22,11 @@ namespace BusinessLogicLayer
         {
             if (payement.Id == Guid.Empty)
             {
-               
-            
+
+                payement.EndDate = payement.Payement_date.AddMonths(1);
                 _uowPayment.Entity.InsertElement(payement);
                 _uowPayment.Save();
-                ResetRestIsEndForTrue(payement.Person_Id, payement.CreatedBy);
+                ResetRestIsEndForTrue(payement.Person_Id);
                
               
                 _uowPayment.Dispose();
@@ -41,23 +41,24 @@ namespace BusinessLogicLayer
        /// set last month on true
        /// </summary>
        /// <param name="id">Customer id who make payement</param>
-        public void ResetRestIsEndForFalse(Guid idPerson, string CreatedBy)
+        public void ResetRestIsEndForFalse(Guid idPerson)
         {
-           var payement= _uowPayment.Entity.GetWithItems(p => p.IsEnd == true&&p.Person_Id== idPerson,p=>p.CreatedBy==CreatedBy).FirstOrDefault();
+           var payement= _uowPayment.Entity.GetWithItems(p => p.IsEnd == true&&p.Person_Id== idPerson).FirstOrDefault();
             if (payement != null)
             {
                 payement.IsEnd = false;
+                _uowPayment.Entity.UpdateElement(payement);
                 _uowPayment.Save();
                 _uowPayment.Dispose();
             }
        
         }
-        public void ResetRestIsEndForTrue(Guid idPerson, string CreatedBy)
+        public void ResetRestIsEndForTrue(Guid idPerson)
         {
             try
             {
                 var payement = _uowPayment.Entity.GetWithItems(p => p.Person_Id == idPerson).OrderByDescending(p => p.EndDate).FirstOrDefault();
-                ResetRestIsEndForFalse(idPerson,CreatedBy);
+                ResetRestIsEndForFalse(idPerson);
                 // var pay = GetElementById(payement.Id);
                 if (payement != null)
                 {
@@ -92,7 +93,7 @@ namespace BusinessLogicLayer
             _uowPayment.Dispose();
             if (payement.IsEnd)
             {
-                ResetRestIsEndForTrue(id,payement.CreatedBy);
+                ResetRestIsEndForTrue(id);
             }
 
         }
@@ -130,14 +131,14 @@ namespace BusinessLogicLayer
         /// </summary>
         /// <param name="idCustomer">Customer</param>
         /// <returns>List payment</returns>
-        public List<CustomerPayement> GetPayementByCustomer(Guid idCustomer, string CreatedBy)
+        public List<CustomerPayement> GetPayementByCustomer(Guid idCustomer)
         {
-            var payement = _uowPayment.Entity.GetWithItems(c => c.Person_Id == idCustomer &&  c.CreatedBy==CreatedBy, customer => customer.customer).ToList();
+            var payement = _uowPayment.Entity.GetWithItems(c => c.Person_Id == idCustomer , customer => customer.customer).ToList();
             return payement;
         }
-        public IList<CustomerPayement> GetElements(string CreatedBy)
+        public IList<CustomerPayement> GetElements()
         {
-            var lst= _uowPayment.Entity.GetWithItems(c=>c.CreatedBy==CreatedBy,c=>c.customer).ToList();
+            var lst= _uowPayment.Entity.GetWithItems(c=>c.customer).ToList();
             return lst;
         }
        
@@ -152,7 +153,7 @@ namespace BusinessLogicLayer
                 _uowPayment.Entity.UpdateElement(payement);
                 _uowPayment.Save();
                 _uowPayment.Dispose();
-                ResetRestIsEndForTrue(id,payement.CreatedBy);
+                ResetRestIsEndForTrue(id);
 
 
             }
@@ -162,11 +163,11 @@ namespace BusinessLogicLayer
         /// <summary>
         /// Get all element who end thier payement
         /// </summary>
-        public IList<CustomerPayement> GetCustomersEndthierMonth (string CreatedBy)
+        public IList<CustomerPayement> GetCustomersEndthierMonth ()
         {
            
                
-                var lst = _uowPayment.Entity.GetWithItems(p => p.EndDate <= DateTime.Now && p.IsEnd==true && p.CreatedBy==CreatedBy,c=>c.customer).ToList();
+                var lst = _uowPayment.Entity.GetWithItems(p => p.EndDate <= DateTime.Now && p.IsEnd==true ,c=>c.customer).ToList();
               
                 return lst;
             

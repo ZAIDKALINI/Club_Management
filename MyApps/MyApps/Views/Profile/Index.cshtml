@@ -55,18 +55,21 @@
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
-
-                                <img src="~/images/profile/zaid.jpg" class="img-thumbnail img-fluid" style="width:210px" height:"210px" alt="User profile picture" />
+                                @{
+                                    string path = "";
+                                    if (Customer != null)
+                                        path = Customer.customer.image ?? "Default.jpg";
+                                }
+                                <img src="~/images/People/@path" class="img-thumbnail img-fluid" style="width:210px" height:"210px" alt="User profile picture" />
                             </div>
 
                             <h3 class="profile-username text-center">@Customer.customer.First_Name @Customer.customer.Last_Name</h3>
                             <ul class="ml-4 mb-0 fa-ul text-muted">
-                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Addresse: Demo Street 123, Demo City 04312, NJ</li>
-                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Tele #: @Customer.customer.Telephone</li>
+                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> @Customer.customer.Adresse</li>
+                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Tele #: @Customer.customer.Phone</li>
+                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-birthday-cake"></i></span> @Html.DisplayName("Customer.customer.DateOfBirth") #: @Customer.customer.DateOfBirth</li>
                             </ul>
-                            <ul class="list-group">
-                                <li class="list-group-item"><span><i class="fas fa-mobile-phone fa-sm"></i></span> <p class="lead"><b>Tele #</b>@Customer.customer.Telephone</p></li>
-                            </ul>
+                           
 
 
 

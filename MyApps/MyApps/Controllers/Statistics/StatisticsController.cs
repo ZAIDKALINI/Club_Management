@@ -6,10 +6,13 @@ using Entities.StatisticRepo;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Security.Permissions;
 
 namespace MyApps.Controllers.Statistique
 {
- 
+
+
+   
     public class StatisticsController : Controller
     {
         public static IList<Reports> lst;
@@ -26,6 +29,7 @@ namespace MyApps.Controllers.Statistique
         // GET: Statistics
         public ActionResult Index(string d1, string d2)
         {
+
             var PriceExpense = _repositoryExpense.GetBudgetByDate("", "");
             var ExpenseCount = _repositoryExpense.GetCountExpenseByDate("", "");
             var CustomerPayment = _repositoryIncome.GetBudgetByDate("", "");

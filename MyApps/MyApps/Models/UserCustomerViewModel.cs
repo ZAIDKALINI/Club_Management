@@ -17,6 +17,9 @@ namespace MyApps.Models
         public string Last_Name { get; set; }
 
         public string Telephone { get; set; }
+        public string image { get; set; }
+
+
 
     }
    

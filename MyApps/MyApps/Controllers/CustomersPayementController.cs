@@ -16,7 +16,7 @@ using MyApps.Alerts;
 
 namespace MyApps.Controllers
 {
-   
+    [Authorize(Roles = "Admin")]
     public class CustomersPayementController : Controller
     {
       
@@ -24,42 +24,44 @@ namespace MyApps.Controllers
         IList<CustomerPayement> lst;
         private PayementService _repositoryPayement;
         private CustomerService _customerRepo;
-        SignInManager<ApplicationUser> signInManager;
+ 
 
-        public CustomersPayementController(IUnitOfWork<CustomerPayement> uowPayement, IUnitOfWork<Customer> uowCustomer, 
-                                            SignInManager<ApplicationUser> signInManager)
+        public CustomersPayementController(IUnitOfWork<CustomerPayement> uowPayement, IUnitOfWork<Customer> uowCustomer)
         {
             _repositoryPayement = new PayementService(uowPayement);
             _customerRepo = new CustomerService(uowCustomer);
-            this.signInManager = signInManager;
+          
 
 
         }
         // GET: CustomersPayement
         public ActionResult Index()
         {
-             lst = _repositoryPayement.GetElements(User.Identity.Name);
-            ViewBag.Person_Id = new SelectList(_customerRepo.GetElements(User.Identity.Name), "Person_Id", "Last_Name");
+             lst = _repositoryPayement.GetElements();
+            ViewBag.Person_Id = new SelectList(_customerRepo.GetElements(), "Person_Id", "Last_Name");
            
             return View(lst);
         }
-
+       
         // GET: CustomersPayement/Details/5
-        public ActionResult Details(Guid id)
+        public ActionResult Details(Guid idPayement)
         {
          
-            var customerPayement=_repositoryPayement.GetElementById(id);
-            var customer = _customerRepo.GetElementById(id);
+            var customerPayement=_repositoryPayement.GetElementById(idPayement);
+            var customer = _customerRepo.GetElementById(idPayement);
             customerPayement.customer = customer;
         
             return View(customerPayement);
         }
 
         // GET: CustomersPayement/Create
-        public ActionResult Create()
+        public ActionResult Create(Guid id)
         {
-
-            ViewData["Person_Id"] = new SelectList(_customerRepo.GetElements(User.Identity.Name), "Person_Id", "Last_Name");
+            var cus = _customerRepo.GetElementById(id);
+            ViewBag.Person_Id = id;
+            ViewBag.Person_Name = cus.First_Name+" "+cus.Last_Name;
+            ViewBag.Person_Image = cus.image??"Default.jpg";
+           
             return View();
         }
 
@@ -71,6 +73,7 @@ namespace MyApps.Controllers
             try
             {
                 // TODO: Add insert logic here
+                collection.Id = Guid.Empty;
                 _repositoryPayement.AddNew(collection);
               //  var cust  = _repositoryPayement.GetElements(p => p.Person_Id == collection.Person_Id);
               
@@ -87,7 +90,7 @@ namespace MyApps.Controllers
         {
          
             var payement = _repositoryPayement.GetElementById(id);
-            var cust = _customerRepo.GetElements(User.Identity.Name);
+            var cust = _customerRepo.GetElements();
             ViewData["Person_Id"] = new SelectList(cust, "Person_Id", "Last_Name", payement.Person_Id);
            
             return View(payement);
@@ -105,7 +108,7 @@ namespace MyApps.Controllers
                 _repositoryPayement.UpdateElement(id,customerPayement);
                 //_repository.ResetRestIsEndForTrue(customerPayement.Person_Id);
                 var payement = _repositoryPayement.GetElementById(id);
-                var cust = _customerRepo.GetElements(User.Identity.Name);
+                var cust = _customerRepo.GetElements();
                 ViewData["Person_Id"] = new SelectList(cust, "Person_Id", "Last_Name", payement.Person_Id);
 
                 return RedirectToAction("Index").WithSuccess("Modifier", "vous avez modifié avec succès ");
@@ -142,10 +145,10 @@ namespace MyApps.Controllers
             try
             {
                 // TODO: Add update logic here
-                var cust = _customerRepo.GetElements(User.Identity.Name);
+                var cust = _customerRepo.GetElements();
             
-                var lst=  _repositoryPayement.GetCustomersEndthierMonth(User.Identity.Name);
-                ViewBag.Person_Id = new SelectList(_customerRepo.GetElements(User.Identity.Name), "Person_Id", "Last_Name");
+                var lst=  _repositoryPayement.GetCustomersEndthierMonth();
+                ViewBag.Person_Id = new SelectList(_customerRepo.GetElements(), "Person_Id", "Last_Name");
 
                 return View(nameof(Index),lst);
             }

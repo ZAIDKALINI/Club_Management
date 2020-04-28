@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using BusinessLogicLayer;
@@ -7,10 +8,13 @@ using CustomException;
 using DataAccessLayer;
 using Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyApps.Alerts;
+using MyApps.Feautures;
+using MyApps.Models;
 
 namespace MyApps.Controllers
 {
@@ -20,17 +24,20 @@ namespace MyApps.Controllers
         CustomerService _repositoryCustomer;
         PayementService _repositoryPayement;
         IList<Customer> lst;
-        SignInManager<ApplicationUser> signInManager;
-        public CustomersController(IUnitOfWork<Customer> uowCustomer,IUnitOfWork<CustomerPayement> uowPayement, SignInManager<ApplicationUser> signInManager)
+        [Obsolete]
+        private readonly IHostingEnvironment _hosting;
+
+        [Obsolete]
+        public CustomersController(IUnitOfWork<Customer> uowCustomer,IUnitOfWork<CustomerPayement> uowPayement, IHostingEnvironment _hosting)
         {
           _repositoryCustomer = new CustomerService(uowCustomer);
           _repositoryPayement = new PayementService(uowPayement);
-            this.signInManager = signInManager;
+            this._hosting = _hosting;
         }
         // GET: Customers
         public IActionResult Index()
         {
-             lst = _repositoryCustomer.GetElements(User.Identity.Name);
+             lst = _repositoryCustomer.GetElements();
             return View(lst);
         }
 
@@ -40,10 +47,10 @@ namespace MyApps.Controllers
         /// </summary>
         /// <param name="idPayement">id Customer</param>
         /// <returns></returns>
-        public IActionResult Details(Guid id)
+        public IActionResult Details(Guid Id)
         {
             
-            var customer = _repositoryPayement.GetPayementByCustomer(id,User.Identity.Name);
+            var customer = _repositoryPayement.GetPayementByCustomer(Id);
             return View(customer);
 
          
@@ -59,41 +66,91 @@ namespace MyApps.Controllers
         // POST: Customers/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Customer customer)
+        [Obsolete]
+        public IActionResult Create(CreatePersonViewModel model)
         {
             try
             {
-                // TODO: Add insert logic here
-                _repositoryCustomer.AddNew(customer);
 
-                return RedirectToAction(nameof(Index)).WithSuccess("Ajouter", "vous avez ajouté avec succès ");
+                // TODO: Add insert logic here
+                UploadFile upload = new UploadFile(_hosting);
+                string uniqueFileName = upload.UploadedFile(model.image,@"images\People");
+               
+                   
+                    _repositoryCustomer.AddNew(new Customer() { 
+                    Adresse=model.Adresse,
+                    CreatedBy=User.Identity.Name,
+                    DateOfBirth=model.DateOfBirth,
+                    First_Name=model.First_Name,
+                    Last_Name=model.Last_Name,
+                    genre=model.genre,
+                    image=uniqueFileName,
+                    Phone=model.Phone
+                    });
+
+                    return RedirectToAction(nameof(Index)).WithSuccess("Ajouter", "vous avez ajouté avec succès ");
+                
+            
+        
             }
             catch(AjouterException e)
             {
+                ModelState.AddModelError("", e.Message);
                 return View().WithDanger("ERREUR", e.Message);
             }
         }
-
+       
         // GET: Customers/Edit/5
         public IActionResult Edit(Guid id)
         {
             var customer = _repositoryCustomer.GetElementById(id);
-            return View(customer);
+            CreatePersonViewModel model = new CreatePersonViewModel()
+            {
+                Person_Id=id,
+                Adresse = customer.Adresse,
+                DateOfBirth = customer.DateOfBirth,
+                First_Name = customer.First_Name,
+                Last_Name = customer.Last_Name,
+                genre = customer.genre,
+                ImageUrl = customer.image,
+                Phone = customer.Phone
+            };
+            return View(model);
         }
 
         // POST: Customers/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Guid id, Customer customer)
+        [Obsolete]
+        public IActionResult Edit(Guid id, CreatePersonViewModel customer)
         {
             try
             {
                 // TODO: Add update logic here
-                _repositoryCustomer.UpdateElement(id, customer);
+                if (ModelState.IsValid)
+                {
+                    UploadFile upload = new UploadFile(_hosting);
+                    var newPath = upload.UploadedFile(customer.image, @"images\People");
+                    if (newPath == null)
+                        newPath = _repositoryCustomer.GetElementById(id).image;
+                    _repositoryCustomer.UpdateElement(id, new Customer()
+                    {
+                        Person_Id=customer.Person_Id,
+                        Adresse = customer.Adresse,
+                        CreatedBy = User.Identity.Name,
+                        DateOfBirth = customer.DateOfBirth,
+                        First_Name = customer.First_Name,
+                        Last_Name = customer.Last_Name,
+                        genre = customer.genre,
+                        image = newPath,
+                        Phone = customer.Phone
+                    });
 
-                return RedirectToAction(nameof(Index)).WithSuccess("Modifier", "vous avez modifié avec succès ");
+                    return RedirectToAction(nameof(Index)).WithSuccess("Modifier", "vous avez modifié avec succès ");
+                }
+                return View().WithDanger("Modifier", "Echeq de modifier");
             }
-            catch(ModifierException e)
+            catch(Exception e)
             {
                 
                 return View().WithDanger("ERREUR", e.Message);
@@ -130,29 +187,18 @@ namespace MyApps.Controllers
             try
             {
                 // TODO: Add delete logic here
-                var lst = _repositoryCustomer.GetElements(search,User.Identity.Name);
-                return View(lst);
-            }
-            catch
-            {
-                return View();
-            }
-        }
-        public IActionResult FindByDate(string d1,string d2)
-        {
-            //find by first name or last name
-            try
-            {
+                
 
-                // TODO: Add delete logic here
-                lst = _repositoryCustomer.GetElements(d1, d2,User.Identity.Name).ToList();
-                    return View("Find",lst);
+                 var lst = _repositoryCustomer.GetElements(search.Trim()).ToList();
+                                      
+                return View("Index",lst);
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index");
             }
         }
+      
        
     }
 }

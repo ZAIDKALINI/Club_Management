@@ -125,27 +125,28 @@
                                         }
                                         @foreach (var item in Model)
                                         {
-                                            <tr>
-                                                <td>
-                                                    @{
-                                                        var date = item.Date.ToShortDateString();
-                                                    }
-                                                    @date
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Description)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Debit)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Creditor)
-                                                </td>
+                                        <tr>
+                                            <td>
                                                 @{
-                                                    debit += item.Debit;
-                                                    creditor += item.Creditor;
+                                                    var date = item.Date.ToShortDateString();
                                                 }
-                                            </tr>
+                                                @date
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Description)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Debit)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Creditor)
+                                            </td>
+                                           
+                                            @{
+                                                debit += item.Debit;
+                                                creditor += item.Creditor;
+                                            }
+                                        </tr>
                                         }
                                         @{
                                             var result = debit - creditor;

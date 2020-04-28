@@ -1,41 +1,18 @@
-﻿@model Entities.Person
+﻿@model CreatePersonViewModel
 <input type="hidden" asp-for="Person_Id" />
-<div class="container">
-    <div class="row">
-        <div class="col-sm-6">
-            <label asp-for="Ref" class="control-label"></label>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend ">
-                    <button type="button" id="btnRef" class="btn btn-secondary"><i class="fas fa-random"></i></button>
-                </div>
-                <!-- /btn-group -->
-                <input type="text" asp-for="Ref" class="form-control " id="txtRef" readonly>
-            </div>
-        </div>
-
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label asp-for=" Telephone"></label>
-                <input type="tel" asp-for=" Telephone" placeholder="Enter your number phone" class="form-control" />
-                <span asp-validation-for=" Telephone" class="text-danger"></span>
-            </div>
-        </div>
-
-    </div>
-</div>
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
                 <label asp-for=" Last_Name"></label>
-                <input asp-for=" Last_Name" placeholder="Enter your Last name" class="form-control" />
+                <input asp-for=" Last_Name" placeholder="Tapez votre nom" class="form-control" />
                 <span asp-validation-for=" Last_Name" class="text-danger"></span>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group">
                 <label asp-for=" First_Name"></label>
-                <input asp-for=" First_Name" placeholder="Enter your First name" class="form-control" />
+                <input asp-for=" First_Name" placeholder="Tapez votre prénom" class="form-control" />
                 <span asp-validation-for=" First_Name" class="text-danger"></span>
             </div>
         </div>
@@ -44,16 +21,54 @@
 
     </div>
 </div>
+<div class="container">
+    <div class="row">
 
 
-@section Scripts{
-    <script>
-        $(function () {
-        //make ref auto
-            $("#txtDure").val("1")
-            $("#btnRef").click(function () {
-                $("#txtRef").val(Date.now())
-            })
-        })</script>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label asp-for=" Phone"></label>
+                <input type="tel" asp-for=" Phone" placeholder="Tapez votre numéro de telephone" class="form-control" />
+                <span asp-validation-for=" Phone" class="text-danger"></span>
+            </div>
+        </div>
 
-}
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label asp-for=" Adresse"></label>
+                <textarea placeholder="Tapez votre adresse" asp-for=" Adresse" cols="40" rows="3" class="form-control"></textarea>
+                <span asp-validation-for=" Adresse" class="text-danger"></span>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+
+
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label asp-for=" DateOfBirth"></label>
+                <input type="date" asp-for=" DateOfBirth" placeholder="Tapez date de naissance" class="form-control" />
+                <span asp-validation-for=" DateOfBirth" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label asp-for=" genre"></label>
+                <select asp-for=" genre" class="form-control">
+                    <option value="1">Homme</option>
+                    <option value="2">Femme</option>
+                </select>
+                <span asp-validation-for=" genre" class="text-danger"></span>
+            </div>
+        </div>
+
+    </div>
+    
+</div>
+
+
+

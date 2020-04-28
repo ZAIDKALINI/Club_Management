@@ -1,7 +1,7 @@
-﻿@inject Microsoft.AspNetCore.Identity.SignInManager<DataAccessLayer.ApplicationUser> SignInManager
-@model Entities.EntityBase
+﻿
 
-<input asp-for="CreatedBy" type="hidden" value="@User.Identity.Name" placeholder="Enter your First name" class="form-control" />
+
+<input name="CreatedBy" type="hidden" value="@User.Identity.Name" placeholder="Enter your First name" class="form-control" />
 
 
 

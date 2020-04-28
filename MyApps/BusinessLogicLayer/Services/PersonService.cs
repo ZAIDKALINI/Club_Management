@@ -53,9 +53,9 @@ namespace BusinessLogicLayer
         /// getAllElement
         /// </summary>
         /// <returns></returns>
-        public virtual IList<T> GetElements(string createdBy)
+        public virtual IList<T> GetElements()
         {
-            return UOW.Entity.GetElements(c=>c.CreatedBy== createdBy).ToList();
+            return UOW.Entity.GetElements().ToList();
         }
         public virtual IEnumerable<T> GetElements(Func<T, bool> expression)
         {
@@ -68,18 +68,17 @@ namespace BusinessLogicLayer
         /// </summary>
         /// <param name="search">cherche multi cretaire</param>
         /// <returns></returns>
-        public virtual IEnumerable<T> GetElements(string search,string createdBy)
+        public virtual IEnumerable<T> GetElements(string search)
         {
-
+            search = System.Text.RegularExpressions.Regex.Replace(search, @"\s{2,}", " ");
             if (!String.IsNullOrEmpty(search))
             {
-                var lst = GetElements(c => c.First_Name.ToUpper().Contains(search.ToUpper()) || c.Last_Name.ToUpper().Contains(search.ToUpper())
-                                            || c.Telephone.Contains(search.ToUpper()) && c.CreatedBy==createdBy).ToList();
+                var lst = GetElements(c => c.First_Name.ToUpper().Contains(search.ToUpper()) || c.Last_Name.ToUpper().Contains(search.ToUpper()) || (c.First_Name.ToUpper()+" "+ c.Last_Name.ToUpper()).Contains(search.ToUpper()) || (c.Last_Name.ToUpper() + " " + c.First_Name.ToUpper()).Contains(search.ToUpper()));
                 return lst;
             }
 
 
-            var lst1 = GetElements(c=>c.CreatedBy== createdBy);
+            var lst1 = GetElements();
             return lst1;
 
 
@@ -91,12 +90,12 @@ namespace BusinessLogicLayer
         /// <param name="d1">First date</param>
         /// <param name="d2">Last date</param>
         /// <returns></returns>
-        public virtual IEnumerable<T> GetElements(string d1, string d2,string createdBy)
+        public virtual IEnumerable<T> GetElements(string d1, string d2)
         {
             IList<T> lst;
             var _d1 = Convert.ToDateTime(d1);
             var _d2 = Convert.ToDateTime(d2);
-            lst = GetElements(c=>c.CreatedBy==createdBy).Where(c => c.DateInscri >= _d1 && c.DateInscri <= _d2 && c.CreatedBy==createdBy).ToList();
+            lst = GetElements().Where(c => c.DateInscri >= _d1 && c.DateInscri <= _d2 ).ToList();
             return lst;
 
         }

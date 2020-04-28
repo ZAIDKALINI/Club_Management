@@ -36,3 +36,4 @@ C:\Users\HP\Desktop\Club_Management-6c19e8618cca57b3672350a3ea8b840f86261ccd\MyA
 C:\Users\HP\Desktop\Club_Management-6c19e8618cca57b3672350a3ea8b840f86261ccd\MyApps\Entities\obj\Debug\netstandard2.0\Entities.AssemblyInfo.cs
 C:\Users\HP\Desktop\Club_Management-6c19e8618cca57b3672350a3ea8b840f86261ccd\MyApps\Entities\obj\Debug\netstandard2.0\Entities.dll
 C:\Users\HP\Desktop\Club_Management-6c19e8618cca57b3672350a3ea8b840f86261ccd\MyApps\Entities\obj\Debug\netstandard2.0\Entities.pdb
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\Entities\obj\Debug\netstandard2.0\Entities.csprojAssemblyReference.cache

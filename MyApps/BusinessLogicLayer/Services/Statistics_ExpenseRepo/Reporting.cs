@@ -61,7 +61,7 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
             var from1 = ConvertDate.ConvertToDate(from);
             var to1 = ConvertDate.ConvertToDate(to);
             //////////////////////////////////
-            if (from1 == DateTime.MinValue || from1 == DateTime.MinValue)
+            if (from1 == DateTime.MinValue || to1 == DateTime.MinValue)
                 getMonthlyReport();
             else if (from1 != null && to1 != null)
             {

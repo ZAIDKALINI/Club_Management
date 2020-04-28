@@ -7,9 +7,12 @@ using CustomException;
 using DataAccessLayer;
 using Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyApps.Alerts;
+using MyApps.Feautures;
+using MyApps.Models;
 
 namespace MyApps.Controllers
 {
@@ -17,14 +20,18 @@ namespace MyApps.Controllers
     public class CoachesController : Controller
     {
         CoachService _repository;
-        public CoachesController(IUnitOfWork<Coach> uow)
+        private readonly IHostingEnvironment hosting;
+
+        [Obsolete]
+        public CoachesController(IUnitOfWork<Coach> uow, IHostingEnvironment _hosting)
         {
             _repository = new CoachService(uow);
+            hosting = _hosting;
         }
         // GET: Coaches
         public ActionResult Index()
         {
-            var lst = _repository.GetElements(User.Identity.Name);
+            var lst = _repository.GetElements();
       
             return View(lst);
         }
@@ -45,13 +52,27 @@ namespace MyApps.Controllers
         // POST: Coaches/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Entities.Coach coach)
+        [Obsolete]
+        public IActionResult Create(CreatePersonViewModel model)
         {
             try
             {
-               
+
                 // TODO: Add insert logic here
-                _repository.AddNew(coach);
+                // TODO: Add insert logic here
+                UploadFile upload = new UploadFile(hosting);
+                string uniqueFileName = upload.UploadedFile(model.image, @"images\People");
+                _repository.AddNew(new Coach() {
+                    Adresse = model.Adresse,
+                    CreatedBy = User.Identity.Name,
+                    DateOfBirth = model.DateOfBirth,
+                    First_Name = model.First_Name,
+                    Last_Name = model.Last_Name,
+                    genre = model.genre,
+                    image = uniqueFileName,
+                    Phone = model.Phone
+
+                });
                 return RedirectToAction(nameof(Index)).WithSuccess("Ajouter", "vous avez ajouté avec succès "); 
             }
             catch(AjouterException e)
@@ -64,19 +85,46 @@ namespace MyApps.Controllers
         public ActionResult Edit(Guid id)
         {
             var coach = _repository.GetElementById(id);
-            return View(coach);
-       
+         
+            CreatePersonViewModel model = new CreatePersonViewModel()
+            {
+                Person_Id = id,
+                Adresse = coach.Adresse,
+                DateOfBirth = coach.DateOfBirth,
+                First_Name = coach.First_Name,
+                Last_Name = coach.Last_Name,
+                genre = coach.genre,
+                ImageUrl = coach.image,
+                Phone = coach.Phone
+            };
+            return View(model);
+
         }
 
         // POST: Coaches/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Guid id, Entities.Coach collection)
+        [Obsolete]
+        public IActionResult Edit(Guid id, CreatePersonViewModel model)
         {
             try
             {
                 // TODO: Add update logic here
-                _repository.UpdateElement(id, collection);
+                UploadFile upload = new UploadFile(hosting);
+                var newPath = upload.UploadedFile(model.image, @"images\People");
+                if (newPath == null)
+                    newPath = _repository.GetElementById(id).image;
+                _repository.UpdateElement(id, new Coach() {
+                    Person_Id=id,
+                    Adresse = model.Adresse,
+                    CreatedBy = User.Identity.Name,
+                    DateOfBirth = model.DateOfBirth,
+                    First_Name = model.First_Name,
+                    Last_Name = model.Last_Name,
+                    genre = model.genre,
+                    image = newPath,
+                    Phone = model.Phone
+                });
                 return RedirectToAction(nameof(Index)).WithSuccess("Modifier", "vous avez modifié avec succès ");
             }
             catch(ModifierException e)

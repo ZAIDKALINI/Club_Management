@@ -12,10 +12,20 @@
                 <div class="card-header bg-dark">
                     <h3 class="card-title">Entraineur</h3>
                 </div>
-                <form asp-action="Create">
+                <form asp-action="Create" enctype="multipart/form-data">
 
                     <partial name="BasesEntity/_PersonBase" />
                     <partial name="BasesEntity/_BaseEntity" />
+                    <!--Image file-->
+                    <div class="container">
+                        <div class="row">
+                            <div class="form-group">
+                                <label asp-for="image" class="control-label"></label>
+                                <input asp-for="image" type="file" class="form-control" />
+                                <span asp-validation-for="image" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
 
 
                     <!--Submit btn -->

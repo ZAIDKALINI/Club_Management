@@ -2,8 +2,8 @@
 @model UserCustomerViewModel
 
     <div class="card card-primary">
-        <div class="card-header bg-secondary">
-            <h3 class="card-title">Effactuer le payment</h3>
+        <div class="card-header bg-dark">
+            <h3 class="card-title">Affecter le manager</h3>
         </div>
         <div class="row text-center">
             <div class="col-md-12">
@@ -11,12 +11,10 @@
                 <form method="post">
                     <div class="card-body d-flex bd-highlight">
                         <div class="p-2 flex-fill bd-highlight">
-                            <div class="form-group row ">
-                                <label asp-for="Person_Id" class="col-sm-3 col-form-label"></label>
-                                <div class="col-sm-9">
-                                    <input asp-for="Person_Id" type="hidden" class="form-control">
-                                </div>
-                            </div>
+
+                            <input asp-for="Person_Id" type="hidden" class="form-control">
+
+
                             <div class="form-group row">
                                 <label asp-for="Last_Name" disabled class="col-sm-3 col-form-label"></label>
                                 <div class="col-sm-9">
@@ -39,9 +37,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="p-2 flex-fill bd-highlight text-center">
+                        <div class="p-2 flex-fill bd-highlight text-right">
                             <div class="col-12 ">
-                                <img src="../../dist/img/user2-160x160.jpg" alt="" class="img-thumbnail img-fluid">
+                                @{
+                                    string path = "";
+                                    if (Model != null)
+                                        path = Model.image ?? "Default.jpg";
+                                }
+                                <img src="~/images/People/@path" alt="" class="img-circle profile-user-img img-fluid">
                             </div>
                         </div>
 
@@ -58,9 +61,37 @@
 
                         </div>
                         <!-- /btn-group -->
-                       
+
                     </div>
                 </form>
+                <!--Rmove user for customer-->
+                <form asp-action="DeleteUserCustomer" asp-route-id="@Model.Person_Id"method="post">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>User Roles</h3>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.userName.Any())
+                            {
+
+                               
+                                <h5 class="card-title">@Model.userName</h5>
+
+                            }
+                            else
+                            {
+                                <h5 class="card-title">None at the moment</h5>
+                            }
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                  
+               
             </div>
 
            

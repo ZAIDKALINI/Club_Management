@@ -1,90 +1,87 @@
 ﻿@model IEnumerable<Entities.Customer>
 
-
-
 <!--Index-->
-
+<!--Add new customer-->
 <div class="container">
-    <div class="row ">
-        <div class="col-12 mt-1">
-
-            <div class="card">
-                <div class="card-header bg-dark">
-                    <h3 class="card-title">Les clients</h3>
-
-                    <a asp-action="Create" class="btn btn-warning float-right" title="Ajouter nouveau client"><i class="fas fa-user-plus"></i></a>
-
-                </div>
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-4"> </div>
-
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label>Trouver</label>
-                                <input type="text" name="search" id="txtSearch" class="form-control" placeholder="Ecrire..." />
-                            </div>
-                        </div>
-
-
-
-                    </div>
-                </div>
-
-                <!-- /.card-header -->
-                <div class="card-body mt-0">
-                    <div class="table-responsive" id="demo">
-                        <table id="example2" class="table table-hover table-bordered  text-center">
-                            <thead class="bg-dark">
-                                <tr>
-
-                                    <th>
-                                        @Html.DisplayName("Name")
-                                    </th>
-
-
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Telephone)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayName("Date inscrption")
-                                    </th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.First_Name)  @Html.DisplayFor(modelItem => item.Last_Name)
-                                        </td>
-
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Telephone)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.DateInscri)
-                                        </td>
-                                        <td>
-                                            <a title="Modifier" asp-action="Edit" asp-route-id="@item.Person_Id" class="btn bg-success btn-sm"><i class="fa fa-edit"></i></a>
-                                            <a title="Information des réglement de payment" asp-action="Details" asp-route-id="@item.Person_Id" class="btn bg-info btn-sm"><i class="fa fa-info"></i></a>
-                                            <a asp-action="Delete" title="Supprimer" asp-route-id="@item.Person_Id" class="btn bg-danger btn-sm"><i class="fa fa-trash"> </i></a>
-                                        </td>
-                                    </tr>
-                                }
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+    <div class="row">
+        <div class=" col-md-6 mt-2 mb-2">
+            <!--btn new-->
+            <a asp-action="Create" class="btn btn-primary"><i class="fas fa-user-plus"></i></a>
         </div>
+        <!--Search form-->
+        <div class="col-md-6 mt-2 mb-2">
+            <form asp-action="Find" class="form-inline float-right ">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            <!--/End Search form-->
+        </div>
+      
     </div>
 </div>
 
+<!--Card customers-->
+<div class="card card-solid">
+    <div class="card-body pb-0">
+        <div class="row d-flex align-items-stretch">
+            @foreach (var item in Model)
+            {
+                <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+                    <div class="card bg-light">
+                        <div class="card-header text-muted border-bottom-0">
+                            Digital Strategist
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="row">
+                                <!--content-->
+                                <div class="col-7">
+                                    <h2 class="lead"><b>@item.First_Name @item.Last_Name</b></h2>
+                                    <!-- Info customer-->
+                                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> @item.Adresse</li>
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Tele #: @item.Phone</li>
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-birthday-cake"></i></span> @Html.DisplayNameFor(Model => Model.DateOfBirth) #: @item.DateOfBirth</li>
+                                    </ul>
+                                </div>
+                                <!-- Image-->
+                                <div class="col-5 text-center">
+                                    @{
+                                        string path = "";
+                                        if (item != null)
+                                            path = item.image ?? "Default.jpg";
+                                    }
+                                    <img src="~/images/People/@path " alt="" class="img-circle img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <!-- Operation btn-->
+                            <div class="text-right">
+                                <a asp-action="Create" asp-controller="CustomersPayement" asp-route-id="@item.Person_Id" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-money-bill-alt"></i>
+                                </a>
+                                <a asp-action="Edit" asp-route-id="@item.Person_Id" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-user-edit"></i>
+                                </a>
+                                <a asp-action="Details" asp-route-id="@item.Person_Id" class="btn btn-sm bg-teal">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+
+                                <a asp-action="Delete" asp-route-id="@item.Person_Id" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                                <a asp-action="EditCustomerUsers" asp-controller="Administration" asp-route-id="@item.Person_Id" class="btn btn-sm btn-secondary">
+                                    <i class="fas fa-user-secret"></i>Manager
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
 
 <!--EndIndex-->
 @section scripts{
@@ -115,12 +112,12 @@
                     $("#create").html(data);
                 })
             })
-           $(function () {
-  $("#datepicker").datepicker({ 
-        autoclose: true, 
-        todayHighlight: true
-  }).datepicker('update', new Date());
-});
+            $(function () {
+                $("#datepicker").datepicker({
+                    autoclose: true,
+                    todayHighlight: true
+                }).datepicker('update', new Date());
+            });
         })
     </script>
 

@@ -8,10 +8,12 @@ using DataAccessLayer;
 using Entities;
 using Entities.Expenses;
 using Entities.StatisticRepo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MyApps.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ChartController : Controller
     {
         Reporting reporting;

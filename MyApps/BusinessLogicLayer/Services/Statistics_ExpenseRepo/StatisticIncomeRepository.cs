@@ -86,7 +86,7 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
         int getCountCustomerbyDate(DateTime d1,DateTime d2)
         {
            
-            var count1 = _repository.Entity.GetElements().Where(s => s.Payement_date >= d1 && s.Payement_date <= d2).Count();
+            var count1 = _repository.Entity.GetElements().Where(s => s.Payement_date >= d1 && s.Payement_date <= d2 ).Count();
             return count1;
         }
 

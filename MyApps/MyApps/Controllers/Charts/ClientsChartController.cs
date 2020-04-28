@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using BusinessLogicLayer;
 using DataAccessLayer;
 using Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MyApps.Controllers.Charts
 {
+    [Authorize(Roles = "Admin")]
     public class ClientsChartController : Controller
     {
         List<ChartClient> reports;

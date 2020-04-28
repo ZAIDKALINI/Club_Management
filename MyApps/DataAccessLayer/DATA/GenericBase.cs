@@ -34,7 +34,8 @@ namespace BusinessLogicLayer
        
         public IEnumerable<TEntity> GetElements(Func<TEntity, bool> expression)
         {
-            return dbSet.Where(expression).ToList();
+          var lst= dbSet.Where(expression);
+            return lst;
         }
         public IEnumerable<TEntity> SelectElements(Func<TEntity, TEntity> expression)
         {

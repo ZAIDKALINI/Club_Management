@@ -19,6 +19,15 @@
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="row">
                                 <div class="col-sm-6">
+
+                                    <img class="img-fluid profile-user-img rounded-circle" src="~/images/People/@ViewBag.Person_Image" />
+                                    <p class="lead">@ViewBag.Person_Name</p>
+                                </div>
+                                <input type="hidden" asp-for="Person_Id" value="@ViewBag.Person_Id" />
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
                                     <!---->
                                     <label asp-for="Ref" class="control-label"></label>
                                     <div class="input-group mb-3">
@@ -35,9 +44,9 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label asp-for="customer" class="control-label"></label>
-                                        <select asp-for="Person_Id" class="form-control select2" asp-items="ViewBag.Person_Id"></select>
-                                        <span asp-validation-for="Person_Id" class="text-danger"></span>
+                                        <label asp-for="Payement_date" class="control-label "></label>
+                                        <input type="date" asp-for="Payement_date" class="form-control" />
+                                        <span asp-validation-for="Price" class="text-danger"></span>
                                     </div>
                                 </div>
 
@@ -55,23 +64,14 @@
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label asp-for="Payement_date" class="control-label "></label>
-                                        <input type="date" asp-for="Payement_date" class="form-control" />
-                                        <span asp-validation-for="Price" class="text-danger"></span>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
                                         <label asp-for="duration" class="control-label "></label>
                                         <input type="number" asp-for="duration" min="1" id="txtDure" class="form-control" required />
                                         <span asp-validation-for="duration" class="text-danger"></span>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
+                        
 
 
                             <div class="card-footer text-center">
