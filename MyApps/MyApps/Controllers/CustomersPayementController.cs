@@ -16,7 +16,7 @@ using MyApps.Alerts;
 
 namespace MyApps.Controllers
 {
-    [Authorize(Roles = "Admin")]
+  //  [Authorize(Roles = "Admin")]
     public class CustomersPayementController : Controller
     {
       
@@ -38,30 +38,21 @@ namespace MyApps.Controllers
         public ActionResult Index()
         {
              lst = _repositoryPayement.GetElements();
-            ViewBag.Person_Id = new SelectList(_customerRepo.GetElements(), "Person_Id", "Last_Name");
-           
+                   
             return View(lst);
         }
        
-        // GET: CustomersPayement/Details/5
-        public ActionResult Details(Guid idPayement)
-        {
-         
-            var customerPayement=_repositoryPayement.GetElementById(idPayement);
-            var customer = _customerRepo.GetElementById(idPayement);
-            customerPayement.customer = customer;
-        
-            return View(customerPayement);
-        }
-
+      
         // GET: CustomersPayement/Create
         public ActionResult Create(Guid id)
         {
+            //get info initial for customer
             var cus = _customerRepo.GetElementById(id);
-            ViewBag.Person_Id = id;
             ViewBag.Person_Name = cus.First_Name+" "+cus.Last_Name;
             ViewBag.Person_Image = cus.image??"Default.jpg";
-           
+            ViewBag.Person_Id = cus.Person_Id;
+
+
             return View();
         }
 
@@ -79,20 +70,26 @@ namespace MyApps.Controllers
               
                 return RedirectToAction("Details","Customers", new { id = collection.Person_Id }).WithSuccess("Ajouter", "vous avez ajouté avec succès "); 
             }
-            catch(SupprimerException e)
+            catch
             {
-                return View().WithDanger("ERREUR",e.Message);
+            
+                return View("Error");
             }
         }
 
         // GET: CustomersPayement/Edit/5
-        public ActionResult Edit(Guid id)
+        public ActionResult Edit(Guid id/*Payement id*/)
         {
          
+            //get payement for editing
             var payement = _repositoryPayement.GetElementById(id);
-            var cust = _customerRepo.GetElements();
-            ViewData["Person_Id"] = new SelectList(cust, "Person_Id", "Last_Name", payement.Person_Id);
-           
+            // set info for client 
+            var cus = _customerRepo.GetElementById(payement.Person_Id);
+            ViewBag.Person_Id = cus.Person_Id;
+            ViewBag.Person_Name = cus.First_Name + " " + cus.Last_Name;
+            ViewBag.Person_Image = cus.image ?? "Default.jpg";
+
+
             return View(payement);
         }
 
@@ -103,20 +100,21 @@ namespace MyApps.Controllers
         {
             try
             {
-                
                 // TODO: Add update logic here
-                _repositoryPayement.UpdateElement(id,customerPayement);
-                //_repository.ResetRestIsEndForTrue(customerPayement.Person_Id);
-                var payement = _repositoryPayement.GetElementById(id);
-                var cust = _customerRepo.GetElements();
-                ViewData["Person_Id"] = new SelectList(cust, "Person_Id", "Last_Name", payement.Person_Id);
+                if (ModelState.IsValid)
+                {
+                    _repositoryPayement.UpdateElement(id, customerPayement);
+                  
+                   
+                     return RedirectToAction("Index").WithSuccess("Modifier", "vous avez modifié avec succès ");
+                }
+                return View(customerPayement).WithDanger("Modifier","Operation de modifier est échouer");
 
-                return RedirectToAction("Index").WithSuccess("Modifier", "vous avez modifié avec succès ");
             }
-            catch(SupprimerException e)
+            catch
             {
-               
-                return View().WithDanger("ERREUR", e.Message); 
+                return View("Error");
+
             }
         }
 
@@ -130,10 +128,10 @@ namespace MyApps.Controllers
                 _repositoryPayement.Delete(Id);
                 return RedirectToAction("Index").WithSuccess("Supprimer", "vous avez supprimé avec succès ");
             }
-            catch (SupprimerException e)
+            catch 
             {
 
-                return RedirectToAction("Index").WithDanger("ERREUR", e.Message);
+                return View("Error");
             }
         }
         /// <summary>
@@ -145,10 +143,10 @@ namespace MyApps.Controllers
             try
             {
                 // TODO: Add update logic here
-                var cust = _customerRepo.GetElements();
+            
             
                 var lst=  _repositoryPayement.GetCustomersEndthierMonth();
-                ViewBag.Person_Id = new SelectList(_customerRepo.GetElements(), "Person_Id", "Last_Name");
+              
 
                 return View(nameof(Index),lst);
             }

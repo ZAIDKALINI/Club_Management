@@ -13,3 +13,4 @@ C:\Users\HP\Desktop\Club_Management-6c19e8618cca57b3672350a3ea8b840f86261ccd\MyA
 C:\Users\HP\Desktop\Club_Management-6c19e8618cca57b3672350a3ea8b840f86261ccd\MyApps\CustomException\obj\Debug\netcoreapp3.1\CustomException.AssemblyInfo.cs
 C:\Users\HP\Desktop\Club_Management-6c19e8618cca57b3672350a3ea8b840f86261ccd\MyApps\CustomException\obj\Debug\netcoreapp3.1\CustomException.dll
 C:\Users\HP\Desktop\Club_Management-6c19e8618cca57b3672350a3ea8b840f86261ccd\MyApps\CustomException\obj\Debug\netcoreapp3.1\CustomException.pdb
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\CustomException\obj\Debug\netcoreapp3.1\CustomException.csprojAssemblyReference.cache

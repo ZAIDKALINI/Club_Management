@@ -12,7 +12,7 @@ namespace MyApps.Controllers.Statistique
 {
 
 
-   
+   //[Authorize(Roles = "Admin")]
     public class StatisticsController : Controller
     {
         public static IList<Reports> lst;

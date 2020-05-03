@@ -1,0 +1,13 @@
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\bin\Release\netcoreapp3.1\DataAccessLayer.deps.json
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\bin\Release\netcoreapp3.1\DataAccessLayer.runtimeconfig.json
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\bin\Release\netcoreapp3.1\DataAccessLayer.runtimeconfig.dev.json
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\bin\Release\netcoreapp3.1\DataAccessLayer.dll
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\bin\Release\netcoreapp3.1\DataAccessLayer.pdb
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\bin\Release\netcoreapp3.1\Entities.dll
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\bin\Release\netcoreapp3.1\Entities.pdb
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\obj\Release\netcoreapp3.1\DataAccessLayer.csprojAssemblyReference.cache
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\obj\Release\netcoreapp3.1\DataAccessLayer.AssemblyInfoInputs.cache
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\obj\Release\netcoreapp3.1\DataAccessLayer.AssemblyInfo.cs
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\obj\Release\netcoreapp3.1\DataAccessLayer.csproj.CopyComplete
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\obj\Release\netcoreapp3.1\DataAccessLayer.dll
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\DataAccessLayer\obj\Release\netcoreapp3.1\DataAccessLayer.pdb

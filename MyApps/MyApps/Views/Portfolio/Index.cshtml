@@ -83,7 +83,7 @@
                     </div>
                     <div class="card-footer">
                         <small class="text-muted">Last updated 3 mins ago</small>
-                        @if (SignInManager.IsSignedIn(User))
+                        @if (SignInManager.IsSignedIn(User)&& User.IsInRole("Admin"))
                         {
                             <button class="btn btn-success btn-sm float-right" data-toggle="modal" data-target="#modal-default " id="clicked" onclick="clicked('@item.Id')">
                                 <i class="fas fa-edit"></i>

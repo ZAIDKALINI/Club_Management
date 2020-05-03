@@ -52,7 +52,8 @@ namespace MyApps
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment  env,  UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+
         {
             if (env.IsDevelopment())
             {
@@ -64,20 +65,69 @@ namespace MyApps
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+         
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            MyIdentityDataInitializer.SeedData(userManager, roleManager);
 
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=statistics}/{action=Index}/{id?}");
+                    pattern: "{controller=portfolio}/{action=Index}/{id?}");
             });
+        }
+    }
+    public static class MyIdentityDataInitializer
+    {
+        public static void SeedData
+    (UserManager<ApplicationUser> userManager,
+    RoleManager<IdentityRole> roleManager)
+        {
+            SeedRoles(roleManager);
+            SeedUsers(userManager);
+          
+        }
+
+        public static void SeedUsers
+    (UserManager<ApplicationUser> userManager)
+        {
+            
+
+            if (userManager.FindByNameAsync
+        ("wwwroot").Result == null)
+            {
+                ApplicationUser user = new ApplicationUser();
+                user.UserName = "wwwroot";
+                user.Email = "wwwroot@email.com";
+                
+
+                IdentityResult result = userManager.CreateAsync
+                (user, "KALINI1997kalini@").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user,
+                                        "SuperManager").Wait();
+                }
+            }
+        }
+
+        public static void SeedRoles
+    (RoleManager<IdentityRole> roleManager)
+        {
+          if (!roleManager.RoleExistsAsync ("SuperManager").Result)
+            {
+                IdentityRole role = new IdentityRole();
+                role.Name = "SuperManager";
+                  IdentityResult roleResult = roleManager.
+                CreateAsync(role).Result;
+            }
         }
     }
 }

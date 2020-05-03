@@ -9,6 +9,8 @@ using Entities.Expenses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using MyApps.Alerts;
 
 namespace MyApps.Controllers.Expenses
@@ -17,10 +19,12 @@ namespace MyApps.Controllers.Expenses
     public class CategoriesExpenseController : Controller
     {
         CategoriesService _categorieRepo;
-       
-        public CategoriesExpenseController(IUnitOfWork<Category_expense> _uow)
+        private readonly ILogger<CategoriesExpenseController> logger;
+
+        public CategoriesExpenseController(IUnitOfWork<Category_expense> _uow, ILogger<CategoriesExpenseController> logger)
         {
             _categorieRepo = new CategoriesService(_uow);
+            this.logger = logger;
         }
         // GET: Categories
         public ActionResult Index()
@@ -97,16 +101,26 @@ namespace MyApps.Controllers.Expenses
         [ValidateAntiForgeryToken]
         public IActionResult Delete(Guid id, IFormCollection collection)
         {
+            var categorie = _categorieRepo.FindById(id);
             try
             {
                 // TODO: Add delete logic here
-
+                
                 _categorieRepo.Delete(id);
                 return RedirectToAction(nameof(Index)).WithSuccess("Supprimer", "vous avez supprimé avec succès ");
             }
-            catch(SupprimerException e)
+            catch (DbUpdateException ex)
             {
-                return View().WithDanger("ERREUR", e.Message); ;
+            
+                //Log the exception to a file. We discussed logging to a file
+                // using Nlog in Part 63 of ASP.NET Core tutorial
+                logger.LogError($"Exception Occured : {ex}");
+                // Pass the ErrorTitle and ErrorMessage that you want to show to
+                // the user using ViewBag. The Error view retrieves this data
+                // from the ViewBag and displays to the user.
+                ViewBag.ErrorTitle = $" Le catégorie \"{categorie.Name_Category}\" est en cours d'utilisation";
+                ViewBag.ErrorMessage = $"Le catégorie de dépense {categorie.Name_Category} ne peut pas être supprimé car il y a des dépenses dans ce catégorie. Si vous souhaitez supprimer ce catégorie, veuillez supprimer les dépenses du catégorie, puis essayez de supprimer";
+                return View("Error");
             }
         }
         public IActionResult Find(string search)

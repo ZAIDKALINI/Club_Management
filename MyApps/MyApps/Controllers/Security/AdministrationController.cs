@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace MyApps.Controllers.Security
 {
-    [Authorize(Roles = "Admin")]
+   // [Authorize(Roles = "SuperManager")]
     public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
@@ -25,7 +25,7 @@ namespace MyApps.Controllers.Security
         PersonService<Customer> PersonService;
         IUnitOfWork<UserCutomer> uowUserCustomer;
 
-
+        //Constructor
         public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> _userManager,
                                            ILogger<AdministrationController> logger, IUnitOfWork<Customer> uowCust, IUnitOfWork<UserCutomer> uowUserCustomer)
         {

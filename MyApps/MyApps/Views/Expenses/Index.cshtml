@@ -53,8 +53,26 @@
                                             @Html.DisplayFor(modelItem => item.ExpenseDate)
                                         </td>
                                         <td>
-                                            <a asp-action="Edit" asp-route-id="@item.Id_Expense" class="btn btn-success btn-sm" title="Modifier"><i class="fa fa-edit"></i></a>
-                                            <a asp-action="Delete" asp-route-id="@item.Id_Expense" class="btn btn-danger btn-sm" title="Supprimer"><i class="fa fa-trash"></i></a>
+                                           
+                                            <!--Delete Expense-->
+                                            <form method="post" asp-action="Delete" asp-route-id="@item.Id_Expense">
+                                                <!--Edit expense-->
+                                                <a asp-action="Edit" asp-route-id="@item.Id_Expense" class="btn btn-success btn-sm" title="Modifier"><i class="fa fa-edit"></i></a>
+                                                <!--end edit-->
+                                                <!--Delete confirmation-->
+                                                <span id="confirmDeleteSpan_@item.Id_Expense" style="display:none">
+                                                    <span>Etes-vous sûr que vous voulez supprimer?</span>
+                                                    <button type="submit" class="btn btn-danger btn-sm">Oui</button>
+                                                    <a href="#" class="btn btn-primary"
+                                                       onclick="confirmDelete('@item.Id_Expense', false)">No</a>
+                                                </span>
+
+                                                <span id="deleteSpan_@item.Id_Expense">
+                                                    <a href="#" class="btn btn-danger btn-sm"
+                                                       onclick="confirmDelete('@item.Id_Expense', true)"><i class="fa fa-trash"></i></a>
+                                                </span>
+                                            </form>
+                                           
                                         </td>
                                     </tr>
                                 }
@@ -66,4 +84,8 @@
         </div>
 
     </div>
-    </div>
+</div>
+@section Scripts{
+    <script src="~/js/confi.js"></script>
+
+}

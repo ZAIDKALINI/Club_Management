@@ -1,0 +1,13 @@
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\bin\Release\netcoreapp3.1\BusinessLogicLayer.deps.json
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\bin\Release\netcoreapp3.1\BusinessLogicLayer.dll
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\bin\Release\netcoreapp3.1\BusinessLogicLayer.pdb
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\bin\Release\netcoreapp3.1\DataAccessLayer.dll
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\bin\Release\netcoreapp3.1\Entities.dll
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\bin\Release\netcoreapp3.1\DataAccessLayer.pdb
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\bin\Release\netcoreapp3.1\Entities.pdb
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\obj\Release\netcoreapp3.1\BusinessLogicLayer.csprojAssemblyReference.cache
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\obj\Release\netcoreapp3.1\BusinessLogicLayer.AssemblyInfoInputs.cache
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\obj\Release\netcoreapp3.1\BusinessLogicLayer.AssemblyInfo.cs
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\obj\Release\netcoreapp3.1\BusinessLogicLayer.csproj.CopyComplete
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\obj\Release\netcoreapp3.1\BusinessLogicLayer.dll
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\BusinessLogicLayer\obj\Release\netcoreapp3.1\BusinessLogicLayer.pdb

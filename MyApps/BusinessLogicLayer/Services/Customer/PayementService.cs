@@ -153,7 +153,7 @@ namespace BusinessLogicLayer
                 _uowPayment.Entity.UpdateElement(payement);
                 _uowPayment.Save();
                 _uowPayment.Dispose();
-                ResetRestIsEndForTrue(id);
+                ResetRestIsEndForTrue(payement.Person_Id);
 
 
             }

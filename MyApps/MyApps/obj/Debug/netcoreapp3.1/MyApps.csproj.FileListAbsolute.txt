@@ -997,3 +997,4 @@ C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\obj\Debug\netcoreapp3
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Http.Features.dll
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\bin\Debug\netcoreapp3.1\System.IO.Pipelines.dll
 C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\obj\Debug\netcoreapp3.1\Razor\Views\Shared\BasesEntity\_PersonIndex.cshtml.g.cs
+C:\Users\HP\Documents\GitHub\Club_Management\MyApps\MyApps\obj\Debug\netcoreapp3.1\Razor\Views\Shared\BasesEntity\_PayementBase.cshtml.g.cs

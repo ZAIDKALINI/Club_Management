@@ -1,10 +1,13 @@
 ﻿@inject Microsoft.AspNetCore.Identity.SignInManager<DataAccessLayer.ApplicationUser> SignInManager
 <div class="info">
-    @if (SignInManager.IsSignedIn(User))
+    @if (SignInManager.IsSignedIn(User) )
     {
         <a href="#" class="d-block">@User.Identity.Name</a>
 
 
+    }
+    else if(SignInManager.IsSignedIn(User) && User.IsInRole("User")){
+        
     }
 
 </div>

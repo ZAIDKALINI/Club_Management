@@ -1,92 +1,39 @@
 ﻿@model Entities.CustomerPayement
-
-@{
-    ViewData["Title"] = "Edit";
-
-}
-
-
 <div class="row mr-3">
     <!-- left column -->
     <div class="col-md-12 m-1">
         <!-- general form elements -->
         <div class="card card-primary">
             <div class="card-header bg-dark">
-                <h3 class="card-title">Editer</h3>
+                <h3 class="card-title">Effactuer le payment</h3>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="card-body">
                         <form asp-action="Edit">
-                            <partial name="BasesEntity/_BaseEntity" />
-                            <input type="hidden" asp-for="Id" />
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label" asp-for="Ref"></label>
-                                        <input asp-for="Ref" class="form-control" readonly />
-                                        <span asp-validation-for="Ref" class="text-danger"></span>
-                                    </div>
-
+                            <!--Partial for payement tags-->
+                            <partial name="BasesEntity/_PayementBase">
+                                <div class="card-footer text-center">
+                                    <button type="submit" value="Create" class="btn btn-success" title="Ajouter payement"><i class="fas fa-save"></i></button>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label" asp-for="customer"></label>
-
-                                        <select asp-for="Person_Id" class="form-control select2" asp-items="ViewBag.Person_Id"></select>
-                                        <span asp-validation-for="Person_Id" class="text-danger"></span>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label" asp-for="Price"></label>
-                                        <input asp-for="Price" class="form-control" />
-                                        <span asp-validation-for="Price" class="text-danger"></span>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label" asp-for="Payement_date"></label>
-                                        <input asp-for="Payement_date" class="form-control" />
-                                        <span asp-validation-for="Price" class="text-danger"></span>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label" asp-for="duration"></label>
-                                        <input type="number" asp-for="duration" class="form-control" required />
-                                        <span asp-validation-for="duration" class="text-danger"></span>
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                            <div class="card-footer">
-                                <button type="submit" value="Create" class="btn btn-success toastsDefaultDanger"><i class="fas fa-save"></i></button>
-                            </div>
                         </form>
                     </div>
 
                 </div>
             </div>
         </div>
-
-     
-
-
     </div>
 </div>
 
+@section Scripts{
+    <script>
+        $(function () {
 
+            $("#txtDure").val("1")
+            $("#btnRef").click(function () {
+                $("#txtRef").val(Date.now())
+            })
+        })
+    </script>
 
+}

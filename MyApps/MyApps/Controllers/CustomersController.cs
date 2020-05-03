@@ -1,38 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using BusinessLogicLayer;
 using CustomException;
 using DataAccessLayer;
 using Entities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using MyApps.Alerts;
 using MyApps.Feautures;
 using MyApps.Models;
 
 namespace MyApps.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "SuperManager")]
     public class CustomersController : Controller
     {
         CustomerService _repositoryCustomer;
         PayementService _repositoryPayement;
         IList<Customer> lst;
-        [Obsolete]
-        private readonly IHostingEnvironment _hosting;
+        
+        private readonly IHostEnvironment _hosting;
 
-        [Obsolete]
-        public CustomersController(IUnitOfWork<Customer> uowCustomer,IUnitOfWork<CustomerPayement> uowPayement, IHostingEnvironment _hosting)
+        public ILogger<CustomersController> logger { get; }
+
+        public CustomersController(IUnitOfWork<Customer> uowCustomer,IUnitOfWork<CustomerPayement> uowPayement, IHostEnvironment _hosting,ILogger<CustomersController> Logger)
         {
           _repositoryCustomer = new CustomerService(uowCustomer);
           _repositoryPayement = new PayementService(uowPayement);
             this._hosting = _hosting;
+            this.logger = Logger;
         }
         // GET: Customers
         public IActionResult Index()
@@ -66,37 +67,42 @@ namespace MyApps.Controllers
         // POST: Customers/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Obsolete]
+        
         public IActionResult Create(CreatePersonViewModel model)
         {
             try
             {
 
                 // TODO: Add insert logic here
-                UploadFile upload = new UploadFile(_hosting);
-                string uniqueFileName = upload.UploadedFile(model.image,@"images\People");
-               
-                   
-                    _repositoryCustomer.AddNew(new Customer() { 
-                    Adresse=model.Adresse,
-                    CreatedBy=User.Identity.Name,
-                    DateOfBirth=model.DateOfBirth,
-                    First_Name=model.First_Name,
-                    Last_Name=model.Last_Name,
-                    genre=model.genre,
-                    image=uniqueFileName,
-                    Phone=model.Phone
+                if (ModelState.IsValid)
+                {
+                    UploadFile upload = new UploadFile(_hosting);
+                    string uniqueFileName = upload.UploadedFile(model.image, @"wwwroot\images\People");
+
+
+                    _repositoryCustomer.AddNew(new Customer()
+                    {
+                        Adresse = model.Adresse,
+                        CreatedBy = User.Identity.Name,
+                        DateOfBirth = model.DateOfBirth,
+                        First_Name = model.First_Name,
+                        Last_Name = model.Last_Name,
+                        genre = model.genre,
+                        image = uniqueFileName,
+                        Phone = model.Phone
                     });
 
                     return RedirectToAction(nameof(Index)).WithSuccess("Ajouter", "vous avez ajouté avec succès ");
-                
-            
-        
             }
-            catch(AjouterException e)
+
+                return View().WithDanger("Ajouter", "Echeq d'ajout !!!");
+
+
+            }
+            catch (AjouterException e)
             {
                 ModelState.AddModelError("", e.Message);
-                return View().WithDanger("ERREUR", e.Message);
+                return View();
             }
         }
        
@@ -121,7 +127,7 @@ namespace MyApps.Controllers
         // POST: Customers/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Obsolete]
+        
         public IActionResult Edit(Guid id, CreatePersonViewModel customer)
         {
             try
@@ -130,9 +136,9 @@ namespace MyApps.Controllers
                 if (ModelState.IsValid)
                 {
                     UploadFile upload = new UploadFile(_hosting);
-                    var newPath = upload.UploadedFile(customer.image, @"images\People");
-                    if (newPath == null)
-                        newPath = _repositoryCustomer.GetElementById(id).image;
+                    var newPath = upload.UploadedFile(customer.image, customer.ImageUrl,@"wwwroot\images\People")??String.Empty;
+                  
+                        
                     _repositoryCustomer.UpdateElement(id, new Customer()
                     {
                         Person_Id=customer.Person_Id,
@@ -169,6 +175,7 @@ namespace MyApps.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(Guid id, IFormCollection collection)
         {
+            var customer = _repositoryCustomer.GetElementById(id);
             try
             {
                 // TODO: Add delete logic here
@@ -176,9 +183,18 @@ namespace MyApps.Controllers
 
                 return RedirectToAction(nameof(Index)).WithSuccess("Supprimer", "vous avez supprimé avec succès ");
             }
-            catch(SupprimerException e)
+            catch (DbUpdateException ex)
             {
-                return View().WithDanger("ERREUR", e.Message); ;
+
+                //Log the exception to a file. We discussed logging to a file
+                // using Nlog in Part 63 of ASP.NET Core tutorial
+                logger.LogError($"Exception Occured : {ex}");
+                // Pass the ErrorTitle and ErrorMessage that you want to show to
+                // the user using ViewBag. The Error view retrieves this data
+                // from the ViewBag and displays to the user.
+                ViewBag.ErrorTitle = $" Le client \"{customer.First_Name + " " + customer.Last_Name}\" est en cours d'utilisation";
+                ViewBag.ErrorMessage = $"Le client  {customer.First_Name + " " + customer.Last_Name} ne peut pas être supprimé car il y a des activités dans ce client. Si vous souhaitez supprimer ce client, veuillez supprimer les activités du client, puis essayez de supprimer";
+                return View("Error");
             }
         }
         public IActionResult Find(string search)
