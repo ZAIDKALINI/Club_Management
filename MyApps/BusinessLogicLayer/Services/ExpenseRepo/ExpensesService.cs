@@ -26,7 +26,7 @@ namespace BusinessLogicLayer.ExpenseRepo
 
                 _uowExpense.Entity.InsertElement(expense);
                 _uowExpense.Save();
-                _uowExpense.Dispose();
+               
             }
 
             else
@@ -42,7 +42,7 @@ namespace BusinessLogicLayer.ExpenseRepo
                 throw new Exception("Element not found");
             _uowExpense.Entity.DeleteElement(expense);
             _uowExpense.Save();
-            _uowExpense.Dispose();
+          
         }
 
         public Expense GetElementById(Guid id)
@@ -67,10 +67,10 @@ namespace BusinessLogicLayer.ExpenseRepo
         {
             if (id == expense.Id_Expense)
             {
-               // expense.category = _uowCategory.Entity.GetElements(c => c.Id_Category == expense.Id_Category).FirstOrDefault();
+              
                 _uowExpense.Entity.UpdateElement(expense);
                 _uowExpense.Save();
-                _uowExpense.Dispose();
+          
             }
             else
                 throw new Exception("Id category dosen't belong to the new category");

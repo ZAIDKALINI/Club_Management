@@ -29,7 +29,7 @@ namespace BusinessLogicLayer
                 ResetRestIsEndForTrue(payement.Person_Id);
                
               
-                _uowPayment.Dispose();
+           
             
 
             }
@@ -38,7 +38,7 @@ namespace BusinessLogicLayer
                 throw new Exception("IdShould be identity");
         }
        /// <summary>
-       /// set last month on true
+       /// set last month on false
        /// </summary>
        /// <param name="id">Customer id who make payement</param>
         public void ResetRestIsEndForFalse(Guid idPerson)
@@ -49,17 +49,21 @@ namespace BusinessLogicLayer
                 payement.IsEnd = false;
                 _uowPayment.Entity.UpdateElement(payement);
                 _uowPayment.Save();
-                _uowPayment.Dispose();
+               
             }
        
         }
+        /// <summary>
+        /// Make sign for end date for make bool isEnd true
+        /// </summary>
+        /// <param name="idPerson">Person id</param>
         public void ResetRestIsEndForTrue(Guid idPerson)
         {
             try
             {
                 var payement = _uowPayment.Entity.GetWithItems(p => p.Person_Id == idPerson).OrderByDescending(p => p.EndDate).FirstOrDefault();
                 ResetRestIsEndForFalse(idPerson);
-                // var pay = GetElementById(payement.Id);
+             
                 if (payement != null)
                 {
                     payement.IsEnd = true;
@@ -90,7 +94,7 @@ namespace BusinessLogicLayer
             Guid personId = payement.Person_Id;
             _uowPayment.Entity.DeleteElement(payement);
             _uowPayment.Save();
-            _uowPayment.Dispose();
+          
             if (payement.IsEnd)
             {
                 ResetRestIsEndForTrue(id);
@@ -120,10 +124,7 @@ namespace BusinessLogicLayer
         /// <returns>Customer payement</returns>
         public CustomerPayement GetElementById(Guid id)
         {
-            var payement = _uowPayment.Entity.GetWithItems(c => c.Id == id , customer=>customer).FirstOrDefault();
-          
-            // payement.customer = _uowCustomer.Entity.GetElements(c => c.Person_Id == payement.Person_Id).FirstOrDefault();
-           
+            var payement = _uowPayment.Entity.GetWithItems(c => c.Id == id , customer=>customer).FirstOrDefault();                         
             return payement;
         }
         /// <summary>
@@ -152,8 +153,7 @@ namespace BusinessLogicLayer
                 payement.EndDate = endDate;
                 _uowPayment.Entity.UpdateElement(payement);
                 _uowPayment.Save();
-                _uowPayment.Dispose();
-                ResetRestIsEndForTrue(payement.Person_Id);
+                 ResetRestIsEndForTrue(payement.Person_Id);
 
 
             }
