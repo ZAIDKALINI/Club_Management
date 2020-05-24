@@ -18,7 +18,7 @@ namespace BusinessLogicLayer.ExpenseRepo
         {
             _uow.Entity.InsertElement(category);
             _uow.Save();
-          
+            _uow.Dispose();
         }
         public Category_expense FindById(Guid id)
         {
@@ -32,7 +32,7 @@ namespace BusinessLogicLayer.ExpenseRepo
                 throw new Exception("Not found");
             _uow.Entity.DeleteElement(cat);
             _uow.Save();
-         
+            _uow.Dispose();
         }
         public void Edit(Guid id, Category_expense category)
         {
@@ -41,7 +41,7 @@ namespace BusinessLogicLayer.ExpenseRepo
             throw new Exception("Not found");
             _uow.Entity.UpdateElement(category);
             _uow.Save();
-           
+            _uow.Dispose();
         }
         public IList<Category_expense> GetCategories()
         {

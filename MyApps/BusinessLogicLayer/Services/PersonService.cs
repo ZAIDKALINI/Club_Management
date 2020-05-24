@@ -98,9 +98,15 @@ namespace BusinessLogicLayer
         public virtual IEnumerable<T> GetElements(string d1, string d2)
         {
             IList<T> lst;
+<<<<<<< HEAD
             var _d1 =ConvertDate.ConvertToDate(d1);
             var _d2 = ConvertDate.ConvertToDate(d2);
             lst = GetElements(c => c.DateInscri >= _d1 && c.DateInscri <= _d2 ).ToList();
+=======
+            var _d1 = Convert.ToDateTime(d1);
+            var _d2 = Convert.ToDateTime(d2);
+            lst = GetElements().Where(c => c.DateInscri >= _d1 && c.DateInscri <= _d2 ).ToList();
+>>>>>>> parent of 0fa420d... Paginate
             return lst;
 
         }

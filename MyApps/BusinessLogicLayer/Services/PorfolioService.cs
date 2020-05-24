@@ -21,7 +21,7 @@ namespace BusinessLogicLayer
                 portfolio.UpdateDate = DateTime.Now;
                 UOW.Entity.InsertElement(portfolio);
                 UOW.Save();
-               
+                UOW.Dispose();
             }
 
             else
@@ -37,7 +37,7 @@ namespace BusinessLogicLayer
                 throw new Exception("Element not found");
             UOW.Entity.DeleteElement(portfolio);
             UOW.Save();
-          
+            UOW.Dispose();
         }
 
         public Portfolio GetElementById(Guid id)
