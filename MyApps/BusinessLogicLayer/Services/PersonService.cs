@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer;
 using Entities;
+using Entities.Paginate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,9 +54,13 @@ namespace BusinessLogicLayer
         /// getAllElement
         /// </summary>
         /// <returns></returns>
-        public virtual IList<T> GetElements()
+        public virtual PagedResult<T> GetElements(int pageNumber,int pageSize)
         {
-            return UOW.Entity.GetElements().ToList();
+            return UOW.Entity.GetElements(pageNumber,pageSize);
+        }
+        public virtual IEnumerable<T> GetElements()
+        {
+            return UOW.Entity.GetElements();
         }
         public virtual IEnumerable<T> GetElements(Func<T, bool> expression)
         {
@@ -78,8 +83,8 @@ namespace BusinessLogicLayer
             }
 
 
-            var lst1 = GetElements();
-            return lst1;
+            
+            return null;
 
 
         }
@@ -95,7 +100,7 @@ namespace BusinessLogicLayer
             IList<T> lst;
             var _d1 =ConvertDate.ConvertToDate(d1);
             var _d2 = ConvertDate.ConvertToDate(d2);
-            lst = GetElements().Where(c => c.DateInscri >= _d1 && c.DateInscri <= _d2 ).ToList();
+            lst = GetElements(c => c.DateInscri >= _d1 && c.DateInscri <= _d2 ).ToList();
             return lst;
 
         }

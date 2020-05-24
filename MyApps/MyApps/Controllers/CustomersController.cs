@@ -5,6 +5,7 @@ using BusinessLogicLayer;
 using CustomException;
 using DataAccessLayer;
 using Entities;
+using Entities.Paginate;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ namespace MyApps.Controllers
     {
         CustomerService _repositoryCustomer;
         PayementService _repositoryPayement;
-        IList<Customer> lst;
+       
         
         private readonly IHostEnvironment _hosting;
 
@@ -36,10 +37,11 @@ namespace MyApps.Controllers
             this.logger = Logger;
         }
         // GET: Customers
-        public IActionResult Index()
+        public IActionResult Index(int pageNumber=1)
         {
-             lst = _repositoryCustomer.GetElements();
-            return View(lst);
+           var  dataPage = _repositoryCustomer.GetElements(pageNumber,9);
+                    
+            return View(dataPage);
         }
 
         // GET: Customers/Details/5
@@ -205,12 +207,14 @@ namespace MyApps.Controllers
                 // TODO: Add delete logic here
                 
 
-                 var lst = _repositoryCustomer.GetElements(search.Trim()).ToList();
+                 var lst = (PagedResult<Customer>)_repositoryCustomer.GetElements(search.Trim()).ToList();
                                       
                 return View("Index",lst);
             }
-            catch
+            catch(Exception ex)
             {
+                logger.LogError(ex.Message);
+                ViewBag.ErrorMessage(ex.Message);
                 return RedirectToAction("Index");
             }
         }

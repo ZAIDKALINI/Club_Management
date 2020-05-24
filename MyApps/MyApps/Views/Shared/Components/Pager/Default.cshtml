@@ -7,7 +7,7 @@
 
 @model Entities.Paginate.PagedResultBase
 @{
-    var urlTemplate = Url.Action() + "?page={0}";
+    var urlTemplate = Url.Action() + "?pageNumber={0}";
     var request = ViewContext.HttpContext.Request;
     foreach (var key in request.Query.Keys)
     {

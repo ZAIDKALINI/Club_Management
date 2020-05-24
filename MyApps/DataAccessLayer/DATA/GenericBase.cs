@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using DataAccessLayer.Extensions;
+using Entities.Paginate;
 
 namespace BusinessLogicLayer
 {
@@ -81,5 +83,10 @@ namespace BusinessLogicLayer
             return includes.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
         }
 
+        public PagedResult<TEntity> GetElements(int pageNumber, int pageSize)
+        {
+            var dataPage = dbSet.GetPaged(pageNumber, pageSize);
+            return dataPage;
+        }
     }
 }

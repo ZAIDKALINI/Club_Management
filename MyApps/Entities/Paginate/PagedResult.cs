@@ -12,5 +12,10 @@ namespace Entities.Paginate
         {
             Results = new List<T>();
         }
+
+        public static explicit operator PagedResult<T>(List<Customer> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,15 +1,17 @@
 ﻿
+using Entities.Paginate;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace DataAccessLayer
 {
-    public interface IGenericBase<TEntity>
+    public interface IGenericBase<TEntity> where TEntity:class
     {
         void DeleteElement(TEntity obj);
         IEnumerable<TEntity> GetElements();
         IEnumerable<TEntity> GetElements(Func<TEntity, bool> expression);
+        PagedResult<TEntity> GetElements(int pageNumber,int pageSize);
         IEnumerable<TEntity> SelectElements(Func<TEntity, TEntity> expression);
         TEntity GetElementByID(Guid ObjId);
         void InsertElement(TEntity Obj);

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Entities.Customer>
+﻿@model Entities.Paginate.PagedResult<Entities.Customer>
 
 <!--Index-->
 <!--Add new customer-->
@@ -24,7 +24,7 @@
 <div class="card card-solid">
     <div class="card-body pb-0">
         <div class="row d-flex align-items-stretch">
-            @foreach (var item in Model)
+            @foreach (var item in Model.Results)
             {
                 <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
                     <div class="card bg-light">
@@ -40,7 +40,7 @@
                                     <ul class="ml-4 mb-0 fa-ul text-muted">
                                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> @item.Adresse</li>
                                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Tele #: @item.Phone</li>
-                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-birthday-cake"></i></span> @Html.DisplayNameFor(Model => Model.DateOfBirth) #: @item.DateOfBirth</li>
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-birthday-cake"></i></span> Date de naissance #: @item.DateOfBirth</li>
                                     </ul>
                                 </div>
                                 <!-- Image-->
@@ -81,6 +81,7 @@
 
         </div>
     </div>
+    @(await Component.InvokeAsync<MyApps.Paginate.PagerViewComponent>(Model))
 </div>
 
 <!--EndIndex-->
