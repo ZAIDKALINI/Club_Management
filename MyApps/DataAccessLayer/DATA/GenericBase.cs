@@ -11,7 +11,7 @@ using Entities.Paginate;
 
 namespace BusinessLogicLayer
 {
-    public class GenericBase<TEntity> : IGenericBase<TEntity>where TEntity : class
+    public class GenericBase<TEntity> : IGenericBase<TEntity> where TEntity : class
     {
         protected App_Context context;
         internal DbSet<TEntity> dbSet;
@@ -24,19 +24,19 @@ namespace BusinessLogicLayer
         public void DeleteElement(TEntity obj)
         {
 
-          var o= dbSet.Remove(obj);
+            var o = dbSet.Remove(obj);
             context.SaveChanges();
-          context.Entry(obj).State = EntityState.Detached;
+            context.Entry(obj).State = EntityState.Detached;
         }
 
         public IEnumerable<TEntity> GetElements()
         {
             return dbSet.ToList();
         }
-       
+
         public IEnumerable<TEntity> GetElements(Func<TEntity, bool> expression)
         {
-          var lst= dbSet.Where(expression);
+            var lst = dbSet.Where(expression);
             return lst;
         }
         public IEnumerable<TEntity> SelectElements(Func<TEntity, TEntity> expression)
@@ -45,14 +45,14 @@ namespace BusinessLogicLayer
         }
         public TEntity GetElementByID(Guid ObjId)
         {
-            
+
             var Obj = dbSet.Find(ObjId);
             return Obj;
         }
 
         public void InsertElement(TEntity Obj)
         {
-           // dbSet.Add(Obj);
+            // dbSet.Add(Obj);
             context.Attach(Obj).State = EntityState.Added;
             context.SaveChanges();
             context.Entry(Obj).State = EntityState.Detached;
@@ -62,7 +62,7 @@ namespace BusinessLogicLayer
 
         public void UpdateElement(TEntity NewObj)
         {
-           
+
             context.Attach(NewObj).State = EntityState.Modified;
             context.SaveChanges();
             context.Entry(NewObj).State = EntityState.Detached;
@@ -71,7 +71,7 @@ namespace BusinessLogicLayer
         public IEnumerable<TEntity> GetWithItems(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includes)
         {
             IQueryable<TEntity> query = dbSet.AsQueryable().Where(predicate);
-          
+
             return includes.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
         }
 

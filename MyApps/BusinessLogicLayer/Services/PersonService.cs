@@ -8,7 +8,7 @@ using System.Text;
 
 namespace BusinessLogicLayer
 {
-    public class PersonService<T>where T : Person
+    public class PersonService<T> where T : Person
     {
         IUnitOfWork<T> UOW;
         public PersonService(IUnitOfWork<T> _UOW)
@@ -17,14 +17,14 @@ namespace BusinessLogicLayer
         }
         public virtual void AddNew(T person)
         {
-            if (person.Person_Id==Guid.Empty)
+            if (person.Person_Id == Guid.Empty)
             {
                 person.DateInscri = DateTime.Now;
-                
+
                 UOW.Entity.InsertElement(person);
                 UOW.Save();
                 UOW.Dispose();
-                
+
             }
 
             else
@@ -54,9 +54,9 @@ namespace BusinessLogicLayer
         /// getAllElement
         /// </summary>
         /// <returns></returns>
-        public virtual PagedResult<T> GetElements(int pageNumber,int pageSize)
+        public virtual PagedResult<T> GetElements(int pageNumber, int pageSize)
         {
-            return UOW.Entity.GetElements(pageNumber,pageSize);
+            return UOW.Entity.GetElements(pageNumber, pageSize);
         }
         public virtual IEnumerable<T> GetElements()
         {
@@ -78,12 +78,12 @@ namespace BusinessLogicLayer
             search = System.Text.RegularExpressions.Regex.Replace(search, @"\s{2,}", " ");
             if (!String.IsNullOrEmpty(search))
             {
-                var lst = GetElements(c => c.First_Name.ToUpper().Contains(search.ToUpper()) || c.Last_Name.ToUpper().Contains(search.ToUpper()) || (c.First_Name.ToUpper()+" "+ c.Last_Name.ToUpper()).Contains(search.ToUpper()) || (c.Last_Name.ToUpper() + " " + c.First_Name.ToUpper()).Contains(search.ToUpper()));
+                var lst = GetElements(c => c.First_Name.ToUpper().Contains(search.ToUpper()) || c.Last_Name.ToUpper().Contains(search.ToUpper()) || (c.First_Name.ToUpper() + " " + c.Last_Name.ToUpper()).Contains(search.ToUpper()) || (c.Last_Name.ToUpper() + " " + c.First_Name.ToUpper()).Contains(search.ToUpper()));
                 return lst;
             }
 
 
-            
+
             return null;
 
 
@@ -98,15 +98,13 @@ namespace BusinessLogicLayer
         public virtual IEnumerable<T> GetElements(string d1, string d2)
         {
             IList<T> lst;
-<<<<<<< HEAD
-            var _d1 =ConvertDate.ConvertToDate(d1);
+
+            var _d1 = ConvertDate.ConvertToDate(d1);
             var _d2 = ConvertDate.ConvertToDate(d2);
-            lst = GetElements(c => c.DateInscri >= _d1 && c.DateInscri <= _d2 ).ToList();
-=======
-            var _d1 = Convert.ToDateTime(d1);
-            var _d2 = Convert.ToDateTime(d2);
-            lst = GetElements().Where(c => c.DateInscri >= _d1 && c.DateInscri <= _d2 ).ToList();
->>>>>>> parent of 0fa420d... Paginate
+            lst = GetElements(c => c.DateInscri >= _d1 && c.DateInscri <= _d2).ToList();
+
+            lst = GetElements().Where(c => c.DateInscri >= _d1 && c.DateInscri <= _d2).ToList();
+
             return lst;
 
         }
@@ -125,7 +123,7 @@ namespace BusinessLogicLayer
             else
                 throw new Exception("Id category dosen't belong to the new category");
         }
-       
+
 
     }
 }

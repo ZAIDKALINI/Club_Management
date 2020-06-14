@@ -33,11 +33,12 @@ namespace MyApps.Controllers
             this.logger = logger;
         }
         // GET: Coaches
-        public ActionResult Index(int pageNumber = 1)
+        public ActionResult Index(int page=1)
         {
-            var pageData = _repository.GetElements(pageNumber,9);
+           
+            var lst = _repository.GetElements(page,6);
       
-            return View(pageData);
+            return View(lst);
         }
 
         // GET: Coaches/Details/5

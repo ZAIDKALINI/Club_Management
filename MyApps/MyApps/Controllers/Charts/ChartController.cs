@@ -25,7 +25,10 @@ namespace MyApps.Controllers
         }
         public IActionResult Index()
         {
-            
+          
+            ViewBag.ChartDataGenderMaleValues = reporting.getIncomeByGender( DateTime.Now.Year).Select(x=>x.Price);
+            ViewBag.ChartDataGenderMaleLabels = reporting.getIncomeByGender( DateTime.Now.Year).Select(x=>x.gender);
+
             double deb;
             double crd;
             var lst = reporting.getMonthlyReport(DateTime.Now.AddYears(-1).ToString(), DateTime.Now.AddYears(1).ToString());
@@ -52,7 +55,7 @@ namespace MyApps.Controllers
 
             return View(rptLst);
         }
-      
-    
+       
+
     }
 }

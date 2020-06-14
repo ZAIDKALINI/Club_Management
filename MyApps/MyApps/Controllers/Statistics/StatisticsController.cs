@@ -5,6 +5,7 @@ using Entities.Expenses;
 using Entities.StatisticRepo;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Security.Permissions;
 
@@ -29,17 +30,18 @@ namespace MyApps.Controllers.Statistique
         // GET: Statistics
         public ActionResult Index(string d1, string d2)
         {
-
-            var PriceExpense = _repositoryExpense.GetBudgetByDate("", "");
-            var ExpenseCount = _repositoryExpense.GetCountExpenseByDate("", "");
-            var CustomerPayment = _repositoryIncome.GetBudgetByDate("", "");
-            var CustomerCount = _repositoryIncome.GetCountCustomerByDate("", "");
+            d1 = DateTime.Now.ToShortDateString();
+            d2 = DateTime.Now.AddDays(1).ToShortDateString();
+            var PriceExpense = _repositoryExpense.GetBudgetByDate(d1, d2);
+            var ExpenseCount = _repositoryExpense.GetCountExpenseByDate(d1, d2);
+            var CustomerPayment = _repositoryIncome.GetBudgetByDate(d1, d2);
+            var CustomerCount = _repositoryIncome.GetCountCustomerByDate(d1, d2);
             ViewBag.Price = PriceExpense;
             ViewBag.Count = ExpenseCount;
             ViewBag.PaymentCustomer = CustomerPayment;
             ViewBag.CountCustomer = CustomerCount;
             ////////////////////////////////
-            var lst = rpt.getMonthlyReport("", "");
+            var lst = rpt.getDailyReport();
             return View(lst);
         }
         [HttpPost]

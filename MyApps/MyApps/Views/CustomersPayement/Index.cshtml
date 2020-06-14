@@ -26,9 +26,7 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.EndDate)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.CreatedBy)
-                            </th>
+                          
                             <th></th>
                         </tr>
                     </thead>
@@ -50,9 +48,7 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.EndDate)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CreatedBy)
-                            </td>
+                            
                             <td>
                                 <!--For confirm Delete  -->
                                 <form asp-action="Delete" asp-route-id="@item.Id" method="post" id="main">

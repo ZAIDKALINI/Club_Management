@@ -89,6 +89,7 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
             var count1 = _repository.Entity.GetElements().Where(s => s.Payement_date >= d1 && s.Payement_date <= d2 ).Count();
             return count1;
         }
+        
 
        
     }

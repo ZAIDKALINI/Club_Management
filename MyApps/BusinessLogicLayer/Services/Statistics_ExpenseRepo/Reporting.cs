@@ -2,8 +2,11 @@
 using Entities;
 using Entities.Expenses;
 using Entities.StatisticRepo;
+using Entities.Statistics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
 using System.Text;
 
 namespace BusinessLogicLayer.Statistics_ExpenseRepo
@@ -27,8 +30,8 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
         /// <returns></returns>
         public IList<Reports> getDailyReport()
         {
-            var lstC = uowExpense.Entity.GetElements(r => r.ExpenseDate == DateTime.Now);
-            var lstD = _uowIncome.Entity.GetElements(r => r.Payement_date == DateTime.Now);
+            var lstC = uowExpense.Entity.GetElements(r => r.ExpenseDate.ToShortDateString() == DateTime.Now.ToShortDateString());
+            var lstD = _uowIncome.Entity.GetElements(r => r.Payement_date.ToShortDateString() == DateTime.Now.ToShortDateString());
             //Insert Creditor
             foreach (var item in lstC)
             {
@@ -83,6 +86,7 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
 
 
         }
+      
         private void fillList(IEnumerable<Expense> lstCriditor, IEnumerable<CustomerPayement> lstDebitor)
         {
             foreach (var item in lstCriditor)
@@ -107,6 +111,35 @@ namespace BusinessLogicLayer.Statistics_ExpenseRepo
                     Debit = item.Price
                 });
             }
+        }
+        /// <summary>
+        /// Get data for chart payment by gender and year
+        /// </summary>
+        /// <param name="gender"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        public IList<ChartGenderModel> getIncomeByGender( int year)
+        {
+            var lst = _uowIncome.Entity.GetWithItems(c =>  c.Payement_date.Year == year, c => c.customer).ToList();
+            double price = 0;
+            var TotalFemalePrice = lst.Where(gender => gender.customer.genre == Genre.female).Sum(sum => sum.Price);
+            var TotalMalePrice = lst.Where(gender => gender.customer.genre == Genre.Male).Sum(sum => sum.Price);
+            List<ChartGenderModel> ChartData = new List<ChartGenderModel>();                
+
+            
+                    ChartData.Add(new ChartGenderModel()
+                    {
+                       gender=Genre.female.ToString(),
+                        Price = TotalFemalePrice
+                    });
+            ChartData.Add(new ChartGenderModel()
+            {
+                gender = Genre.Male.ToString(),
+                Price = TotalMalePrice
+            });
+
+            return ChartData;
+
         }
     }
 }
